@@ -1,0 +1,44 @@
+package com.boot.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.boot.data.validation.ImageUploadValidator;
+
+@Controller
+@RequestMapping("/candidate")
+public class CandidateController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(CandidateController.class);
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public String candidate(Model model, HttpSession session){
+		// Check if there is a candidate in the session
+//		logger.info("Checking if there is candidate in the session");
+//		if(session.getAttribute("candidate") == null){
+//			logger.info("no candidate found in the session, redirecting to /login");
+//			return "redirect:/login";
+//		}
+		
+		logger.info("Going to candidate.jsp");
+		return "candidate";
+	}
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder){
+		binder.addValidators(new ImageUploadValidator());
+	}
+}
