@@ -1,7 +1,28 @@
 $(document).ready(function(){
+	var contextPath = "http://localhost:8080";
 	
-	$('#candidate-picture').click(function(){
-		
+	$('#resume').click(function(){
+		$.ajax({
+			type: "GET",
+			url: contextPath + "/resume",
+			dataType: "html",
+			contentType: "text/plain",
+			success: function(data){
+				$("#body-container").html(data);
+			}
+		});
+	});
+	
+	$('#edit').click(function(){
+		$.ajax({
+			type: "GET",
+			url: contextPath + "/candidate/edit",
+			dataType: "html",
+			contentType: "text/plain",
+			success: function(data){
+				$("#body-container").html(data);
+			}
+		});
 	});
 	
 	

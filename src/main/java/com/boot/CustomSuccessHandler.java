@@ -39,15 +39,6 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
             System.out.println("Can't redirect");
             return;
         }
-        
-        String principalUser = null;
-        Object principal = authentication.getPrincipal();
-        if (principal instanceof UserDetails) {
-        	principalUser = ((UserDetails)principal).getUsername();
-        } else {
-        	principalUser = principal.toString();
-        }
-        request.setAttribute("candidate", candidateService.findByEmail(principalUser));
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }
 	

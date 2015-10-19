@@ -23,7 +23,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception{
 		http.authorizeRequests()
 			.antMatchers("/", "/home").permitAll()
-			.antMatchers("/candidate/**").hasRole("CANDIDATE")                                                                                                                                                                                           
+			.antMatchers("/candidate/**" , "/resume/**").hasRole("CANDIDATE")                                                                                                                                                                                           
 			.and().formLogin().loginPage("/login").successHandler(customSuccessHandler)
 			.usernameParameter("username").passwordParameter("password")
 			.and().csrf().disable()

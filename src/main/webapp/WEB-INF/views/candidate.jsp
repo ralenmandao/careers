@@ -83,7 +83,7 @@
 						<div class="media-body">
 							Welcome back,
 							<h4 class="media-heading"><strong>${candidate.firstName} ${candidate.lastName}</strong></h4>
-							<a href="user-profile.html">Edit</a>
+							<a href="#" id="edit">Edit</a>
 							<a class="md-trigger" data-modal="logout-modal-alt">Logout</a>
 						</div><!-- End div .media-body -->
 					</div><!-- End div .media -->
@@ -101,7 +101,7 @@
 					<!-- Sidebar menu -->				
 					<div id="sidebar-menu">
 						<ul>
-							<li style="background:#65BD77;"><a href="index.html" style="color:white;"><i class="fa fa-list-alt"></i> Resume</a></li>
+							<li style="background:#65BD77;" id = "resume"><a href="#" style="color:white;"><i class="fa fa-list-alt"></i> Resume</a></li>
 							<li><a href="#fakelink"><i class="fa fa-leaf"></i> Frontend <span class="label label-danger new-circle">COMING SOON</span></a></li>
 							<li><a href="#fakelink"><i class="fa fa-bug"></i><i class="fa fa-angle-double-down i-right"></i> Elements</a>
 								<ul>
@@ -345,7 +345,7 @@
 			<!-- ============================================================== -->
 			<!-- START YOUR CONTENT HERE -->
 			<!-- ============================================================== -->
-            <div class="body content rows scroll-y">
+            <div class="body content rows scroll-y" id="body-container">
 				
 				<!-- Footer -->
 				<footer>
