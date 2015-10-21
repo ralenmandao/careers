@@ -9,13 +9,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.boot.data.service.CandidateService;
-import com.boot.data.validation.ImageUploadValidator;
+import com.boot.data.service.CountryService;
 
 @Controller
 @RequestMapping("/candidate")
@@ -25,6 +23,8 @@ public class CandidateController {
 	
 	@Autowired
 	private CandidateService candidateService;
+	@Autowired
+	private CountryService countryService;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String candidate(Model model, HttpSession session){
@@ -48,7 +48,8 @@ public class CandidateController {
 	}
 	
 	@RequestMapping(value="edit", method=RequestMethod.GET)
-	public String editCandidate(){
+	public String editCandidate(Model model){
+		model.addAttribute("countries", countryService.findAll());
 		return "candidate/edit-profile";
 	}
 }

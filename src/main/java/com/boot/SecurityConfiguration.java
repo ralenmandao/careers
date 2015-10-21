@@ -17,13 +17,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().withUser("candidate@yahoo.com").password("candidate").roles("CANDIDATE");
         auth.inMemoryAuthentication().withUser("admin@yahoo.com").password("admin").roles("ADMIN");
-        auth.inMemoryAuthentication().withUser("employer@yahoo.com").password("empoyer").roles("EMPLOYER");
+        auth.inMemoryAuthentication().withUser("employer@yahoo.com").password("employer").roles("EMPLOYER");
     }
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http.authorizeRequests()
 			.antMatchers("/", "/home").permitAll()
-			.antMatchers("/candidate/**" , "/resume/**").hasRole("CANDIDATE")                                                                                                                                                                                           
+			.antMatchers("/api/private/**").denyAll()
+			.antMatchers("/candidate/**" , "/resume/**").hasRole("CANDIDATE")   
+			.antMatchers("/emloyer/**").hasRole("EMPLOYER")
 			.and().formLogin().loginPage("/login").successHandler(customSuccessHandler)
 			.usernameParameter("username").passwordParameter("password")
 			.and().csrf().disable()

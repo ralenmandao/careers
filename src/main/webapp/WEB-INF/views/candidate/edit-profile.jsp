@@ -1,4 +1,6 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <spring:url value="/resources/" var="resources" />
 <div class="box-info">
 	<h2><strong>Personal</strong> Information</h2>
@@ -21,32 +23,41 @@
 			<div class="col-sm-10">
 				<div class="row">
 					<div class="col-sm-2">
+						<!-- Day -->
 						<select class="form-control">
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
+							<c:forEach begin="1" end="30" var="day">
+								<option value="${day}">
+									<c:out value="${day}" />
+								</option>
+							</c:forEach> 
 						</select>
 						<p class="help-block">Day</p>
 					</div>
+					<!-- Month -->
 					<div class="col-sm-4">
 						<select class="form-control">
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
+							<option value="1">January</option>
+							<option value="2">February</option>
+							<option value="3">March</option>
+							<option value="4">April</option>
+							<option value="5">May</option>
+							<option value="6">June</option>
+							<option value="7">July</option>
+							<option value="8">August</option>
+							<option value="9">September</option>
+							<option value="10">October</option>
+							<option value="11">November</option>
+							<option value="12">December</option>
 						</select>
 						<p class="help-block">Month</p>
 					</div>
 					<div class="col-sm-6">
 						<select class="form-control">
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
+							<c:forEach begin="1990" end="2015" var="year">
+								<option value="${year}">
+									<c:out value="${year}" />
+								</option>
+							</c:forEach>
 						</select>
 						<p class="help-block">Year</p>
 					</div>
@@ -58,14 +69,17 @@
 			<div class="col-sm-10">
 				<div class="row">
 					<div class="col-md-6">
+					<!-- Countries -->
+					<c:if test="${not empty countries}">
 						<select class="form-control">
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
+							<c:forEach items="${countries}" var="country">
+								<option value="${country.countryId}">
+									<c:out value="${country.name}" />
+								</option>
+							</c:forEach>
 						</select>
 						<p class="help-block">Country</p>
+					</c:if>
 					</div>
 					<div class="col-md-6">
 						<select class="form-control">
