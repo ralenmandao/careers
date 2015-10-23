@@ -1,7 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<spring:url value="/resources/" var="resources" />
 <div class="box-info">
 	<h2><strong>Personal</strong> Information</h2>
 	<form class="form-horizontal" role="form">
@@ -71,7 +70,7 @@
 					<div class="col-md-6">
 					<!-- Countries -->
 					<c:if test="${not empty countries}">
-						<select class="form-control">
+						<select class="form-control" id ="registerCountrySelect">
 							<c:forEach items="${countries}" var="country">
 								<option value="${country.countryId}">
 									<c:out value="${country.name}" />
@@ -82,12 +81,8 @@
 					</c:if>
 					</div>
 					<div class="col-md-6">
-						<select class="form-control">
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
+						<select class="form-control sStates">
+							
 						</select>
 						<p class="help-block">State</p>
 					</div>
@@ -100,7 +95,7 @@
 				<input type="text" class="form-control" id="input-text" placeholder="">
 			</div>
 		</div>
-		<button type = "submit" class="btn btn-primary pull-right">Save</button>
+		<button type = "submit" class="btn btn-primary pull-right" id="sampleSave">Save</button>
 	</form>
 </div>
 <div class="box-info">

@@ -519,8 +519,8 @@
 	<script src="${resources}assets/third/wizard/scripts.js"></script>
 	
 	<!-- LANCENG TEMPLATE JAVASCRIPT -->
+	<script src="${resources}assets/js/candidate/candidate.js"></script>
 	<script src="${resources}assets/js/lanceng.js"></script>
-
 	</body>
 
 <!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:44:24 GMT -->

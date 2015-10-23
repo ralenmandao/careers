@@ -9,7 +9,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class Country implements Entity{
 	private long countryId;
 	private String name;
-	private List<String> states;
+	private List<State> states;
 	
 	public long getCountryId() {
 		return countryId;
@@ -23,13 +23,13 @@ public class Country implements Entity{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public List<String> getStates() {
+	
+	public List<State> getStates() {
 		return states;
 	}
-	public void setStates(List<String> state) {
-		this.states = state;
-	}	
-	
+	public void setStates(List<State> states) {
+		this.states = states;
+	}
 	@Override
 	public int hashCode(){
 		return HashCodeBuilder.reflectionHashCode(this, "countryId");

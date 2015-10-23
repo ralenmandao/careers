@@ -1,6 +1,22 @@
-$(document).ready(function(){
-	var contextPath = "http://localhost:8080";
+var contextPath = "http://localhost:8080";
+
+$(document).ready(function(){	
+	$("#body-container").on('change', '#registerCountrySelect', function(){
+			$.ajax({
+			type: 'GET',
+			url: contextPath + '/api/country/' + $(this).val() + '/states/' ,
+			dataType: 'json',
+			async: true,
+			success: function(data){
+				$('.sStates').html("");
+				$.each(data, function(i, item){
+					$('.sStates').append('<option value="' + item + '">' + item + '</option>');
+				});
+			}
+		});
+	});
 	
+	// Call if resume button is click
 	$('#resume').click(function(){
 		$.ajax({
 			type: "GET",

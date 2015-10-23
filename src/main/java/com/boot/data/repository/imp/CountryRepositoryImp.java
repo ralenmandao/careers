@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
 import com.boot.data.entity.Country;
+import com.boot.data.entity.State;
 import com.boot.data.repository.CountryRepository;
 import com.boot.exception.repository.RecordNotFound;
 
@@ -28,23 +29,23 @@ public class CountryRepositoryImp implements CountryRepository{
 		
 		ph.setName("Phillippines");
 		usa.setName("United States");
+//		
+//		List<State> phStates = new ArrayList<State>();
+//		phStates.add("Pampanga");
+//		phStates.add("Baguio");
+//		phStates.add("Makati");
+//		ph.setStates(phStates);
+//		
+//		ph.setStates(phStates);
+//		
+//		List<State> usaStates = new ArrayList<State>();
+//		usaStates.add("Las Vegas");
+//		usaStates.add("Alabama");
 		
-		List<String> phStates = new ArrayList<String>();
-		phStates.add("Pampanga");
-		phStates.add("Baguio");
-		phStates.add("Makati");
-		ph.setStates(phStates);
-		
-		ph.setStates(phStates);
-		
-		List<String> usaStates = new ArrayList<String>();
-		usaStates.add("Las Vegas");
-		usaStates.add("Alabama");
-		
-		usa.setStates(usaStates);
-		
-		countries.add(ph);
-		countries.add(usa);
+//		usa.setStates(usaStates);
+//		
+//		countries.add(ph);
+//		countries.add(usa);
 	}
 
 	@Override
@@ -129,5 +130,17 @@ public class CountryRepositoryImp implements CountryRepository{
 	public <S extends Country> Iterable<S> save(Iterable<S> arg0) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<State> findAllStates(Long id) throws RecordNotFound {
+		Iterator<Country> i = countries.iterator();
+		while(i.hasNext()){
+			Country country = i.next();
+			if(country.getCountryId() == id){
+				return country.getStates();
+			}
+		}
+		throw new RecordNotFound("No country was found with id " + id);
 	}
 }

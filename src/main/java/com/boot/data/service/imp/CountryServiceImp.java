@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.boot.data.entity.Country;
 import com.boot.data.repository.CountryRepository;
 import com.boot.data.service.CountryService;
+import com.boot.exception.repository.RecordNotFound;
 
 @Component
 public class CountryServiceImp implements CountryService{
@@ -48,6 +49,12 @@ public class CountryServiceImp implements CountryService{
 	@Override
 	public List<Country> findAll() {
 		return (List<Country>) countryRepository.findAll();
+	}
+
+	@Override
+	public List<String> findAllStates(Long id) throws RecordNotFound {
+		//return countryRepository.findAllStates(id);
+		return null;
 	}
 
 }

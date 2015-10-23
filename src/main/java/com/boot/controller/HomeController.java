@@ -22,19 +22,4 @@ public class HomeController {
 	public String home(Locale locale ,Model model){
 		return "home";
 	}
-	
-//	@RequestMapping(value = "/logout", method=RequestMethod.POST)
-//	public String logout(HttpSession session, 
-//			HttpServletRequest request, 
-//			HttpServletResponse response){
-////		logger.info("removing candidate to the session");
-////		session.removeAttribute("candidate");
-////		logger.info("redirecting to /");
-////		return "redirect:/";
-//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        if (auth != null){    
-//            new SecurityContextLogoutHandler().logout(request, response, auth);
-//        }
-//        return "redirect:/login?logout";
-//	}
 }
