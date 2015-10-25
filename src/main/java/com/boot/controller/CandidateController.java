@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.boot.data.service.CandidateService;
 import com.boot.data.service.CountryService;
+import com.boot.exception.NoPrincipalUserFound;
+import com.boot.helper.AuthenticationUtil;
 
 @Controller
 @RequestMapping("/candidate")
@@ -27,21 +29,8 @@ public class CandidateController {
 	private CountryService countryService;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public String candidate(Model model, HttpSession session){
-		// Check if there is a candidate in the session
-//		logger.info("Checking if there is candidate in the session");
-//		if(session.getAttribute("candidate") == null){
-//			logger.info("no candidate found in the session, redirecting to /login");
-//			return "redirect:/login";
-//		}
-        String principalUser = null;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-        	principalUser = ((UserDetails)principal).getUsername();
-        } else {
-        	principalUser = principal.toString();
-        }
-        //model.addAttribute("candidate", candidateService.findByEmail(principalUser));
+	public String candidate(Model model, HttpSession session) throws NoPrincipalUserFound{
+        String principalUser = AuthenticationUtil.getPrincipal();
         session.setAttribute("candidate", candidateService.findByEmail(principalUser));
 		logger.info("Going to candidate.jsp");
 		return "candidate";

@@ -35,20 +35,7 @@ public class WebApplicationInitializer extends AbstractAnnotationConfigDispatche
         MultipartConfigElement multipartConfigElement = new MultipartConfigElement( LOCATION, MAX_FILE_SIZE, MAX_REQUEST_SIZE, FILE_SIZE_THRESHOLD);
         return multipartConfigElement;
     }
-	
-	@PostConstruct
-	public void startDBManager() {
-			
-		//hsqldb
-		//DatabaseManagerSwing.main(new String[] { "--url", "jdbc:hsqldb:mem:testdb", "--user", "sa", "--password", "" });
 
-		//derby
-		//DatabaseManagerSwing.main(new String[] { "--url", "jdbc:derby:memory:testdb", "--user", "", "--password", "" });
-
-		//h2
-		//DatabaseManagerSwing.main(new String[] { "--url", "jdbc:h2:mem:testdb", "--user", "sa", "--password", "" });
-
-	}
  
     private static final String LOCATION = "C:/temp/"; // Temporary location where files will be stored
  

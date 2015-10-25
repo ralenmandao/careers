@@ -16,19 +16,27 @@ public class CandidateServiceImp implements CandidateService{
 	private UserRepository userRepository;
 	@Autowired
 	private CandidateRepository candidateRepository;
-	
+
 	@Override
-	public void setupService() {
-		// TODO Auto-generated method stub
+	public Candidate findByUserId(Long userId) {
+		return null;
 	}
 
 	@Override
-	public Candidate insert(Candidate candidate) throws Exception {
-		candidate.setType("CANDIDATE");
-		candidate.setStatus("ACTIVE");
-		userRepository.save(candidate);
-		candidateRepository.save(candidate);
-		return candidate;
+	public Candidate findByEmail(String email) {
+		return null;
+	}
+
+	@Override
+	public void setupService() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Candidate insert(Candidate object) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -47,16 +55,6 @@ public class CandidateServiceImp implements CandidateService{
 	public Candidate findById(Long id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public Candidate findByUserId(Long userId) {
-		return candidateRepository.findByUserId(userId);
-	}
-
-	@Override
-	public Candidate findByEmail(String email) {
-		return candidateRepository.findByEmail(email);
 	}
 
 }

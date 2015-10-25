@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.boot.data.entity.User;
 import com.boot.data.repository.UserRepository;
 
-public interface UserService extends BaseService<User, Long>{
+public interface UserService{
 	public User findByEmailAndPassword(String email, String password);
 	public boolean emailExist(String email);
 }

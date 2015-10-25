@@ -44,4 +44,14 @@ public class JdbcOperations implements DataOperations{
 	public <T> T queryForObject(String sql, Object[] args, Class<T> type) {
 		return template.queryForObject(sql, args, type);
 	}
+
+	@Override
+	public int update(String sql, Object... arg) {
+		return template.update(sql, arg);
+	}
+
+	@Override
+	public int update(String sql) {
+		return template.update(sql);
+	}
 }

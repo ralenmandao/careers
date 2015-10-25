@@ -10,4 +10,6 @@ public interface DataOperations {
 	public Object queryForObject(String sql, Class<?> clazz);
 	public <T>T queryForObject(String sql, Object[] args, RowMapper<T> rm);
 	public <T>T queryForObject(String sql, Object[] args, Class<T> type);
+	public int update(String sql,Object... arg);
+	public int update(String sql);
 }

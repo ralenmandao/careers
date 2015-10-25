@@ -17,7 +17,7 @@ public class UserLoginValidator implements Validator{
 	public void validate(Object target, Errors errors) {
 		final User user = (User)target;
 		// Validate email
-		new ValidationCreator(errors, "email", user.getEmail())
+		new ValidationCreator(errors, "email", user.getUsername())
 				.validateEmpty()
 				.validateEmail();
 		

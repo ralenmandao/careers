@@ -47,7 +47,7 @@
 	
 	<!-- FAVICON -->
 	<link rel="shortcut icon" href="${resources}assets/img/favicon.ico">
-	<link href="${resources}/assets/css/my-style.css">
+	<link href="${resources}assets/css/my-style.css" rel="stylesheet">
 	</head>
 
 	
@@ -65,44 +65,6 @@
 				<div class="box-info">
 				<h2 class="text-center"><strong>Login</strong> form</h2>
 					<spring:url value="/login" var="loginForm"/>
-					<!--
-					<form:form modelAttribute="user" action="${loginForm}" role="form" method="POST">
-						<c:if test="${not empty errors}">
-							<div class="error-container">
-								<div class="alert alert-danger" role="alert">
-									<c:forEach items="${errors}" var="error">
-									    <div class="error-message-container">
-									    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-									    <c:out value="${error.defaultMessage}" />
-									    </div>
-									</c:forEach>
-								</div>
-							</div>
-						</c:if>
-						<div class="form-group login-input">
-						<i class="fa fa-sign-in overlay"></i>
-						<form:input path="email" type="text" class="form-control text-input" placeholder="Username" />
-						</div>
-						<div class="form-group login-input">
-						<i class="fa fa-key overlay"></i>
-						<form:input path="password" type="password" class="form-control text-input" placeholder="Password" />
-						</div>
-						<div class="checkbox">
-						<label>
-							<input type="checkbox"> Remember me
-						</label>
-						</div>
-						
-						<div class="row">
-							<div class="col-sm-6">
-							<button type="submit" class="btn btn-success btn-block"><i class="fa fa-unlock"></i> Login</button>
-							</div>
-							<div class="col-sm-6">
-							<a href="${root}register" class="btn btn-default btn-block"><i class="fa fa-rocket"></i> Register</a>
-							</div>
-						</div>
-					</form:form>
-					-->
 					<form action="${loginForm}" role="form" method="POST">
 						<c:if test="${param.logout != null}">
 							<div class="alert alert-success" role="alert">

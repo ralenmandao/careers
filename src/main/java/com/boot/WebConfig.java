@@ -1,9 +1,7 @@
 package com.boot;
 
-import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
-import org.hsqldb.util.DatabaseManagerSwing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -22,69 +20,64 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-public class WebConfig extends WebMvcConfigurerAdapter{
+public class WebConfig extends WebMvcConfigurerAdapter {
 	@Bean
-	public ViewResolver viewResolver(){
+	public ViewResolver viewResolver() {
 		final InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		resolver.setPrefix("/WEB-INF/views/");
 		resolver.setSuffix(".jsp");
 		resolver.setExposeContextBeansAsAttributes(true);
 		return resolver;
 	}
-	
+
 	@Bean
-	public MessageSource messageSource(){
+	public MessageSource messageSource() {
 		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
 		messageSource.setBasename("messages");
+		messageSource.setAlwaysUseMessageFormat(true);
 		return messageSource;
 	}
-	
+
 	@Bean
-	public DataSource getDataSource(){
-//		final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-//		dataSource.setUrl("jdbc:mysql://localhost:3306/ccscareersdb");
-//        dataSource.setUsername("root");
-//        dataSource.setPassword("root");
-//        System.out.println(WebConfig.class.getResource("/").getPath() + " a");
-//		return dataSource;
-		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-		EmbeddedDatabase db = builder
-			.setType(EmbeddedDatabaseType.HSQL) //.H2 or .DERBY
-			.addScript("crate-db.sql")
-			//.addScript("/db/sql/insert-data.sql")
-			.build();
-		return db;
+	public ApplicationListenerBean applicationListenerBean(){
+		return new ApplicationListenerBean();
 	}
 	
-//	@PostConstruct
-//	public void startDBManager() {
-//			
-//		//hsqldb
-//		//DatabaseManagerSwing.main(new String[] { "--url", "jdbc:hsqldb:mem:testdb", "--user", "sa", "--password", "" });
-//
-//		//derby
-//		//DatabaseManagerSwing.main(new String[] { "--url", "jdbc:derby:memory:testdb", "--user", "", "--password", "" });
-//
-//		//h2
-//		DatabaseManagerSwing.main(new String[] { "--url", "jdbc:h2:mem:testdb", "--user", "sa", "--password", "" });
-//
-//	}
-	
+	@Bean
+	public DataSource getDataSource() {
+//		 final DriverManagerDataSource dataSource = new
+//		 DriverManagerDataSource();
+//		 dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+//		 dataSource.setUrl("jdbc:mysql://localhost:3306/ccscareersdb");
+//		 dataSource.setUsername("root");
+//		 dataSource.setPassword("root");
+//		 System.out.println(WebConfig.class.getResource("/").getPath() +
+//		 " a");
+//		 return dataSource;
+		//System.out.println("Embeded");
+		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+		EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.HSQL)
+				.addScript("crate-db.sql")
+				.addScript("insert-db.sql")
+				.build();
+		return db;
+	}
+
 	@Bean
 	@Autowired
-	public JdbcTemplate getJdbcTemplate(DataSource dataSource){
+	public JdbcTemplate getJdbcTemplate(DataSource dataSource) {
 		final JdbcTemplate template = new JdbcTemplate(dataSource);
 		return template;
 	}
-	
+
 	@Override
-	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer){
+	public void configureDefaultServletHandling(
+			DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
 	}
-	
+
 	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry){
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/WEB-INF/resources/**");
 	}
 }

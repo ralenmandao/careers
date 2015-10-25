@@ -20,38 +20,12 @@ public class UserServiceImp implements UserService{
 	}
 	
 	@Override
-	public void setupService() {
-	}
-
-	@Override
-	public User insert(User object) throws Exception {
-		return userRepository.save(object);
-	}
-
-	@Override
-	public User update(User object) throws Exception {
-		throw new NotYetImplementedException("UserService");
-	}
-
-	@Override
-	public void delete(User object) throws Exception {
-		throw new NotYetImplementedException("UserService");
-	}
-
-	@Override
-	public User findById(Long id) throws Exception {
-		throw new NotYetImplementedException("UserService");
-	}
-
-	@Override
 	public User findByEmailAndPassword(String email, String password) {
-		User user = userRepository.findOne(email, password);
-		System.out.println(user);
-		return user;
+		return null;
 	}
 	@Override
 	public boolean emailExist(String email) {
-		return userRepository.emailExists(email);
+		return true;
 	}
 
 }

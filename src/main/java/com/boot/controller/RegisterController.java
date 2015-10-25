@@ -37,12 +37,12 @@ public class RegisterController {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public String registerCandidate(Model model, 
-			@Valid @ModelAttribute("candidateRegistration") CandidateRegistrationEntity candidateRegistration,
+			@ModelAttribute("candidateRegistration") CandidateRegistrationEntity candidateRegistration,
 			Errors errors, HttpSession session) throws Exception{
 		
 		// check email availability if and only if email field does not have an error
 		if(errors.getFieldError("email") == null){
-			if(userService.emailExist(candidateRegistration.getEmail())){
+			if(userService.emailExist(candidateRegistration.getUsername())){
 				errors.rejectValue("email", "", "Email already exist");
 			}
 		}
@@ -57,10 +57,5 @@ public class RegisterController {
 		// Add candidate to the Session
 		session.setAttribute("candidate", candidateRegistration);
 		return "redirect:/candidate/";
-	}
-	
-	@InitBinder
-	public void initBinder(WebDataBinder binder){
-		binder.addValidators(new CandidateRegistrationValidator());
 	}
 }
