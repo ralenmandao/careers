@@ -1,33 +1,33 @@
-package com.boot.data.service;
 
-import static org.junit.Assert.*;
 
+
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-
+import static org.junit.Assert.*;
 import com.boot.BootApplication;
-import com.boot.data.entity.Candidate;
-import com.boot.data.entity.User;
+import com.boot.data.repository.UserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = BootApplication.class)
 @WebAppConfiguration
-public class CandidateServiceTest {
-	
-	private static final Logger logger = LoggerFactory.getLogger(CandidateServiceTest.class);
+public class HibernateTest {
 
 	@Autowired
-	private CandidateService candidateService;
+	private UserRepository userRepository;
+	
+	@Before
+	public void userRepositoryIsNotNull(){
+		assertNotNull(userRepository);
+	}
 	
 	@Test
-	public void contextLoads() throws Exception {
-		assertTrue(true);
+	public void contextLoads() {
+		
 	}
 
 }

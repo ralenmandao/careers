@@ -1,18 +1,31 @@
 package com.boot.data.entity;
 
-import javax.validation.constraints.*;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class User implements Entity {
+@Entity
+@Table(name="user")
+public class User implements EntityObject {
+	@Id 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long userId;
+	@Column(name="username", length=45, nullable=false)
 	private String username;
+	@Column(name="password", length=12, nullable=false)
 	private String password;
+	@Column(name="role", length=20, nullable=false)
 	private String role;
+	@Column(name="enabled", nullable=false)
+	private boolean enabled;
 
 	public User() {
 	}
@@ -27,6 +40,22 @@ public class User implements Entity {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	public void setPassword(String password) {

@@ -34,9 +34,9 @@ public class LoginController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String login(Model model, HttpSession session) {
-		// if(session.getAttribute("candidate") != null){
-		// return "redirect:/candidate";
-		// }
+//		 if(session.getAttribute("candidate") != null){
+//			 return "redirect:/candidate";
+//		 }
 
 		if (!model.containsAttribute("user")) {
 			model.addAttribute("user", new User());

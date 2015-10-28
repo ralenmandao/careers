@@ -90,15 +90,15 @@
 						</div>
 						<div class="form-group login-input">
 							<i class="fa fa-envelope overlay"></i>
-							<form:input path="email" type="email" class="form-control text-input" placeholder="Your email" />
+							<form:input path="user.username" type="email" class="form-control text-input" placeholder="Your email" />
 						</div>
 						<div class="form-group login-input">
 							<i class="fa fa-key overlay"></i>
-							<form:input path="password" type="password" class="form-control text-input" id="password" placeholder="Password" />
+							<form:input path="user.password" type="password" class="form-control text-input" id="password" placeholder="Password" />
 						</div>
 						<div class="form-group login-input">
 							<i class="fa fa-eye overlay"></i>
-							<form:input path="repassword" type="password" class="form-control text-input" id="repassword" placeholder="Re-Password" />
+							<input type="password" class="form-control text-input" id="repassword" placeholder="Re-Password" />
 						</div>
 						
 						<button type="submit" class="btn btn-success btn-block" id="submitRegister"><i class="fa fa-rocket"></i> Register</button>

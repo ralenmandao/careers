@@ -5,7 +5,7 @@ CREATE TABLE user(
 	username VARCHAR(45) ,
 	password VARCHAR(12) ,
 	enabled BOOLEAN,
-	role VARCHAR(12)
+	role VARCHAR(20)
 );
 
 CREATE TABLE candidate(

@@ -13,7 +13,7 @@ public class ApplicationListenerBean implements ApplicationListener{
 	public void onApplicationEvent(ApplicationEvent event) {
 		 if (event instanceof ContextRefreshedEvent) {
 	            ApplicationContext applicationContext = ((ContextRefreshedEvent) event).getApplicationContext();
-	           // DatabaseManagerSwing.main(new String[] { "--url", "jdbc:hsqldb:mem:testdb", "--user", "sa", "--password", "" });
+	           DatabaseManagerSwing.main(new String[] { "--url", "jdbc:hsqldb:mem:testdb", "--user", "sa", "--password", "" });
 	     }
 	}
 	

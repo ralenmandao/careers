@@ -32,13 +32,13 @@ public class CandidateRegistrationValidator implements Validator {
 		new ValidationCreator(errors, "lastName", candidate.getLastName())
 				.validateEmpty().validateMax(45).validateLettersOnly();
 		// Validate Email
-		new ValidationCreator(errors, "email", candidate.getUsername())
-				.validateEmpty().validateMax(45).validateEmail();
-		// Validate Password
-		new ValidationCreator(errors, "password", candidate.getPassword())
-				.validateEmpty().validateMin(5).validateMax(45)
-				.validateNumbersAndLetters()
-				.validateMatch(candidate.getRepassword());
+//		new ValidationCreator(errors, "email", candidate.getUsername())
+//				.validateEmpty().validateMax(45).validateEmail();
+//		// Validate Password
+//		new ValidationCreator(errors, "password", candidate.getPassword())
+//				.validateEmpty().validateMin(5).validateMax(45)
+//				.validateNumbersAndLetters()
+//				.validateMatch(candidate.getRepassword());
 		new ValidationCreator(errors, "repassword", candidate.getRepassword())
 				.validateEmpty();
 

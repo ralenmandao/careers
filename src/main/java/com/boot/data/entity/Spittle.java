@@ -5,7 +5,7 @@ import java.util.Date;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public class Spittle implements Entity{
+public class Spittle implements EntityObject{
 	private Long id;
 	private String message;
 	private Date time;

@@ -1,6 +1,6 @@
 package com.boot.data.repository;
 
-import com.boot.data.entity.Entity;
+import com.boot.data.entity.EntityObject;
 import com.boot.exception.repository.RecordNotFound;
 
 import java.io.Serializable;
@@ -14,7 +14,7 @@ import java.util.Map;
  * @created: 3/25/12 10:40 PM
  * @company: &copy; 2012, Kaleidosoft Labs
  */
-public interface BaseCrudRepository<T extends Entity, ID extends Serializable>{
+public interface BaseCrudRepository<T extends EntityObject, ID extends Serializable>{
     /**
      * Method to be implemented for providing the
      * repository with needed external resources

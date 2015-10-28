@@ -1,18 +1,47 @@
 package com.boot.data.entity;
 
-import javax.validation.constraints.*;
+import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.hibernate.validator.constraints.NotBlank;
 
-import com.sun.xml.internal.ws.policy.spi.PolicyAssertionValidator.Fitness;
-
-public class Candidate extends User{
+@Entity
+@Table(name="candidate")
+public class Candidate implements EntityObject{
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long candidateId;
+	
+	@Column(name="firstName", nullable=false, length=45)
 	private String firstName;
+	
+	@Column(name="lastName", nullable=false, length=45)
 	private String lastName;
+	
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="userId")
+	private User user;
+	
+	@OneToOne(cascade=CascadeType.DETACH)
+	@Column(name="birthdate", nullable = true)
+	private Date birthdate;
+	
+	@Column(name="country", nullable=true)
+	private Country country;
+	
+	@Column(name="state", nullable=true)
+	private State state;
 	
 	public Candidate(){};
 	
@@ -47,6 +76,14 @@ public class Candidate extends User{
 		this.lastName = lastName;
 	}
 	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	@Override
 	public boolean equals(Object that){
 		return EqualsBuilder.reflectionEquals(this, that, "candidateId","userId");
@@ -59,7 +96,7 @@ public class Candidate extends User{
 	
 	@Override
 	public String toString(){
-		return super.toString() + "\n" + new ToStringBuilder(this)
+		return user.toString() + "\n" + new ToStringBuilder(this)
 					.append("candidateId", candidateId)
 					.append("firstName", firstName)
 					.append("lastName", lastName)

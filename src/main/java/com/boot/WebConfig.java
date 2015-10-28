@@ -17,7 +17,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-
 @Configuration
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter {
@@ -37,38 +36,34 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		messageSource.setAlwaysUseMessageFormat(true);
 		return messageSource;
 	}
-
-	@Bean
-	public ApplicationListenerBean applicationListenerBean(){
-		return new ApplicationListenerBean();
-	}
 	
-	@Bean
-	public DataSource getDataSource() {
-//		 final DriverManagerDataSource dataSource = new
-//		 DriverManagerDataSource();
-//		 dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-//		 dataSource.setUrl("jdbc:mysql://localhost:3306/ccscareersdb");
-//		 dataSource.setUsername("root");
-//		 dataSource.setPassword("root");
-//		 System.out.println(WebConfig.class.getResource("/").getPath() +
-//		 " a");
-//		 return dataSource;
-		//System.out.println("Embeded");
-		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-		EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.HSQL)
-				.addScript("crate-db.sql")
-				.addScript("insert-db.sql")
-				.build();
-		return db;
-	}
+// Implementation was transfered to hibernateconfig class
+//	@Bean
+//	public DataSource getDataSource() {
+////		 final DriverManagerDataSource dataSource = new
+////		 DriverManagerDataSource();
+////		 dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+////		 dataSource.setUrl("jdbc:mysql://localhost:3306/ccscareersdb");
+////		 dataSource.setUsername("root");
+////		 dataSource.setPassword("root");
+////		 System.out.println(WebConfig.class.getResource("/").getPath() +
+////		 " a");
+////		 return dataSource;
+//		//System.out.println("Embeded");
+//		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+//		EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.HSQL)
+//				.addScript("crate-db.sql")
+//				.addScript("insert-db.sql")
+//				.build();
+//		return db;
+//	}
 
-	@Bean
-	@Autowired
-	public JdbcTemplate getJdbcTemplate(DataSource dataSource) {
-		final JdbcTemplate template = new JdbcTemplate(dataSource);
-		return template;
-	}
+//	@Bean
+//	@Autowired
+//	public JdbcTemplate getJdbcTemplate(DataSource dataSource) {
+//		final JdbcTemplate template = new JdbcTemplate(dataSource);
+//		return template;
+//	}
 
 	@Override
 	public void configureDefaultServletHandling(

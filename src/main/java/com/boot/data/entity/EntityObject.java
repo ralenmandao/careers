@@ -8,7 +8,7 @@ package com.boot.data.entity;
  * @created: 4/7/12 11:56 AM
  * @company: &copy; 2012, Kaleidosoft Labs
  */
-public interface Entity {
+public interface EntityObject {
 	public boolean equals(Object that);
 	public int hashCode();
 }

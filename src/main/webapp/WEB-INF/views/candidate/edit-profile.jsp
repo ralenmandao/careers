@@ -105,7 +105,7 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Email</label>
 			<div class="col-sm-10">
-				<p class="form-control-static">${candidate.email}</p>
+				<p class="form-control-static">${candidate.user.username}</p>
 			</div>
 		</div>
 		<div class="pull-right">

@@ -3,7 +3,7 @@ package com.boot.data.service;
 import java.io.Serializable;
 import java.util.Collection;
 
-import com.boot.data.entity.Entity;
+import com.boot.data.entity.EntityObject;
 
 /**
  * Interface listing the most basic services required to be present in any
@@ -13,7 +13,7 @@ import com.boot.data.entity.Entity;
  * @created: 3/25/12 10:40 PM
  * @company: &copy; 2012, Kaleidosoft Labs
  */
-public interface BaseService<T extends Entity, ID extends Serializable> {
+public interface BaseService<T extends EntityObject, ID extends Serializable> {
     /**
      * Method to setup the service with basic
      * required data. Called after Spring initialization.
