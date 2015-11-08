@@ -38,7 +38,7 @@ public class CandidateController {
 	
 	@RequestMapping(value="edit", method=RequestMethod.GET)
 	public String editCandidate(Model model){
-		model.addAttribute("countries", countryService.findAll());
+		model.addAttribute("countries", countryService.getAll());
 		return "candidate/edit-profile";
 	}
 }

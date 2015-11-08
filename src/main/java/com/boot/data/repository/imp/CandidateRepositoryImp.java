@@ -29,5 +29,15 @@ public class CandidateRepositoryImp extends AbstractDAO<Long, Candidate> impleme
 		crit.add(Restrictions.eq("us.username", email));
 		return (Candidate) crit.uniqueResult();
 	}
+
+	@Override
+	public String getIdColumnName() {
+		return "candidateId";
+	}
+
+	@Override
+	protected String getTableName() {
+		return "candidate";
+	}
 	
 }

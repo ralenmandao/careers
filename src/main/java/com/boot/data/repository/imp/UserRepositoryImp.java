@@ -46,4 +46,15 @@ public class UserRepositoryImp extends AbstractDAO<Integer, User> implements Use
 		return (User) crit.uniqueResult();
 	}
 
+	@Override
+	public String getIdColumnName() {
+		return "userId";
+	}
+
+	@Override
+	protected String getTableName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

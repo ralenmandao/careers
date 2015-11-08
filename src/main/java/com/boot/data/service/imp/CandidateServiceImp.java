@@ -1,5 +1,7 @@
 package com.boot.data.service.imp;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,31 +17,6 @@ public class CandidateServiceImp implements CandidateService{
 	@Autowired
 	private CandidateRepository candidateRepository;
 
-	@Override
-	public void setupService() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Candidate insert(Candidate object) throws Exception {
-		object.getUser().setEnabled(true);
-		object.getUser().setRole("ROLE_CANDIDATE");
-		candidateRepository.addCandidate(object);
-		return object;
-	}
-
-	@Override
-	public Candidate update(Candidate object) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void delete(Candidate object) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public Candidate findById(Long id) {
@@ -49,6 +26,43 @@ public class CandidateServiceImp implements CandidateService{
 	@Override
 	public Candidate findByEmail(String email) {
 		return candidateRepository.getCandidate(email);
+	}
+
+	@Override
+	public void add(Candidate t) {
+		t.getUser().setEnabled(true);
+		t.getUser().setRole("ROLE_CANDIDATE");
+		candidateRepository.addCandidate(t);
+	}
+
+	@Override
+	public Candidate get(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addAll(List<Candidate> lst) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void remove(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Candidate> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void update(Candidate t) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

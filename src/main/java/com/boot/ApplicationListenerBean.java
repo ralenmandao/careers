@@ -12,9 +12,9 @@ public class ApplicationListenerBean implements ApplicationListener{
 	@Override
 	public void onApplicationEvent(ApplicationEvent event) {
 		 if (event instanceof ContextRefreshedEvent) {
-	            ApplicationContext applicationContext = ((ContextRefreshedEvent) event).getApplicationContext();
+	           ApplicationContext applicationContext = ((ContextRefreshedEvent) event).getApplicationContext();
 	           DatabaseManagerSwing.main(new String[] { "--url", "jdbc:hsqldb:mem:testdb", "--user", "sa", "--password", "" });
-	     }
+		 }
 	}
 	
 }

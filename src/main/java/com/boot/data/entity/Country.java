@@ -2,13 +2,30 @@ package com.boot.data.entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+@Entity
+@Table(name="country")
 public class Country implements EntityObject{
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long countryId;
+	@Column(name="countryName")
 	private String name;
+	
+	@OneToMany(mappedBy="country")
+	@PrimaryKeyJoinColumn
 	private List<State> states;
 	
 	public long getCountryId() {
@@ -34,6 +51,8 @@ public class Country implements EntityObject{
 	public int hashCode(){
 		return HashCodeBuilder.reflectionHashCode(this, "countryId");
 	}
+	
+	
 	
 	@Override
 	public String toString(){

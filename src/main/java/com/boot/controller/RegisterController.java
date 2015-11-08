@@ -54,7 +54,7 @@ public class RegisterController {
 		}
 		
 		// Add candidate if there is no errors
-		candidateService.insert(candidateRegistration);
+		candidateService.add(candidateRegistration);
 		// Add candidate to the Session
 		//session.setAttribute("candidate", candidateRegistration);
 		return "redirect:/candidate/";

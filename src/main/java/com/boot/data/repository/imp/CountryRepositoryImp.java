@@ -1,26 +1,22 @@
 package com.boot.data.repository.imp;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.PostConstruct;
-
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.boot.data.entity.Country;
-import com.boot.data.entity.State;
+import com.boot.data.repository.AbstractDAO;
 import com.boot.data.repository.CountryRepository;
-import com.boot.exception.repository.RecordNotFound;
 
-@Component
-public class CountryRepositoryImp implements CountryRepository{
+@Repository("repCountry")
+public class CountryRepositoryImp extends CountryRepository{
+	
+	@Override
+	protected String getTableName() {
+		return "country";
+	}
 
 	@Override
-	public List<State> findAllStates(Long id) throws RecordNotFound {
-		// TODO Auto-generated method stub
-		return null;
+	protected String getIdColumnName() {
+		return "countryId";
 	}
 	
 }

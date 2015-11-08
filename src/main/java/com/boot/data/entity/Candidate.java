@@ -2,14 +2,13 @@ package com.boot.data.entity;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -29,19 +28,17 @@ public class Candidate implements EntityObject{
 	@Column(name="lastName", nullable=false, length=45)
 	private String lastName;
 	
-	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToOne
 	@JoinColumn(name="userId")
 	private User user;
 	
-	@OneToOne(cascade=CascadeType.DETACH)
-	@Column(name="birthdate", nullable = true)
+	@Column(name="birthdate")
 	private Date birthdate;
 	
-	@Column(name="country", nullable=true)
-	private Country country;
+	@OneToOne
+	@JoinColumn(name="locationId")
+	private Location location;
 	
-	@Column(name="state", nullable=true)
-	private State state;
 	
 	public Candidate(){};
 	
