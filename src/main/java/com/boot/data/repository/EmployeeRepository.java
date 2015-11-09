@@ -2,6 +2,6 @@ package com.boot.data.repository;
 
 import com.boot.data.entity.Employee;
 
-public interface EmployeeRepository extends BaseRepository<Employee, Long> {
+public abstract class EmployeeRepository extends AbstractDAO<Employee, Long> {
 
 }

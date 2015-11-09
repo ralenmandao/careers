@@ -10,7 +10,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public abstract class AbstractDAO<PK extends Serializable, T> {
+import com.boot.data.entity.EntityObject;
+
+public abstract class AbstractDAO<T extends EntityObject, PK extends Serializable> {
 	private final Class<T> persistentClass;
 	
 	@SuppressWarnings("unchecked")

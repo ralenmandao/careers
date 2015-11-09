@@ -26,6 +26,7 @@ public class User implements EntityObject {
 	private String role;
 	@Column(name="enabled", nullable=false)
 	private boolean enabled;
+	private String email;
 
 	public User() {
 	}
@@ -40,6 +41,14 @@ public class User implements EntityObject {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getRole() {

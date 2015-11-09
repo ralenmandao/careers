@@ -4,6 +4,6 @@ import java.util.List;
 
 import com.boot.data.entity.Employer;
 
-public interface EmployerRepository{
+public abstract class EmployerRepository extends AbstractDAO<Employer, Long>{
 
 }

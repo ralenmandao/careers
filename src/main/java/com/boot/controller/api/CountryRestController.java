@@ -23,6 +23,7 @@ public class CountryRestController {
 	public ResponseEntity<List<String>> getCountryList(
 			@PathVariable String country) throws RecordNotFound{
 		long countryId = Long.parseLong(country);
-		return new ResponseEntity<List<String>>(countryServices.findAllStates(countryId), HttpStatus.OK);
+		//return new ResponseEntity<List<String>>(countryServices.getAll(countryId), HttpStatus.OK);
+		return null;
 	}
 }

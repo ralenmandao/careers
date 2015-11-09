@@ -1,10 +1,12 @@
 package com.boot.data.service.imp;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.boot.data.entity.User;
+import com.boot.data.repository.AbstractDAO;
 import com.boot.data.repository.UserRepository;
 import com.boot.data.service.UserService;
 import com.boot.exception.repository.MultipleRegisteredUserException;
@@ -12,23 +14,25 @@ import com.boot.exception.service.NotYetImplementedException;
 
 @Service
 @Transactional
-public class UserServiceImp implements UserService{
+public class UserServiceImp extends UserService{
 
-	private UserRepository userRepository;
-	
-	public UserServiceImp(){};
 	@Autowired
-	public UserServiceImp(UserRepository userRepository){
-		this.userRepository = userRepository;
-	}
+	@Qualifier("repUser")
+	private UserRepository rep;
 	
+
+
 	@Override
-	public User findByUserAndPassword(String email, String password) {
-		return userRepository.getByUserAndPassword(email, password);
+	public boolean isEmailExist(String email) {
+		return rep.isEmailExist(email);
 	}
+
+
+
 	@Override
-	public boolean emailExist(String email) throws MultipleRegisteredUserException {
-		return userRepository.emailExists(email);
+	public AbstractDAO<User, Long> getRepository() {
+		// TODO Auto-generated method stub
+		return rep;
 	}
 
 }

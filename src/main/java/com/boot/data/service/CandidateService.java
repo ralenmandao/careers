@@ -1,8 +1,15 @@
 package com.boot.data.service;
 
-import com.boot.data.entity.Candidate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
-public interface CandidateService extends BaseService<Candidate, Long>{
-	public Candidate findById(Long id);
-	public Candidate findByEmail(String email);
+import com.boot.data.entity.Candidate;
+import com.boot.data.repository.AbstractDAO;
+
+public abstract class CandidateService extends AbstractService<Candidate, Long>{
+
+
+		
+	public abstract Candidate findByUsername(String email);
+	
 }

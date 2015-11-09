@@ -43,7 +43,7 @@ public class RegisterController {
 		
 		// check email availability if and only if email field does not have an error
 		if(errors.getFieldError("user.username") == null){
-			if(userService.emailExist(candidateRegistration.getUser().getUsername())){
+			if(userService.isEmailExist(candidateRegistration.getUser().getUsername())){
 				errors.rejectValue("user.username", "", "Email already exist");
 			}
 		}

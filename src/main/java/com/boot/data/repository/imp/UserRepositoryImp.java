@@ -17,34 +17,8 @@ import com.boot.exception.repository.MultipleRegisteredUserException;
 
 
 @Repository("userRepository")
-public class UserRepositoryImp extends AbstractDAO<Integer, User> implements UserRepository{
-	// private DataOperations operations;
-	
-	@Autowired
-	public UserRepositoryImp(JdbcOperations operations){
-		//this.operations = operations;
-	}
+public class UserRepositoryImp extends UserRepository{
 
-	@Override
-	public boolean emailExists(String email) throws MultipleRegisteredUserException {
-		Criteria crit = createEntityCriteria();
-		crit.add(Restrictions.eq("username", email));
-		List<?> results = crit.list();
-		if(results.size() > 1){
-			throw new MultipleRegisteredUserException("Multiple user register with email " + email);
-		}
-		return results.size() != 0;
-	}
-
-	@Override
-	public User getByUserAndPassword(String username, String password) {
-		Criteria crit = createEntityCriteria();
-		Criterion cUsername = Restrictions.eq("username", username);
-		Criterion cPassword = Restrictions.eq("password", password);
-		LogicalExpression lUserAndPassword = Restrictions.and(cUsername, cPassword);
-		crit.add(lUserAndPassword);
-		return (User) crit.uniqueResult();
-	}
 
 	@Override
 	public String getIdColumnName() {
@@ -55,6 +29,13 @@ public class UserRepositoryImp extends AbstractDAO<Integer, User> implements Use
 	protected String getTableName() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean isEmailExist(String email) {
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("email", email));
+		return crit.list().size() > 0;
 	}
 
 }

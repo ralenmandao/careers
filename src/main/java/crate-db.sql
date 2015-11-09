@@ -24,6 +24,7 @@ CREATE TABLE user(
 	userId INT IDENTITY,
 	username VARCHAR(45) ,
 	password VARCHAR(12) ,
+	email VARCHAR(45),
 	enabled BOOLEAN,
 	role VARCHAR(20)
 );

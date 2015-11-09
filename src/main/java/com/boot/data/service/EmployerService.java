@@ -1,6 +1,9 @@
 package com.boot.data.service;
 
 import com.boot.data.entity.Employer;
+import com.boot.data.repository.AbstractDAO;
 
-public interface EmployerService extends BaseService<Employer, Long>{
+public abstract class EmployerService extends AbstractService<Employer, Long>{
+
+
 }
