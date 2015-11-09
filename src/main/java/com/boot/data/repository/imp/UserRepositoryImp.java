@@ -16,7 +16,7 @@ import com.boot.data.repository.UserRepository;
 import com.boot.exception.repository.MultipleRegisteredUserException;
 
 
-@Repository("userRepository")
+@Repository("repUser")
 public class UserRepositoryImp extends UserRepository{
 
 
@@ -27,8 +27,7 @@ public class UserRepositoryImp extends UserRepository{
 
 	@Override
 	protected String getTableName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "user";
 	}
 
 	@Override

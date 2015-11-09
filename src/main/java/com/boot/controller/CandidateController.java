@@ -32,7 +32,7 @@ public class CandidateController {
 	public String candidate(Model model, HttpSession session) throws NoPrincipalUserFound{
         String principalUser = AuthenticationUtil.getPrincipal();
         // TODO get the candidate by email
-        session.setAttribute("candidate", candidateService.getByUsername());
+        session.setAttribute("candidate", candidateService.getByUsername(principalUser));
 		logger.info("Going to candidate.jsp");
 		return "candidate";
 	}

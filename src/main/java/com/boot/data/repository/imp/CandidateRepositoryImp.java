@@ -8,7 +8,7 @@ import com.boot.data.entity.Candidate;
 import com.boot.data.repository.AbstractDAO;
 import com.boot.data.repository.CandidateRepository;
 
-@Repository
+@Repository("repCandidate")
 public class CandidateRepositoryImp extends CandidateRepository{
 	@Override
 	public String getIdColumnName() {
@@ -18,6 +18,13 @@ public class CandidateRepositoryImp extends CandidateRepository{
 	@Override
 	protected String getTableName() {
 		return "candidate";
+	}
+
+	@Override
+	public Candidate getByUsername(String user) {
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("username", user));
+		return (Candidate) crit.uniqueResult();
 	}
 	
 }

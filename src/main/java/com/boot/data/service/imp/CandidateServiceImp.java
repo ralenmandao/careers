@@ -29,8 +29,8 @@ public class CandidateServiceImp extends CandidateService {
 	}
 
 	@Override
-	public Candidate findByUsername(String email) {
-		return null;
+	public Candidate getByUsername(String user) {
+		return rep.getByUsername(user);
 	}
 
 }

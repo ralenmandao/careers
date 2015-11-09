@@ -10,6 +10,6 @@ public abstract class CandidateService extends AbstractService<Candidate, Long>{
 
 
 		
-	public abstract Candidate findByUsername(String email);
+	public abstract Candidate getByUsername(String email);
 	
 }
