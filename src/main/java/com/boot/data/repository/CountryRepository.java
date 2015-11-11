@@ -1,10 +1,10 @@
 package com.boot.data.repository;
 
-import java.util.List;
+import java.io.Serializable;
 
 import com.boot.data.entity.Country;
-import com.boot.data.entity.State;
-import com.boot.exception.repository.RecordNotFound;
+import com.boot.data.entity.EntityObject;
 
-public abstract class CountryRepository extends AbstractDAO<Country, Long>{
+public abstract class CountryRepository<T extends EntityObject, PK extends Serializable> extends AbstractDAO<T, PK>{
+	
 }

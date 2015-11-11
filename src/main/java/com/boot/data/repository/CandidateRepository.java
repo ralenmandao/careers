@@ -1,7 +1,10 @@
 package com.boot.data.repository;
 
-import com.boot.data.entity.Candidate;
+import java.io.Serializable;
 
-public abstract class CandidateRepository extends AbstractDAO<Candidate, Long> {
+import com.boot.data.entity.Candidate;
+import com.boot.data.entity.EntityObject;
+
+public abstract class CandidateRepository<T extends EntityObject, PK extends Serializable> extends AbstractDAO<Candidate, Long> {
 	public abstract Candidate getByUsername(String user);
 }

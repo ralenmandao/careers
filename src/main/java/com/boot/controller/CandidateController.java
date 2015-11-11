@@ -31,6 +31,7 @@ public class CandidateController {
 	@RequestMapping(method=RequestMethod.GET)
 	public String candidate(Model model, HttpSession session) throws NoPrincipalUserFound{
         String principalUser = AuthenticationUtil.getPrincipal();
+        logger.info("Principal User : " + principalUser);
         // TODO get the candidate by email
         session.setAttribute("candidate", candidateService.getByUsername(principalUser));
 		logger.info("Going to candidate.jsp");

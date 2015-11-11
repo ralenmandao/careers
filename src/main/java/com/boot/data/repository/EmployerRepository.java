@@ -1,9 +1,11 @@
 package com.boot.data.repository;
 
-import java.util.List;
+import java.io.Serializable;
 
-import com.boot.data.entity.Employer;
+import org.springframework.stereotype.Component;
 
-public abstract class EmployerRepository extends AbstractDAO<Employer, Long>{
+import com.boot.data.entity.EntityObject;
+
+public interface EmployerRepository{
 
 }

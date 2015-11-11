@@ -10,8 +10,8 @@ import com.boot.data.entity.Employer;
 import com.boot.data.repository.AbstractDAO;
 import com.boot.data.repository.EmployerRepository;
 
-@Repository("repEmployer")
-public class EmployerRepositoryImp extends  EmployerRepository{
+@Repository(value="repEmployer")
+public class EmployerRepositoryImp extends AbstractDAO<Employer, Long> implements EmployerRepository{
 	@Override
 	public String getIdColumnName() {
 		return "employerId";

@@ -19,7 +19,7 @@ public class EmployeeServiceImp extends EmployeeService{
 
 	@Autowired
 	@Qualifier("repEmployee")
-	private EmployeeRepository rep;
+	private EmployeeRepositoryImp rep;
 	
 	@Override
 	public AbstractDAO<Employee, Long> getRepository() {

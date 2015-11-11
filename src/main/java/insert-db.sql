@@ -14,3 +14,5 @@ INSERT INTO state(stateName,countryId) VALUES('pampanga',1);
 
 INSERT INTO state(stateName,countryId) VALUES('alabama',2);
 INSERT INTO state(stateName,countryId) VALUES('los angeles',2);
+
+INSERT INTO employer(name) VALUES('ralen')

@@ -17,7 +17,7 @@ import com.boot.exception.repository.MultipleRegisteredUserException;
 
 
 @Repository("repUser")
-public class UserRepositoryImp extends UserRepository{
+public class UserRepositoryImp extends UserRepository<User, Long>{
 
 
 	@Override

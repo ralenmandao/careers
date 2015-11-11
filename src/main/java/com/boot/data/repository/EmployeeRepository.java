@@ -1,7 +1,10 @@
 package com.boot.data.repository;
 
-import com.boot.data.entity.Employee;
+import java.io.Serializable;
 
-public abstract class EmployeeRepository extends AbstractDAO<Employee, Long> {
+import com.boot.data.entity.Employee;
+import com.boot.data.entity.EntityObject;
+
+public abstract class EmployeeRepository<T extends EntityObject, PK extends Serializable> extends AbstractDAO<T, PK> {
 
 }

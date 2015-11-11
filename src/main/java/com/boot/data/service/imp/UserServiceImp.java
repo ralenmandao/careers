@@ -7,27 +7,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.boot.data.entity.User;
 import com.boot.data.repository.AbstractDAO;
-import com.boot.data.repository.UserRepository;
+import com.boot.data.repository.imp.UserRepositoryImp;
 import com.boot.data.service.UserService;
-import com.boot.exception.repository.MultipleRegisteredUserException;
-import com.boot.exception.service.NotYetImplementedException;
 
 @Service
 @Transactional
-public class UserServiceImp extends UserService{
+public class UserServiceImp extends UserService {
 
 	@Autowired
 	@Qualifier("repUser")
-	private UserRepository rep;
-	
-
+	private UserRepositoryImp rep;
 
 	@Override
 	public boolean isEmailExist(String email) {
 		return rep.isEmailExist(email);
 	}
-
-
 
 	@Override
 	public AbstractDAO<User, Long> getRepository() {

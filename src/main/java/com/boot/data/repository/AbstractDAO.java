@@ -4,20 +4,25 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.boot.data.entity.EntityObject;
 
+@Component
+@Transactional
 public abstract class AbstractDAO<T extends EntityObject, PK extends Serializable> {
 	private final Class<T> persistentClass;
 	
 	@SuppressWarnings("unchecked")
 	public AbstractDAO(){
-		this.persistentClass =(Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
+		persistentClass =(Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
 	}
 	
 	@Autowired

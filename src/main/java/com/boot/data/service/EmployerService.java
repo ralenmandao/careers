@@ -1,9 +1,10 @@
 package com.boot.data.service;
 
-import com.boot.data.entity.Employer;
-import com.boot.data.repository.AbstractDAO;
+import org.springframework.stereotype.Component;
 
-public abstract class EmployerService extends AbstractService<Employer, Long>{
+import com.boot.data.entity.Employer;
+
+public interface EmployerService{
 
 
 }

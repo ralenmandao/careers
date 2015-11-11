@@ -18,6 +18,10 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 @Entity
 @Table(name="country")
 public class Country implements EntityObject{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long countryId;
