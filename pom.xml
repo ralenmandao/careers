@@ -20,6 +20,9 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
+		<!--   
+		<tomcat.version>8</tomcat.version>
+		-->
 	</properties>
 
 	<dependencies>
@@ -53,8 +56,7 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
-        </dependency>
+            </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>javax.servlet.jsp-api</artifactId>
@@ -121,6 +123,17 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 		    <artifactId>springloaded</artifactId>
+		</dependency>
+		
+		<dependency>
+		   <groupId>javax.el</groupId>
+		   <artifactId>javax.el-api</artifactId>
+		   <version>2.2.4</version>
+		</dependency>
+		<dependency>
+		   <groupId>org.glassfish.web</groupId>
+		   <artifactId>javax.el</artifactId>
+		   <version>2.2.4</version>
 		</dependency>
 		-->
 	</dependencies>
