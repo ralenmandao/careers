@@ -15,18 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.boot.data.entity.Candidate;
 import com.boot.data.entity.CandidateRegistrationEntity;
-import com.boot.data.service.CandidateService;
-import com.boot.data.service.UserService;
 import com.boot.data.validation.CandidateRegistrationValidator;
 
 @Controller
 @RequestMapping("/register")
 public class RegisterController {
 	
-	@Autowired
-	private UserService userService;
-	@Autowired
-	private CandidateService candidateService; 
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String register(Model model){
@@ -43,9 +37,9 @@ public class RegisterController {
 		
 		// check email availability if and only if email field does not have an error
 		if(errors.getFieldError("user.username") == null){
-			if(userService.isEmailExist(candidateRegistration.getUser().getUsername())){
-				errors.rejectValue("user.username", "", "Email already exist");
-			}
+//			if(userService.isEmailExist(candidateRegistration.getUser().getUsername())){
+//				errors.rejectValue("user.username", "", "Email already exist");
+//			}
 		}
 		
 		if(errors.hasErrors()){
@@ -54,9 +48,8 @@ public class RegisterController {
 		}
 		
 		// Add candidate if there is no errors
-		candidateService.add(candidateRegistration);
+		//candidateService.add(candidateRegistration);
 		// Add candidate to the Session
-		//session.setAttribute("candidate", candidateRegistration);
 		return "redirect:/candidate/";
 	}
 }

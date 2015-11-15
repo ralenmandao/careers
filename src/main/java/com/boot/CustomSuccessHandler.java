@@ -19,15 +19,11 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.boot.data.service.CandidateService;
-
 @Component
 public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
 	
 	private static final Logger logger = LoggerFactory.getLogger(CustomSuccessHandler.class);
-	
-	@Autowired
-	private CandidateService candidateService;
+
 	
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 	@Override

@@ -53,6 +53,8 @@
 	
 	<!-- BODY -->
 	<body class="tooltips">
+	<div id="ajaxLoad" style="padding:auto;width:100%;height:100%;background:white;opacity: .9;filter: alpha(opacity=50);position:absolute;z-index:999999;background-image:url(${resources}assets/gears.svg);background-repeat: no-repeat;background-position:center;">
+	</div>
 	
 	<!-- BEGIN PAGE -->
 	<div class="container">
@@ -82,7 +84,7 @@
 						 -->
 						<div class="media-body">
 							Welcome back,
-							<h4 class="media-heading"><strong>${candidate.firstName} ${candidate.lastName}</strong></h4>
+							<h4 class="media-heading"><strong id="nameContainer"></strong></h4>
 							<a href="#" id="edit">Edit</a>
 							<a class="md-trigger" data-modal="logout-modal-alt">Logout</a>
 						</div><!-- End div .media-body -->

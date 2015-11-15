@@ -10,14 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.boot.data.service.CountryService;
 import com.boot.exception.repository.RecordNotFound;
 
 @RestController
 public class CountryRestController {
 	
-	@Autowired
-	private CountryService countryServices;
 	
 	@RequestMapping(value="api/country/{country}/states/", method=RequestMethod.GET)
 	public ResponseEntity<List<String>> getCountryList(

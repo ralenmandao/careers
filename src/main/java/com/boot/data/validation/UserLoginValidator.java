@@ -16,15 +16,7 @@ public class UserLoginValidator implements Validator{
 	@Override
 	public void validate(Object target, Errors errors) {
 		final User user = (User)target;
-		// Validate email
-		new ValidationCreator(errors, "email", user.getUsername())
-				.validateEmpty()
-				.validateEmail();
-		
-		// Validate password
-		new ValidationCreator(errors, "password", user.getPassword())
-				.validateEmpty()
-				.validateNumbersAndLetters();
+
 	}
 
 }

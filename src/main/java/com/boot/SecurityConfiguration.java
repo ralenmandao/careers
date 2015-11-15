@@ -18,6 +18,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.access.AccessDeniedHandler;
 
 import com.boot.data.jdbc.JdbcOperations;
+import com.boot.data.service.imp.SecUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -28,21 +29,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private DataSource dataSource;
 	@Autowired
 	private JdbcOperations operations;
-
+	@Autowired
+	private SecUserDetailsService userDetailsService;
+	
+	
 	@Autowired
 	public void configGlobalSecurity(AuthenticationManagerBuilder auth)
 			throws Exception {
-		ShaPasswordEncoder encoder = new ShaPasswordEncoder();
-		auth.jdbcAuthentication().dataSource(dataSource)
-				.usersByUsernameQuery("select username,password,enabled from user where username=?")
-				.authoritiesByUsernameQuery("select username,role from user where username=?");
-				//.passwordEncoder(encoder);
+//		auth.jdbcAuthentication().dataSource(dataSource)
+//				.usersByUsernameQuery("select username,password,enabled from user where username=?")
+//				.authoritiesByUsernameQuery("select username,role from user where username=?");
+//				//.passwordEncoder(encoder);
+		auth.userDetailsService(userDetailsService);
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/", "/home").permitAll()
-				.antMatchers("/api/private/**").denyAll()
+				.antMatchers("*").permitAll()
 				.antMatchers("/candidate/**", "/resume/**")
 				.hasRole("CANDIDATE")
 				.antMatchers("/emloyer/**")

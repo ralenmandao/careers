@@ -12,8 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.boot.data.service.CandidateService;
-import com.boot.data.service.CountryService;
 import com.boot.exception.NoPrincipalUserFound;
 import com.boot.helper.AuthenticationUtil;
 
@@ -23,23 +21,20 @@ public class CandidateController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(CandidateController.class);
 	
-	@Autowired
-	private CandidateService candidateService;
-	@Autowired
-	private CountryService countryService;
-	
 	@RequestMapping(method=RequestMethod.GET)
 	public String candidate(Model model, HttpSession session) throws NoPrincipalUserFound{
         String principalUser = AuthenticationUtil.getPrincipal();
         // TODO get the candidate by email
-        session.setAttribute("candidate", candidateService.getByUsername(principalUser));
-		logger.info("Going to candidate.jsp");
+        //session.setAttribute("candidate", candidateService.getByUsername(principalUser));
+		// Add the principal to the session to retrieve data from db
+        session.setAttribute("principal", principalUser);
+        logger.info("Going to candidate.jsp");
 		return "candidate";
 	}
 	
 	@RequestMapping(value="edit", method=RequestMethod.GET)
 	public String editCandidate(Model model){
-		model.addAttribute("countries", countryService.getAll());
+		//model.addAttribute("countries", countryService.getAll());
 		return "candidate/edit-profile";
 	}
 }

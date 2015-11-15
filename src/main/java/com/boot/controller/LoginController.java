@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.boot.data.entity.User;
-import com.boot.data.service.CandidateService;
-import com.boot.data.service.UserService;
 import com.boot.data.validation.UserLoginValidator;
 
 @Controller
@@ -26,11 +24,6 @@ public class LoginController {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(LoginController.class);
-
-	@Autowired
-	private UserService userService;
-	@Autowired
-	private CandidateService candidateService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String login(Model model, HttpSession session) {
