@@ -53,6 +53,7 @@
 	
 	<!-- BODY -->
 	<body class="tooltips">
+	<input type="hidden" id="principal" value="${principal}"/>
 	<div id="ajaxLoad" style="padding:auto;width:100%;height:100%;background:white;opacity: .9;filter: alpha(opacity=50);position:absolute;z-index:999999;background-image:url(${resources}assets/gears.svg);background-repeat: no-repeat;background-position:center;">
 	</div>
 	

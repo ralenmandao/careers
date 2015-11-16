@@ -1,13 +1,21 @@
 $(document).ready(function(){
-	var principal = '${principal}';
+	var principal = $('#principal').val();
+	var loading = $('#ajaxLoad');
+	
+	// Display the name of the principal
+	console.log(contextPath + '/candidates/search/findByUserUsername?username=' + principal);
+	var name = $('#nameContainer');
 	$.ajax({
 		type: 'GET',
-		url: contextPath + '/candidate/' + principal,
+		url: contextPath + '/candidates/search/findByUserUsername?username=' + principal,
 		dataType: 'json',
-		async: false,
+		async: true,
 		success: function(data){
-			var candidate = jQuery.parseJSON(data);
-			
+			$(name).html(data.lastName + ", " + data.firstName);
+			$(loading).css("display","none");
+		},
+		error: function(){
+			alert("error");
 		}
 	});
 });

@@ -17,9 +17,9 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@Configuration
-@EnableTransactionManagement
-@PropertySource(value = {"application.properties"})
+//@Configuration
+//@EnableTransactionManagement
+//@PropertySource(value = {"application.properties"})
 public class HibernateConfiguration {
 	@Autowired
 	private Environment environment;

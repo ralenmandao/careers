@@ -27,6 +27,7 @@ public class CandidateController {
         // TODO get the candidate by email
         //session.setAttribute("candidate", candidateService.getByUsername(principalUser));
 		// Add the principal to the session to retrieve data from db
+        logger.info("Principal : " + principalUser);
         session.setAttribute("principal", principalUser);
         logger.info("Going to candidate.jsp");
 		return "candidate";

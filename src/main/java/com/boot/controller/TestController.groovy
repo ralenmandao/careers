@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody
 import com.boot.data.entity.Candidate
 import com.boot.data.entity.GCandidateRepository
 import com.boot.data.entity.GUserRepository
+import com.boot.data.entity.User
 import com.boot.data.repository.imp.CustomerRepository
 
 @Controller
@@ -26,10 +27,15 @@ public class TestController {
 	@ResponseBody
 	public String test(){
 		StringBuilder sb = new StringBuilder();
+		gUserRepo.deleteAll()
+		gCandidateRepository.deleteAll()
 		
-		Candidate candidate = new Candidate(firstName: 'ralen',
-			lastName: 'mandap', user: gUserRepo.findByUsername('candidate'))
-		gCandidateRepository.save candidate
+		def user = new User(username: 'ralen', password: 'ralen', role: 'ROLE_CANDIDATE',
+			enabled: true, email: 'ralencc@yahoo.com')
+		def candidate = new Candidate(firstName: 'ralen', lastName: 'mandap',
+			user: user)
+
+		gCandidateRepository.save(candidate)
 
 		return sb.toString();
 	}
