@@ -1,13 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<spring:url value="/resources/" var="resources" />
 <div class="box-info">
+</div>
 	<h2><strong>Personal</strong> Information</h2>
 	<form class="form-horizontal" role="form">
 		<!-- Text input -->
 		<div class="form-group">
 			<label for="input-text" class="col-sm-2 control-label">Firstname</label>
-			<div class="col-sm-10">
+			<div class="col-sm-10" id="firstNameContainer">
 				<input type="text" class="form-control" id="input-text" placeholder="" value="${candidate.firstName}">
 			</div>
 		</div>

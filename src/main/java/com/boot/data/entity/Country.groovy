@@ -1,12 +1,16 @@
 package com.boot.data.entity;
 
-import javax.persistence.Id;
+import groovy.transform.ToString
 
-import groovy.transform.ToString;
+import javax.persistence.Id
+
+import com.fasterxml.jackson.annotation.JsonProperty
 
 @ToString
 public class Country{
 	@Id
-	private long countryId
-	private String name
+	@JsonProperty
+	String id
+	String name
+	List<State> states
 }

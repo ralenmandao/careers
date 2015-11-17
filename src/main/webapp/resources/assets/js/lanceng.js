@@ -1,49 +1,31 @@
 var contextPath = "http://localhost:8080";
 
+function get(path, fSuccess, fError){
+	$.ajax({
+		type: "GET",
+		url: contextPath + path,
+		dataType: "json",
+		contentType: "text/plain",
+		success: fSuccess,
+		error: fError
+	});
+}
+
+function patch(path,data, fSuccess, fError){
+	$.ajax({
+		type: "PATCH",
+		url: contextPath + path,
+		data: data,
+		dataType: "json",
+		contentType: "application/json",
+		success: fSuccess,
+		error: fError
+	});
+}
+
 $(document).ready(function(){	
-	$("#body-container").on('change', '#registerCountrySelect', function(){
-			$.ajax({
-			type: 'GET',
-			url: contextPath + '/api/country/' + $(this).val() + '/states/' ,
-			dataType: 'json',
-			async: true,
-			success: function(data){
-				$('.sStates').html("");
-				$.each(data, function(i, item){
-					$('.sStates').append('<option value="' + item + '">' + item + '</option>');
-				});
-			}
-		});
-	});
-	
-	// Call if resume button is click
-	$('#resume').click(function(){
-		$.ajax({
-			type: "GET",
-			url: contextPath + "/resume",
-			dataType: "html",
-			contentType: "text/plain",
-			success: function(data){
-				$("#body-container").html(data);
-			}
-		});
-	});
-	
-	$('#edit').click(function(){
-		$.ajax({
-			type: "GET",
-			url: contextPath + "/candidate/edit",
-			dataType: "html",
-			contentType: "text/plain",
-			success: function(data){
-				$("#body-container").html(data);
-			}
-		});
-	});
-	
 	
 	$(window).load(function() { $("#loading").fadeOut("slow"); })
-	
 	
 	//SLIM SCROLL
 	$('.slimscroller').slimscroll({

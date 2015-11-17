@@ -90,7 +90,7 @@
 		<!-- Development Database connector -->
 		<dependency>
 			<groupId>org.hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
+			<artifactId>hsqldb</artifactId> 
 		</dependency>
 
 		
@@ -154,6 +154,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>1.2.7.RELEASE</version>
 			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>

@@ -7,7 +7,7 @@
 	
 <!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:43:15 GMT -->
 <head>
-	<title>Careers - ${candidate.firstName} ${candidate.lastName}</title>
+	<title>Careers - ${principal.firstName} ${principal.lastName}</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,11 +52,7 @@
 	
 	
 	<!-- BODY -->
-	<body class="tooltips">
-	<input type="hidden" id="principal" value="${principal}"/>
-	<div id="ajaxLoad" style="padding:auto;width:100%;height:100%;background:white;opacity: .9;filter: alpha(opacity=50);position:absolute;z-index:999999;background-image:url(${resources}assets/gears.svg);background-repeat: no-repeat;background-position:center;">
-	</div>
-	
+	<body class="tooltips">	
 	<!-- BEGIN PAGE -->
 	<div class="container">
 			
@@ -85,7 +81,7 @@
 						 -->
 						<div class="media-body">
 							Welcome back,
-							<h4 class="media-heading"><strong id="nameContainer"></strong></h4>
+							<h4 class="media-heading"><strong id="nameContainer">${principal.lastName}, ${principal.firstName} </strong></h4>
 							<a href="#" id="edit">Edit</a>
 							<a class="md-trigger" data-modal="logout-modal-alt">Logout</a>
 						</div><!-- End div .media-body -->

@@ -10,6 +10,7 @@ public class Candidate implements EntityObject{
 	String id
 	String firstName
 	String lastName
+	String contactNo
 	User user
 	Date birthdate
 	Location location
