@@ -26,8 +26,6 @@ import com.boot.data.repository.GSpecializationRepository
 import com.boot.exception.NoPrincipalUserFound
 import com.boot.helper.AuthenticationUtil
 
-import scala.annotation.meta.field;
-
 @Controller
 @RequestMapping("/candidate")
 public class CandidateController {
@@ -65,6 +63,7 @@ public class CandidateController {
 		model.addAttribute("qualifications", qualificationRepo.findAll())
 		model.addAttribute("fieldOfStudies", fdRepo.findAll())
 		model.addAttribute("specializations", specializationRepo.findAll())
+		// Default reload the principal and attach it to session
 		session.setAttribute("principal", getPrincipalCandidate());
 		return "candidate/edit-candidate";
 	}
@@ -72,28 +71,25 @@ public class CandidateController {
 	// TODO add validation
 	@RequestMapping(value="savePersonalInformation", method=RequestMethod.POST)
 	public String savePersonalInformation(Model model,
-			@RequestParam("firstName") String firstName,
-			@RequestParam("lastName") String lastName,
-			@RequestParam("birthdate") String birthdate,
-			@RequestParam("country") String country,
-			@RequestParam("state") String state,
-			@RequestParam("contact") String contact) throws NoPrincipalUserFound{
+			@RequestParam(name="firstName", required=false) String firstName,
+			@RequestParam(name="lastName", required=false) String lastName,
+			@RequestParam(name="birthdate", required=false) String birthdate,
+			@RequestParam(name="country", required=false) String country,
+			@RequestParam(name="state", required=false) String state,
+			@RequestParam(name="contact", required=false) String contact) throws NoPrincipalUserFound{
 		
-		logger.info(contact + "");
-		// TODO What happen here ?
-		// Site appends , at the end
+		// TODO BUG
+		// Website adds a comma(,)
 		contact = contact.replace(",", "");
 		
 		Candidate candidate = getPrincipalCandidate();
-		logger.info(candidate.toString())
-		Date birthDate = Date.valueOf(birthdate);
-		candidate.setBirthdate(birthDate);
+		if(birthdate != null) candidate.setBirthdate(Date.valueOf(birthdate))
 		candidate.setContactNo(contact);
 		candidate.setFirstName(firstName);
 		candidate.setLastName(lastName);
 		Location loc = new Location();
-		loc.country = countryRepo.findOne(country)
-		loc.state = stateRepo.findOne(state)
+		if(country != null) loc.country = countryRepo.findOne(country)
+		if(state != null) loc.state = stateRepo.findOne(state)
 		candidate.setLocation(loc);
 		candidateRepo.save(candidate);
 		return "redirect:/candidate/edit";
@@ -101,23 +97,29 @@ public class CandidateController {
 			
 	@RequestMapping(value="saveProfessionalInformation", method=RequestMethod.POST)
 	public String saveProfessionalInformation(Model model,
-		@RequestParam("qualification") String qualification,
-		@RequestParam("fieldOfStudy") String fieldOfStudy,
-		@RequestParam("specialization") String specialization,
-		@RequestParam("salary") String salary,
+		@RequestParam(name="qualification", required=false) String qualification,
+		@RequestParam(name="fieldOfStudy", required=false) String fieldOfStudy,
+		@RequestParam(name="specialization", required=false) String specialization,
+		@RequestParam(name="salary", required=false) String salary,
 		HttpSession session){
 		Candidate candidate = getPrincipalCandidate();
-		logger.info(candidate.toString())
-		def sp = specializationRepo.findOne(specialization)
-		logger.info(sp.toString())
-		def fd = fdRepo.findOne(fieldOfStudy)
-		logger.info(fd.toString())
-		def ql = qualificationRepo.findOne(qualification)
-		logger.info(ql.toString())
-		candidate.qualification = ql
-		candidate.specialization = sp
-		candidate.fieldOfStudy = fd
-		candidate.expectedSalary = Integer.parseInt(salary)
+		if(specialization != null){
+			def sp = specializationRepo.findOne(specialization)
+			candidate.specialization = sp
+		}
+		if(fieldOfStudy != null){
+			def fd = fdRepo.findOne(fieldOfStudy)
+			candidate.fieldOfStudy = fd
+		}
+		if(qualification != null){
+			def ql = qualificationRepo.findOne(qualification)
+			candidate.qualification = ql
+		}
+		if(salary != null){
+			if(salary.isNumber()){
+				candidate.expectedSalary = Integer.parseInt(salary)
+			}
+		}
 		candidateRepo.save(candidate)
 		return "redirect:/candidate/edit";
 	}

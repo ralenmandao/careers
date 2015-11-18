@@ -224,7 +224,7 @@
 								
 								<!-- Dropdown notifications -->
 								<li class="dropdown">
-									<a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i><span class="label label-danger absolute">24</span></a>
+									<a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i><!--<span class="label label-danger absolute">24</span>--></a>
 									<ul class="dropdown-menu dropdown-message animated half flipInX">
 										<!-- Dropdown notification header -->
 										<li class="dropdown-header notif-header">New Notifications</li>
@@ -277,7 +277,7 @@
 								
 								<!-- Dropdown Messages -->
 								<li class="dropdown">
-									<a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i><span class="label label-danger absolute">24</span></a>
+									<a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i><!-- <span class="label label-danger absolute">24</span> --></a>
 									<ul class="dropdown-menu dropdown-message animated half flipInX">
 										<!-- Dropdown Messages header -->
 										<li class="dropdown-header notif-header">New Messages</li>
@@ -317,7 +317,7 @@
 							
 								<!-- Dropdown User session -->
 								<li class="dropdown">
-									<a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">Howdy, <strong>Mas Bro</strong> <i class="fa fa-chevron-down i-xs"></i></a>
+									<a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">Howdy, <strong>${principal.firstName}</strong> <i class="fa fa-chevron-down i-xs"></i></a>
 									<ul class="dropdown-menu animated half flipInX">
 										<li><a href="#fakelink">My Profile</a></li>
 										<li><a href="#fakelink">Change Password</a></li>
