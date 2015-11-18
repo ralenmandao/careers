@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Component
 
 import com.boot.data.entity.Candidate
-import com.boot.data.entity.GCandidateRepository
 import com.boot.data.entity.SecUserDetails
+import com.boot.data.repository.GCandidateRepository;
 
 @Component
 public class SecUserDetailsService implements UserDetailsService {

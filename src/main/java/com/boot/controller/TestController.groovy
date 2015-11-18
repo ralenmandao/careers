@@ -8,12 +8,16 @@ import org.springframework.web.bind.annotation.ResponseBody
 
 import com.boot.data.entity.Candidate
 import com.boot.data.entity.Country
-import com.boot.data.entity.GCandidateRepository
-import com.boot.data.entity.GUserRepository
+import com.boot.data.entity.FieldOfStudy
 import com.boot.data.entity.Qualification
+import com.boot.data.entity.Specialization
 import com.boot.data.entity.State
 import com.boot.data.entity.User
+import com.boot.data.repository.GCandidateRepository
+import com.boot.data.repository.GFieldOfStudyRepository
 import com.boot.data.repository.GQualificationRepository
+import com.boot.data.repository.GSpecializationRepository
+import com.boot.data.repository.GUserRepository
 import com.boot.data.repository.imp.CustomerRepository
 
 @Controller
@@ -21,25 +25,32 @@ import com.boot.data.repository.imp.CustomerRepository
 public class TestController {
 	
 	@Autowired
-	private CustomerRepository repo;
+	CustomerRepository repo
 	@Autowired
-	private GUserRepository gUserRepo;
+	GUserRepository gUserRepo
 	@Autowired
-	private GCandidateRepository gCandidateRepository;
+	GCandidateRepository gCandidateRepository
 	@Autowired
-	private GCountryRepository gCountryRepo;
+	GCountryRepository gCountryRepo
 	@Autowired
-	private GStateRepository gStateRepo;
+	GStateRepository gStateRepo
 	@Autowired
-	private GQualificationRepository gQualificationRepo;
+	GQualificationRepository gQualificationRepo
+	@Autowired
+	GFieldOfStudyRepository gFStudyRepo
+	@Autowired
+	GSpecializationRepository gSpecializationRepo
 	
 	@RequestMapping(method=RequestMethod.GET)
 	@ResponseBody
 	public String test(){
 		StringBuilder sb = new StringBuilder();
 		
-		gQualificationRepo.deleteAll()
+		loadBasicUser()
+		loadBasicFieldOfStudy()
 		loadBasicQualification()
+		loadBasicCountry()
+		loadBasicSpecialization()
 		
 		return sb.toString();
 	}
@@ -49,11 +60,15 @@ public class TestController {
 		gCandidateRepository.deleteAll()
 		def user = new User(username: 'ralen', password: 'ralen', role: 'ROLE_CANDIDATE',
 			enabled: true, email: 'ralencc@yahoo.com')
+		gUserRepo.save(user)
 		def candidate = new Candidate(firstName: 'ralen', lastName: 'mandap',
 			user: user)
+		gCandidateRepository.save(candidate)
 	}
 	
 	public loadBasicCountry(){
+		gCountryRepo.deleteAll()
+		gStateRepo.deleteAll()
 		def countr1 = new Country(name: 'Philippines')
 		gCountryRepo.save(countr1)
 		
@@ -79,9 +94,27 @@ public class TestController {
 	}
 	
 	public loadBasicQualification(){
+		gQualificationRepo.deleteAll()
 		def qual = new Qualification(name: 'High School')
 		def qual2 = new Qualification(name: 'College')
 		gQualificationRepo.save(qual)
 		gQualificationRepo.save(qual2)
+	}
+	
+	public loadBasicFieldOfStudy(){
+		gFStudyRepo.deleteAll()
+		def study1 = new FieldOfStudy(name: 'IT')
+		def study2 = new FieldOfStudy(name: 'Networking')
+		gFStudyRepo.save(study1)
+		gFStudyRepo.save(study2)
+	}
+	
+	public loadBasicSpecialization(){
+		gSpecializationRepo.deleteAll()
+		def sp = new Specialization(name: 'Programming')
+		def sp1 = new Specialization(name: 'Networking')
+		gSpecializationRepo.save(sp)
+		gSpecializationRepo.save(sp1)
+		
 	}
 }
