@@ -4,7 +4,6 @@ import java.sql.Date
 
 import javax.servlet.http.HttpSession
 
-import org.junit.After;
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,14 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
 
 import com.boot.data.entity.Candidate
-import com.boot.data.entity.FieldOfStudy
 import com.boot.data.entity.Location
-import com.boot.data.entity.Qualification
-import com.boot.data.entity.Specialization
 import com.boot.data.repository.GCandidateRepository
-import com.boot.data.repository.GFieldOfStudyRepository;
+import com.boot.data.repository.GFieldOfStudyRepository
 import com.boot.data.repository.GQualificationRepository
 import com.boot.data.repository.GSpecializationRepository
+import com.boot.data.repository.SkillRepository
 import com.boot.exception.NoPrincipalUserFound
 import com.boot.helper.AuthenticationUtil
 
@@ -44,6 +41,8 @@ public class CandidateController {
 	GFieldOfStudyRepository fdRepo
 	@Autowired
 	GSpecializationRepository specializationRepo
+	@Autowired
+	SkillRepository skillRepo
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String candidate(Model model, HttpSession session) throws NoPrincipalUserFound{
@@ -63,6 +62,7 @@ public class CandidateController {
 		model.addAttribute("qualifications", qualificationRepo.findAll())
 		model.addAttribute("fieldOfStudies", fdRepo.findAll())
 		model.addAttribute("specializations", specializationRepo.findAll())
+		model.addAttribute("skills", skillRepo.findAll())
 		// Default reload the principal and attach it to session
 		session.setAttribute("principal", getPrincipalCandidate());
 		return "candidate/edit-candidate";
@@ -101,6 +101,7 @@ public class CandidateController {
 		@RequestParam(name="fieldOfStudy", required=false) String fieldOfStudy,
 		@RequestParam(name="specialization", required=false) String specialization,
 		@RequestParam(name="salary", required=false) String salary,
+		@RequestParam(name="title", required=false) String title,
 		HttpSession session){
 		Candidate candidate = getPrincipalCandidate();
 		if(specialization != null){
@@ -120,10 +121,16 @@ public class CandidateController {
 				candidate.expectedSalary = Integer.parseInt(salary)
 			}
 		}
+		candidate.title = title
 		candidateRepo.save(candidate)
 		return "redirect:/candidate/edit";
 	}
 		
+	@RequestMapping(value="addResume", method=RequestMethod.GET)
+	public String addResume(){
+		return "resume/resume1-registration"
+	}	
+	
 	private Candidate getPrincipalCandidate(){
 		String principalUser = AuthenticationUtil.getPrincipal();
 		Candidate candidate = candidateRepo.findByUserUsername(principalUser);

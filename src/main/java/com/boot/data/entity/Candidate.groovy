@@ -13,6 +13,7 @@ public class Candidate implements EntityObject{
 	String firstName
 	String lastName
 	String contactNo
+	String title
 //	@DBRef
 //	@CascadeSave
 	User user
@@ -26,15 +27,16 @@ public class Candidate implements EntityObject{
 	@DBRef
 	FieldOfStudy fieldOfStudy
 	
-	public String getFirstName(){
-		def sString = firstName.toLowerCase();
-		sString = Character.toString(sString.charAt(0)).toUpperCase()+sString.substring(1);
-		return sString
-	}
-	
-	public String getLastName(){
-		def sString = lastName.toLowerCase();
-		sString = Character.toString(sString.charAt(0)).toUpperCase()+sString.substring(1);
-		return sString
-	}
+
+//	public String getFirstName(){
+//		def sString = firstName.toLowerCase();
+//		sString = Character.toString(sString.charAt(0)).toUpperCase()+sString.substring(1);
+//		return sString
+//	}
+//	
+//	public String getLastName(){
+//		def sString = lastName.toLowerCase();
+//		sString = Character.toString(sString.charAt(0)).toUpperCase()+sString.substring(1);
+//		return sString
+//	}
 }

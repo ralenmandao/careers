@@ -10,6 +10,7 @@ import com.boot.data.entity.Candidate
 import com.boot.data.entity.Country
 import com.boot.data.entity.FieldOfStudy
 import com.boot.data.entity.Qualification
+import com.boot.data.entity.Skill
 import com.boot.data.entity.Specialization
 import com.boot.data.entity.State
 import com.boot.data.entity.User
@@ -18,6 +19,7 @@ import com.boot.data.repository.GFieldOfStudyRepository
 import com.boot.data.repository.GQualificationRepository
 import com.boot.data.repository.GSpecializationRepository
 import com.boot.data.repository.GUserRepository
+import com.boot.data.repository.SkillRepository
 import com.boot.data.repository.imp.CustomerRepository
 
 @Controller
@@ -40,6 +42,8 @@ public class TestController {
 	GFieldOfStudyRepository gFStudyRepo
 	@Autowired
 	GSpecializationRepository gSpecializationRepo
+	@Autowired
+	SkillRepository skillRepo
 	
 	@RequestMapping(method=RequestMethod.GET)
 	@ResponseBody
@@ -51,7 +55,7 @@ public class TestController {
 		loadBasicQualification()
 		loadBasicCountry()
 		loadBasicSpecialization()
-		
+		loadBasicSkill()
 		return sb.toString();
 	}
 	
@@ -116,5 +120,13 @@ public class TestController {
 		gSpecializationRepo.save(sp)
 		gSpecializationRepo.save(sp1)
 		
+	}
+	
+	public loadBasicSkill(){
+		skillRepo.deleteAll()
+		Skill skill = new Skill(name: 'C++')
+		Skill skill2 = new Skill(name: 'Java')
+		skillRepo.save(skill)
+		skillRepo.save(skill2)
 	}
 }

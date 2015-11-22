@@ -6,6 +6,8 @@ $(document).ready(function(){
 		window.location = contextPath + "/candidate/edit";
 	});
 	
+	$(".chosen-select").chosen()
+	
 	/**
 	 *  end candidate/edit
 	 */
