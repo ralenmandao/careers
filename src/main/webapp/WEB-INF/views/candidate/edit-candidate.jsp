@@ -18,6 +18,9 @@
 	<spring:url value="/resources/" var="resources" />
 	<spring:url value="/WEB-INF/views/" var="views" />
 	<spring:url value="/" var="root" />
+	<script>
+		var principal = "${principal.user.username}"
+	</script>
 
 	<!-- BOOTSTRAP -->
 	<link href="${resources}assets/css/bootstrap.min.css" rel="stylesheet">
@@ -202,7 +205,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="input-text" class="col-sm-3 control-label">Contact Number</label>
+							<label for="input-text" class="col-sm-3 control-label">Title</label>
 							<div class="col-sm-9">
 								<input type="text" value="${principal.title}" class="form-control" id="input-text" name="contact" placeholder="">
 							</div>
@@ -210,15 +213,12 @@
 						<div class="form-group">
 							<label for="input-text" class="col-sm-3 control-label">Skills</label>
 							<div class="col-sm-9">
-						          <div class="chosen-container chosen-container-multi" style="width: 350px;" title="">
-						          	<ul class="chosen-choices">
-						          		<li class="search-choice"><span>Sloth Bear</span>
-						          		<a class="fa fa-times" data-option-array-index="5"></a>
-						          		</li><li class="search-choice"><span>Polar Bear</span>
-						          		<a class="fa fa-times" data-option-array-index="7"></a>
-						          	</ul>
-						          </div>
-								</div>
+						        <select data-placeholder="Choose skills..." class="chosen-select form-control" multiple tabindex="5" name="skills">
+						        	<option value=""></option>
+									<c:forEach items="${skills}" var="skill">
+										<option value="${skill.id}">${skill.name}</option>
+									</c:forEach>
+								</select>
 							</div>
 						</div>
 						<button type = "submit" class="btn btn-primary pull-right">Save</button>
@@ -338,7 +338,9 @@
 		
 	</div><!-- End div .container -->
 	<!-- END PAGE -->
-
+	<style>
+	
+	</style>
 	<!--
 	================================================
 	JAVASCRIPT

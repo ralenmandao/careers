@@ -6,6 +6,7 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguratio
 
 import com.boot.data.entity.Country;
 import com.boot.data.entity.Qualification;
+import com.boot.data.entity.Skill;
 import com.boot.data.entity.State;
 
 @Configuration
@@ -13,6 +14,6 @@ public class RestMvcConfig extends RepositoryRestMvcConfiguration{
 	@Override
     protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config)
     {
-        config.exposeIdsFor(Country.class, State.class, Qualification.class);
+        config.exposeIdsFor(Country.class, State.class, Qualification.class, Skill.class);
     }
 }

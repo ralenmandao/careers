@@ -1,26 +1,27 @@
 package com.boot.controller;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.boot.data.entity.Candidate;
-import com.boot.data.entity.CandidateRegistrationEntity;
-import com.boot.data.validation.CandidateRegistrationValidator;
+import com.boot.data.entity.Candidate
+import com.boot.data.repository.GCandidateRepository
+import com.boot.data.repository.GUserRepository
 
 @Controller
 @RequestMapping("/register")
 public class RegisterController {
 	
+	@Autowired
+	private GUserRepository userRepo;
+	@Autowired
+	private GCandidateRepository candidateRepo;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String register(Model model){
@@ -37,9 +38,9 @@ public class RegisterController {
 		
 		// check email availability if and only if email field does not have an error
 		if(errors.getFieldError("user.username") == null){
-//			if(userService.isEmailExist(candidateRegistration.getUser().getUsername())){
-//				errors.rejectValue("user.username", "", "Email already exist");
-//			}
+			if(userRepo.findByEmail(candidateRegistration.getUser().getUsername())){
+				errors.rejectValue("user.username", "", "Email already exist");
+			}
 		}
 		
 		if(errors.hasErrors()){
@@ -47,9 +48,10 @@ public class RegisterController {
 			return "register";
 		}
 		
+		candidateRegistration.user.username = candidateRegistration.user.email
 		// Add candidate if there is no errors
-		//candidateService.add(candidateRegistration);
+		candidateRepo.save(candidateRegistration);
 		// Add candidate to the Session
-		return "redirect:/candidate/";
+		return "redirect:/login/?success";
 	}
 }

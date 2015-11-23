@@ -102,8 +102,17 @@ public class CandidateController {
 		@RequestParam(name="specialization", required=false) String specialization,
 		@RequestParam(name="salary", required=false) String salary,
 		@RequestParam(name="title", required=false) String title,
+		@RequestParam(name="skills", required=false) String skills,
 		HttpSession session){
 		Candidate candidate = getPrincipalCandidate();
+		
+		if(skills != null){
+			candidate.skills = []
+			skills.split(',').each{
+				candidate.skills.add(skillRepo.findOne(it))
+			}
+		}
+		
 		if(specialization != null){
 			def sp = specializationRepo.findOne(specialization)
 			candidate.specialization = sp
@@ -128,8 +137,22 @@ public class CandidateController {
 		
 	@RequestMapping(value="addResume", method=RequestMethod.GET)
 	public String addResume(){
-		return "resume/resume1-registration"
+		return "resume/resume1-output"
 	}	
+	
+	@RequestMapping(value="resume", method=RequestMethod.GET)
+	public String resume(Model model){
+		Candidate candidate = getPrincipalCandidate()
+		model.addAttribute("params", candidate.resumeParams)
+		return "resume/resume1-output"
+	}
+	
+	@RequestMapping(value="editResune", method=RequestMethod.GET)
+	public String editResume(Model model){
+		Candidate candidate = getPrincipalCandidate()
+		
+		return "resume/resume1-output"
+	}
 	
 	private Candidate getPrincipalCandidate(){
 		String principalUser = AuthenticationUtil.getPrincipal();

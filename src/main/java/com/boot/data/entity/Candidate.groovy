@@ -26,8 +26,9 @@ public class Candidate implements EntityObject{
 	long expectedSalary
 	@DBRef
 	FieldOfStudy fieldOfStudy
-	
-
+	List<Skill> skills = []
+	String resumeName
+	def resumeParams = [:]
 //	public String getFirstName(){
 //		def sString = firstName.toLowerCase();
 //		sString = Character.toString(sString.charAt(0)).toUpperCase()+sString.substring(1);

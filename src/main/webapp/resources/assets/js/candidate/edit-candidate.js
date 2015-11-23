@@ -16,10 +16,8 @@ $(document).ready(function(){
 		$(selCountry).val($(selCountry).attr("data-id")).change();
 		index = states.indexOf($(selState).attr("data-id"));
 		$(selState).val($(selState).attr("data-id")).change();
-	},function(){
+	},null);
 
-	});
-	
 	$(selCountry).on('change', function(){
 		console.log('select country was changed!')
 		var selecteValue = $(selCountry).val();
@@ -45,4 +43,12 @@ $(document).ready(function(){
 	
 	var selSpecialization = $('#ecSpecialization');
 	$(selSpecialization).val($(selSpecialization).attr("data-id")).change(); 
+	
+	get("/candidates/?findByUserUsername=" + principal, function(data){
+		var skills = data._embedded.candidates[0].skills
+		$.each(skills, function(key, val){
+			$('.chosen-select option[value="'+val.id+'"]').attr("selected", "selected")
+		})
+		$('.chosen-select').trigger("chosen:updated")
+	}, null)
 });

@@ -106,23 +106,6 @@
 							</div>
 						</section>
 						<!-- End second step -->
-						
-						
-						<!-- Third step -->
-						<section class="step" data-step-title="Third step">
-							<div class="row">
-								<div class="col-sm-6">
-									<h4>Complete Address</h4>
-										<div class="jumbotron">
-										  <p>
-										  qwqweqrvwe
-										  </p>
-										  <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
-										</div>
-								</div><!-- End div .col-sm-6 -->
-							</div><!-- End div .row -->
-						</section>
-						<!-- End third step -->
 					</form>
 				</div><!-- End div .box-info -->
 				<!-- End form wizard -->

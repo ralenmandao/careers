@@ -9,5 +9,6 @@ import com.boot.data.entity.User;
 @RepositoryRestResource(collectionResourceRel = "user", path = "user")
 interface GUserRepository extends MongoRepository<User, String>{
 	User findByUsername(String username)
+	User findByEmail(String email)
 }
  
