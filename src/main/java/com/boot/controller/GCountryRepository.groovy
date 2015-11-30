@@ -7,5 +7,5 @@ import com.boot.data.entity.Country
 
 @RepositoryRestResource(collectionResourceRel = "countries", path = "countries")
 interface GCountryRepository extends MongoRepository<Country, String>{
-	
+	public Country findByName(String name);
 }

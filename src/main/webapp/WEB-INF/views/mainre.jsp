@@ -16,7 +16,7 @@
 	<meta name="author" content="">
 
 	<spring:url value="/resources/" var="resources" />
-	<spring:url value="/" var="root" />
+	<spring:url value="192.168.8.12:8080/" var="root" />
 
 	<!-- BOOTSTRAP -->
 	<link href="${resources}assets/css/bootstrap.min.css" rel="stylesheet">

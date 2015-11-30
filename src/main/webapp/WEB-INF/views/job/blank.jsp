@@ -5,9 +5,9 @@
 <!DOCTYPE html>
 <html>
 	
-<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:43 GMT -->
+<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:43:15 GMT -->
 <head>
-	<title>Careers - Login</title>
+	<title>Careers - ${principal.firstName} ${principal.lastName}</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -16,6 +16,7 @@
 	<meta name="author" content="">
 
 	<spring:url value="/resources/" var="resources" />
+	<spring:url value="/WEB-INF/views/" var="views" />
 	<spring:url value="192.168.8.12:8080/" var="root" />
 
 	<!-- BOOTSTRAP -->
@@ -47,83 +48,64 @@
 	
 	<!-- FAVICON -->
 	<link rel="shortcut icon" href="${resources}assets/img/favicon.ico">
-	<link href="${resources}assets/css/my-style.css" rel="stylesheet">
 	</head>
-
+	
+	
 	
 	<!-- BODY -->
-	<body class="tooltips full-content">
-	
-	
-	<!-- BEGIN PAGE -->
-	<div class="container">
-		
-		<!-- Begin Login Page -->
-		<div class="full-content-center animated fadeInDownBig">
-			<a href="#fakelink"><img src="${resources}assets/img/logo-login.png" class="logo-login img-circle" alt="Logo"></a>
-			<div class="login-wrap">
-				<div class="box-info">
-				<h2 class="text-center"><strong>Login</strong> form</h2>
-					<spring:url value="/login" var="loginForm"/>
-					<form action="${loginForm}" role="form" method="POST">
-						<c:if test="${param.logout != null}">
-							<div class="alert alert-success" role="alert">
-							  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-							  <span class="sr-only">Error:</span>
-							  Logout successful
-							</div>
-						</c:if>
-						<c:if test="${param.success != null}">
-							<div class="alert alert-success" role="alert">
-							  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-							  <span class="sr-only">Error:</span>
-							  Registration Successful
-							</div>
-						</c:if>
-						<c:if test="${param.error != null}">
-							<div class="alert alert-danger" role="alert">
-							  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-							  <span class="sr-only">Error:</span>
-							  Invalid email address or password
-							</div>
-						</c:if>
-						<div class="form-group login-input">
-						<i class="fa fa-sign-in overlay"></i>
-						<input type="text" id="username" name="username" class="form-control text-input" placeholder="Email" />
-						</div>
-						<div class="form-group login-input">
-						<i class="fa fa-key overlay"></i>
-						<input type="password" id="password" name="password" class="form-control text-input" placeholder="Password" />
-						</div>
-						<div class="checkbox">
-						<label>
-							<input type="checkbox"> Remember me
-						</label>
-						</div>
-						<input type="hidden" name="${_csrf.parameterName}"   value="${_csrf.token}" />
-						<div class="row">
-							<div class="col-sm-6">
-							<button type="submit" class="btn btn-success btn-block"><i class="fa fa-unlock"></i> Login</button>
-							</div>
-							<div class="col-sm-6">
-							<a href="${root}register" class="btn btn-default btn-block"><i class="fa fa-rocket"></i> Register</a>
-							</div>
-						</div>
-					</form>
-					<p class="text-center"><strong>- or -</strong></p>
-					
-					<button type="button" class="btn btn-primary btn-block btn-facebook"><i class="fa fa-facebook"></i> Login with Facebook account</button>
-					<button type="button" class="btn btn-primary btn-block btn-twitter"><i class="fa fa-twitter"></i> Login with Twitter account</button>
-					
-				</div>
-				<p class="text-center"><a href="forgot-password.html"><i class="fa fa-lock"></i> Forgot password?</a></p>
-			</div>
-		</div>
-		<!-- End Login Page -->
-		
-	</div><!-- End div .container -->
-	<!-- END PAGE -->
+	<body class="tooltips">	
+		<jsp:include page="${views}head.jsp"></jsp:include>
+		<!-- ============================================================== -->
+		<!-- START YOUR CONTENT HERE -->
+		<!-- ============================================================== -->
+           <div class="body content rows scroll-y" id="body-container">
+			
+			<div class="box-info">
+					<div class="box-info">
+						<h1>FRONT END DEVELOPER</h1>
+						<p style="color:gray;"><i class="fa fa-bookmark"></i> Full Time      
+							<i class="fa fa-calendar"></i> November 10,2015 - November 12,2015
+						</p>
+					</div>
+					<div class="icon-print"><a data-toggle="tooltip" title="" href="#fakelink" data-original-title="Print"><i class="fa fa-print"></i></a></div>
 
+					<!-- Full Job Description-->
+					<div class="bill-to">
+						<div class="row">
+							<div class="col-sm-12">
+								<h4><strong>Job Description</strong></h4>
+									<p>
+									Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. 
+									</p>
+							</div>
+						</div>
+					</div>
+			</div>				
+					<div class="col-sm-6">
+						<div class="box-info">
+							<h2>Company Background</h2>
+								<div class="media-body">
+								 <p><img class="media-object" src="${resources}assets/img/avatar/2.jpg" alt="Avatar"> JUJU MAGANDA
+								 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.</p>
+								</div>
+							 </li>
+						</div>
+					</div>
+				</div>
+			
+			
+			<!-- Footer -->
+			<footer>
+			&copy; 2014 <a href="index.html">Lanceng Admin</a>. Design with love by <a href="http://isohdesign.com/" target="_blank">Isoh Design Studio</a> from <a href="#fakelink">Yogyakarta, ID</a>
+			</footer>
+			<!-- End Footer -->
+		
+           </div>
+		<!-- ============================================================== -->
+		<!-- END YOUR CONTENT HERE -->
+		<!-- ============================================================== -->
+	<jsp:include page="${views}foot.jsp"></jsp:include>
+	<!-- END PAGE -->
 	<!--
 	================================================
 	JAVASCRIPT
@@ -173,9 +155,9 @@
 	<script src="${resources}assets/third/wizard/scripts.js"></script>
 	
 	<!-- LANCENG TEMPLATE JAVASCRIPT -->
+	<script src="${resources}assets/js/candidate/candidate.js"></script>
 	<script src="${resources}assets/js/lanceng.js"></script>
-
 	</body>
 
-<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:44 GMT -->
+<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:44:24 GMT -->
 </html>

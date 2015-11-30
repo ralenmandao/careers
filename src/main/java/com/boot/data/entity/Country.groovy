@@ -12,5 +12,4 @@ public class Country{
 	@JsonProperty
 	String id
 	String name
-	List<State> states
 }

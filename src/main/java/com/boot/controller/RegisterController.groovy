@@ -48,10 +48,14 @@ public class RegisterController {
 			return "register";
 		}
 		
+		println candidateRegistration.user
+		
 		candidateRegistration.user.username = candidateRegistration.user.email
+		candidateRegistration.user.role = "ROLE_CANDIDATE"
+		candidateRegistration.user.enabled = true
 		// Add candidate if there is no errors
 		candidateRepo.save(candidateRegistration);
 		// Add candidate to the Session
-		return "redirect:/login/?success";
+		return "redirect:/login?success";
 	}
 }

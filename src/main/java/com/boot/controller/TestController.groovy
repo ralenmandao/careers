@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody
 import com.boot.data.entity.Candidate
 import com.boot.data.entity.Country
 import com.boot.data.entity.FieldOfStudy
+import com.boot.data.entity.Job
+import com.boot.data.entity.Location
 import com.boot.data.entity.Qualification
 import com.boot.data.entity.Skill
 import com.boot.data.entity.Specialization
@@ -21,29 +23,22 @@ import com.boot.data.repository.GSpecializationRepository
 import com.boot.data.repository.GUserRepository
 import com.boot.data.repository.SkillRepository
 import com.boot.data.repository.imp.CustomerRepository
+import com.boot.data.repository.imp.GJobRepository
 
 @Controller
 @RequestMapping("/test")
 public class TestController {
 	
-	@Autowired
-	CustomerRepository repo
-	@Autowired
-	GUserRepository gUserRepo
-	@Autowired
-	GCandidateRepository gCandidateRepository
-	@Autowired
-	GCountryRepository gCountryRepo
-	@Autowired
-	GStateRepository gStateRepo
-	@Autowired
-	GQualificationRepository gQualificationRepo
-	@Autowired
-	GFieldOfStudyRepository gFStudyRepo
-	@Autowired
-	GSpecializationRepository gSpecializationRepo
-	@Autowired
-	SkillRepository skillRepo
+	@Autowired CustomerRepository repo
+	@Autowired GUserRepository gUserRepo
+	@Autowired GCandidateRepository gCandidateRepository
+	@Autowired GCountryRepository gCountryRepo
+	@Autowired GStateRepository gStateRepo
+	@Autowired GQualificationRepository gQualificationRepo
+	@Autowired GFieldOfStudyRepository gFStudyRepo
+	@Autowired GSpecializationRepository gSpecializationRepo
+	@Autowired SkillRepository skillRepo
+	@Autowired GJobRepository jobRepo;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	@ResponseBody
@@ -56,6 +51,7 @@ public class TestController {
 		loadBasicCountry()
 		loadBasicSpecialization()
 		loadBasicSkill()
+		loadBasicJobs()
 		return sb.toString();
 	}
 	
@@ -88,9 +84,6 @@ public class TestController {
 		def state2 = new State(name: 'UsaPampanga', countryId:countr2.id)
 		gStateRepo.save(state1)
 		gStateRepo.save(state2)
-		
-		countr1.states = [state3, state4]
-		countr2.states = [state1, state2]
 		
 		gCountryRepo.save(countr1)
 		gCountryRepo.save(countr2)
@@ -128,5 +121,16 @@ public class TestController {
 		Skill skill2 = new Skill(name: 'Java')
 		skillRepo.save(skill)
 		skillRepo.save(skill2)
+	}
+	
+	public loadBasicJobs(){
+		jobRepo.deleteAll()
+		Country country1 = gCountryRepo.findByName("USA")
+		State state1 = gStateRepo.findByCountryId(country1.id)[0]
+		Skill skill1 = skillRepo.findByName("Java")
+		Location locations = new Location(country: country1, state: state1)		
+		Job job1 = new Job(title: 'Software Engineer', location: locations,
+			description: 'Fuck this', skills: [skill1], posted: new Date())
+		jobRepo.insert(job1)
 	}
 }

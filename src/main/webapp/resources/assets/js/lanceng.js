@@ -1,4 +1,4 @@
-var contextPath = "http://localhost:8080";
+var contextPath = "http://192.168.8.12:8080";
 
 function get(path, fSuccess, fError){
 	$.ajax({

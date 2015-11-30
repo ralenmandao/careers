@@ -1,8 +1,8 @@
 package com.boot.controller;
 
-import java.sql.Date
-
 import javax.servlet.http.HttpSession
+
+import java.sql.Date
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -29,20 +29,13 @@ public class CandidateController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(CandidateController.class);
 	
-	@Autowired
-	GCandidateRepository candidateRepo
-	@Autowired
-	GCountryRepository countryRepo
-	@Autowired
-	GStateRepository stateRepo
-	@Autowired
-	GQualificationRepository qualificationRepo
-	@Autowired
-	GFieldOfStudyRepository fdRepo
-	@Autowired
-	GSpecializationRepository specializationRepo
-	@Autowired
-	SkillRepository skillRepo
+	@Autowired GCandidateRepository candidateRepo
+	@Autowired GCountryRepository countryRepo
+	@Autowired GStateRepository stateRepo
+	@Autowired GQualificationRepository qualificationRepo
+	@Autowired GFieldOfStudyRepository fdRepo
+	@Autowired GSpecializationRepository specializationRepo
+	@Autowired SkillRepository skillRepo
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String candidate(Model model, HttpSession session) throws NoPrincipalUserFound{
@@ -83,13 +76,14 @@ public class CandidateController {
 		contact = contact.replace(",", "");
 		
 		Candidate candidate = getPrincipalCandidate();
-		if(birthdate != null) candidate.setBirthdate(Date.valueOf(birthdate))
+		System.out.println(birthdate)
+		if(birthdate) candidate.setBirthdate(Date.valueOf(birthdate))
 		candidate.setContactNo(contact);
 		candidate.setFirstName(firstName);
 		candidate.setLastName(lastName);
 		Location loc = new Location();
-		if(country != null) loc.country = countryRepo.findOne(country)
-		if(state != null) loc.state = stateRepo.findOne(state)
+		if(country) loc.country = countryRepo.findOne(country)
+		if(state) loc.state = stateRepo.findOne(state)
 		candidate.setLocation(loc);
 		candidateRepo.save(candidate);
 		return "redirect:/candidate/edit";
@@ -106,26 +100,26 @@ public class CandidateController {
 		HttpSession session){
 		Candidate candidate = getPrincipalCandidate();
 		
-		if(skills != null){
+		if(skills){
 			candidate.skills = []
 			skills.split(',').each{
 				candidate.skills.add(skillRepo.findOne(it))
 			}
 		}
 		
-		if(specialization != null){
+		if(specialization){
 			def sp = specializationRepo.findOne(specialization)
 			candidate.specialization = sp
 		}
-		if(fieldOfStudy != null){
+		if(fieldOfStudy){
 			def fd = fdRepo.findOne(fieldOfStudy)
 			candidate.fieldOfStudy = fd
 		}
-		if(qualification != null){
+		if(qualification){
 			def ql = qualificationRepo.findOne(qualification)
 			candidate.qualification = ql
 		}
-		if(salary != null){
+		if(salary){
 			if(salary.isNumber()){
 				candidate.expectedSalary = Integer.parseInt(salary)
 			}

@@ -1,8 +1,8 @@
 package com.boot.data.entity
 
-import javax.persistence.Id
+import groovy.transform.ToString
 
-import groovy.transform.ToString;
+import javax.persistence.Id
 
 @ToString
 class Customer {
