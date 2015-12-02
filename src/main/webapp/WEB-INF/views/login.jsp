@@ -73,6 +73,13 @@
 							  Logout successful
 							</div>
 						</c:if>
+						<c:if test="${param.success != null}">
+							<div class="alert alert-success" role="alert">
+							  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							  <span class="sr-only">Error:</span>
+							  Registration Successful
+							</div>
+						</c:if>
 						<c:if test="${param.error != null}">
 							<div class="alert alert-danger" role="alert">
 							  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>

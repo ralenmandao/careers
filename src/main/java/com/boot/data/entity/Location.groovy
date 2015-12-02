@@ -1,15 +1,10 @@
 package com.boot.data.entity;
 
-import javax.persistence.Id
+import groovy.transform.ToString
 
-import org.springframework.data.mongodb.core.mapping.DBRef
-
-
-public class Location {
-	@Id
-	String id;
-	@DBRef
+@ToString
+public class Location implements EntityObject{
+	Long locationId;
  	Country country;
-	 @DBRef
 	State state;
 }

@@ -8,9 +8,9 @@ import com.boot.data.entity.EntityObject;
 
 public interface BaseService<T extends EntityObject, ID extends Serializable> {
 	public void add(T t);
-	public T get(ID id);
+	public T get(ID pk);
 	public void addAll(List<T> lst);
-	public void remove(ID id);
+	public void remove(ID pk);
 	public List<T> getAll();
 	public void update(T t);
 }

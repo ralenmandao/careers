@@ -51,6 +51,7 @@
 					<div id="sidebar-menu">
 						<ul>
 							<li style="background:#65BD77;" id = "resume"><a href="${root}candidate/addResume" style="color:white;"><i class="fa fa-list-alt"></i> Resume</a></li>
+							<!--
 							<li><a href="#fakelink"><i class="fa fa-leaf"></i> Frontend <span class="label label-danger new-circle">COMING SOON</span></a></li>
 							<li><a href="#fakelink"><i class="fa fa-bug"></i><i class="fa fa-angle-double-down i-right"></i> Elements</a>
 								<ul>
@@ -107,6 +108,7 @@
 								</ul>
 							</li>
 						</ul>
+						-->
 						<div class="clear"></div>
 					</div><!-- End div #sidebar-menu -->
 				</div><!-- End div .sidebar-inner .slimscroller -->

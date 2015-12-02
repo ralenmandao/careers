@@ -90,7 +90,7 @@
 						</div>
 						<div class="form-group login-input">
 							<i class="fa fa-envelope overlay"></i>
-							<form:input path="user.username" type="email" class="form-control text-input" placeholder="Your email" />
+							<form:input path="user.email" type="email" class="form-control text-input" placeholder="Your email" />
 						</div>
 						<div class="form-group login-input">
 							<i class="fa fa-key overlay"></i>

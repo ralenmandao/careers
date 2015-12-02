@@ -1,9 +1,9 @@
 package com.boot.data.entity
 
-import org.springframework.data.annotation.Id
+import groovy.transform.ToString
 
-class Qualification {
-	@Id
-	String id
-	String name
+@ToString
+class Qualification implements EntityObject{
+	Long qualificationId
+	String qualification
 }

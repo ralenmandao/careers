@@ -1,9 +1,9 @@
 package com.boot.data.entity
-import org.springframework.data.annotation.Id
 
+import groovy.transform.ToString
 
-class FieldOfStudy {
-	@Id
-	String id
-	String name
+@ToString()
+class FieldOfStudy implements EntityObject{
+	String fieldId
+	String field
 }

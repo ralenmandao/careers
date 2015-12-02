@@ -1,6 +1,6 @@
 package com.boot.controller;
 
-import java.sql.Date
+import java.text.SimpleDateFormat
 
 import javax.servlet.http.HttpSession
 
@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam
 
 import com.boot.data.entity.Candidate
 import com.boot.data.entity.Location
-import com.boot.data.repository.GCandidateRepository
-import com.boot.data.repository.GFieldOfStudyRepository
-import com.boot.data.repository.GQualificationRepository
-import com.boot.data.repository.GSpecializationRepository
-import com.boot.data.repository.SkillRepository
+import com.boot.data.service.CandidateService
+import com.boot.data.service.CountryService
+import com.boot.data.service.FieldService
+import com.boot.data.service.LocationService
+import com.boot.data.service.QualificationService
+import com.boot.data.service.SkillService
+import com.boot.data.service.SpecializationService
+import com.boot.data.service.StateService
 import com.boot.exception.NoPrincipalUserFound
 import com.boot.helper.AuthenticationUtil
 
@@ -29,41 +32,29 @@ public class CandidateController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(CandidateController.class);
 	
-	@Autowired
-	GCandidateRepository candidateRepo
-	@Autowired
-	GCountryRepository countryRepo
-	@Autowired
-	GStateRepository stateRepo
-	@Autowired
-	GQualificationRepository qualificationRepo
-	@Autowired
-	GFieldOfStudyRepository fdRepo
-	@Autowired
-	GSpecializationRepository specializationRepo
-	@Autowired
-	SkillRepository skillRepo
+	@Autowired QualificationService qualificationService
+	@Autowired FieldService fieldService
+	@Autowired SpecializationService SpecializationService
+	@Autowired SkillService skillService
+	@Autowired CandidateService candidateService
+	@Autowired CountryService countryService
+	@Autowired StateService stateService
+	@Autowired LocationService locationService
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String candidate(Model model, HttpSession session) throws NoPrincipalUserFound{
         Candidate candidate = getPrincipalCandidate();
-        // TODO get the candidate by email
-        //session.setAttribute("candidate", candidateService.getByUsername(principalUser));
-		// Add the principal to the session to retrieve data from db
-        logger.info("Principal : " + candidate);
         session.setAttribute("principal", candidate);
-        logger.info("Going to candidate.jsp");
 		return "candidate";
 	}
 	
 	@RequestMapping(value="edit", method=RequestMethod.GET)
 	public String editCandidate(Model model, HttpSession session) throws NoPrincipalUserFound{
-		logger.info(countryRepo.findAll().toString())
-		model.addAttribute("qualifications", qualificationRepo.findAll())
-		model.addAttribute("fieldOfStudies", fdRepo.findAll())
-		model.addAttribute("specializations", specializationRepo.findAll())
-		model.addAttribute("skills", skillRepo.findAll())
-		// Default reload the principal and attach it to session
+		model.addAttribute("qualifications", qualificationService.getAll())
+		model.addAttribute("fieldOfStudies", fieldService.getAll())
+		model.addAttribute("specializations", SpecializationService.getAll())
+		model.addAttribute("skills", skillService.getAll())
+		model.addAttribute("countries", countryService.getAll())
 		session.setAttribute("principal", getPrincipalCandidate());
 		return "candidate/edit-candidate";
 	}
@@ -74,89 +65,108 @@ public class CandidateController {
 			@RequestParam(name="firstName", required=false) String firstName,
 			@RequestParam(name="lastName", required=false) String lastName,
 			@RequestParam(name="birthdate", required=false) String birthdate,
-			@RequestParam(name="country", required=false) String country,
-			@RequestParam(name="state", required=false) String state,
+			@RequestParam(name="state", required=false) Long state,
 			@RequestParam(name="contact", required=false) String contact) throws NoPrincipalUserFound{
 		
-		// TODO BUG
-		// Website adds a comma(,)
+//		// TODO BUG
+//		// Website adds a comma(,)
 		contact = contact.replace(",", "");
 		
 		Candidate candidate = getPrincipalCandidate();
-		if(birthdate != null) candidate.setBirthdate(Date.valueOf(birthdate))
+		if(birthdate) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			candidate.setBirthdate(sdf.parse(birthdate))
+		}
 		candidate.setContactNo(contact);
 		candidate.setFirstName(firstName);
 		candidate.setLastName(lastName);
-		Location loc = new Location();
-		if(country != null) loc.country = countryRepo.findOne(country)
-		if(state != null) loc.state = stateRepo.findOne(state)
-		candidate.setLocation(loc);
-		candidateRepo.save(candidate);
-		return "redirect:/candidate/edit";
-	}
-			
-	@RequestMapping(value="saveProfessionalInformation", method=RequestMethod.POST)
-	public String saveProfessionalInformation(Model model,
-		@RequestParam(name="qualification", required=false) String qualification,
-		@RequestParam(name="fieldOfStudy", required=false) String fieldOfStudy,
-		@RequestParam(name="specialization", required=false) String specialization,
-		@RequestParam(name="salary", required=false) String salary,
-		@RequestParam(name="title", required=false) String title,
-		@RequestParam(name="skills", required=false) String skills,
-		HttpSession session){
-		Candidate candidate = getPrincipalCandidate();
-		
-		if(skills != null){
-			candidate.skills = []
-			skills.split(',').each{
-				candidate.skills.add(skillRepo.findOne(it))
+		if(state){
+			def dstate = stateService.get(state)
+			def dcountry = countryService.get(dstate.countryId)
+			logger.info "Adding or Updateing state ${dstate}"
+			logger.info  "Adding or Updating country ${dcountry}"
+			logger.info "Current candidate.location is ${candidate.location == null}"
+			if(candidate.location.locationId){
+				logger.info "Updating location ${candidate.location}"
+				candidate.location.state = dstate
+				candidate.location.country = dcountry
+				locationService.update(candidate.location)
+			}else{
+				Location location = new Location()
+				location.state = dstate
+				location.country = dcountry
+				locationService.add(location)
+				candidate.location = location
+				logger.info "Location added ${location}"
 			}
 		}
-		
-		if(specialization != null){
-			def sp = specializationRepo.findOne(specialization)
-			candidate.specialization = sp
-		}
-		if(fieldOfStudy != null){
-			def fd = fdRepo.findOne(fieldOfStudy)
-			candidate.fieldOfStudy = fd
-		}
-		if(qualification != null){
-			def ql = qualificationRepo.findOne(qualification)
-			candidate.qualification = ql
-		}
-		if(salary != null){
-			if(salary.isNumber()){
-				candidate.expectedSalary = Integer.parseInt(salary)
-			}
-		}
-		candidate.title = title
-		candidateRepo.save(candidate)
+		logger.info "Updating candidate ${candidate}"
+		candidateService.update(candidate);
 		return "redirect:/candidate/edit";
 	}
-		
-	@RequestMapping(value="addResume", method=RequestMethod.GET)
-	public String addResume(){
-		return "resume/resume1-output"
-	}	
-	
-	@RequestMapping(value="resume", method=RequestMethod.GET)
-	public String resume(Model model){
-		Candidate candidate = getPrincipalCandidate()
-		model.addAttribute("params", candidate.resumeParams)
-		return "resume/resume1-output"
-	}
-	
-	@RequestMapping(value="editResune", method=RequestMethod.GET)
-	public String editResume(Model model){
-		Candidate candidate = getPrincipalCandidate()
-		
-		return "resume/resume1-output"
-	}
-	
+//			
+//	@RequestMapping(value="saveProfessionalInformation", method=RequestMethod.POST)
+//	public String saveProfessionalInformation(Model model,
+//		@RequestParam(name="qualification", required=false) String qualification,
+//		@RequestParam(name="fieldOfStudy", required=false) String fieldOfStudy,
+//		@RequestParam(name="specialization", required=false) String specialization,
+//		@RequestParam(name="salary", required=false) String salary,
+//		@RequestParam(name="title", required=false) String title,
+//		@RequestParam(name="skills", required=false) String skills,
+//		HttpSession session){
+//		Candidate candidate = getPrincipalCandidate();
+//		
+//		if(skills != null){
+//			candidate.skills = []
+//			skills.split(',').each{
+//				candidate.skills.add(skillRepo.findOne(it))
+//			}
+//		}
+//		
+//		if(specialization != null){
+//			def sp = specializationRepo.findOne(specialization)
+//			candidate.specialization = sp
+//		}
+//		if(fieldOfStudy != null){
+//			def fd = fdRepo.findOne(fieldOfStudy)
+//			candidate.fieldOfStudy = fd
+//		}
+//		if(qualification != null){
+//			def ql = qualificationRepo.findOne(qualification)
+//			candidate.qualification = ql
+//		}
+//		if(salary != null){
+//			if(salary.isNumber()){
+//				candidate.expectedSalary = Integer.parseInt(salary)
+//			}
+//		}
+//		candidate.title = title
+//		candidateRepo.save(candidate)
+//		return "redirect:/candidate/edit";
+//	}
+//		
+//	@RequestMapping(value="addResume", method=RequestMethod.GET)
+//	public String addResume(){
+//		return "resume/resume1-output"
+//	}	
+//	
+//	@RequestMapping(value="resume", method=RequestMethod.GET)
+//	public String resume(Model model){
+//		Candidate candidate = getPrincipalCandidate()
+//		model.addAttribute("params", candidate.resumeParams)
+//		return "resume/resume1-output"
+//	}
+//	
+//	@RequestMapping(value="editResune", method=RequestMethod.GET)
+//	public String editResume(Model model){
+//		Candidate candidate = getPrincipalCandidate()
+//		
+//		return "resume/resume1-output"
+//	}
+//	
 	private Candidate getPrincipalCandidate(){
 		String principalUser = AuthenticationUtil.getPrincipal();
-		Candidate candidate = candidateRepo.findByUserUsername(principalUser);
+		Candidate candidate = candidateService.findByUserUsername(principalUser);
 		return candidate
 	}
 }

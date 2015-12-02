@@ -7,7 +7,7 @@ import javax.persistence.Id
 @ToString()
 public class User implements EntityObject {
 	@Id 
-	String id;
+	Long userId;
 	String username;
 	String password;
 	String role;

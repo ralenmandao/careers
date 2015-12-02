@@ -5,36 +5,6 @@ $(document).ready(function(){
 	var selCountry = $('#selCountry');
 	var selState = $('#selState');
 	
-	var countries = null;
-	var states = new Array();
-	get("/countries/", function(data){
-		countries = data._embedded.countries;
-		$.each(countries, function(key,value){
-			$(selCountry).append('<option value=' + value.id + '>' + value.name + '</option>')
-		});
-		var index = countries.indexOf($(selCountry).attr("data-id"));
-		$(selCountry).val($(selCountry).attr("data-id")).change();
-		index = states.indexOf($(selState).attr("data-id"));
-		$(selState).val($(selState).attr("data-id")).change();
-	},null);
-
-	$(selCountry).on('change', function(){
-		console.log('select country was changed!')
-		var selecteValue = $(selCountry).val();
-		console.log('selected value is ' + selecteValue);
-		states = new Array()
-		$.each(countries, function(key, val){
-			if(val.id == selecteValue){
-				$(selState).html("");
-				$.each(val.states, function(k,v){
-					states.push(v);
-					$(selState).append('<option value=' + v.id + '>' + v.name + '</option>')
-				})
-			}
-		});
-	});
-	
-	
 	var selQualification = $('#ecQualification');
 	$(selQualification).val($(selQualification).attr("data-id")).change();
 	
@@ -44,11 +14,7 @@ $(document).ready(function(){
 	var selSpecialization = $('#ecSpecialization');
 	$(selSpecialization).val($(selSpecialization).attr("data-id")).change(); 
 	
-	get("/candidates/?findByUserUsername=" + principal, function(data){
-		var skills = data._embedded.candidates[0].skills
-		$.each(skills, function(key, val){
-			$('.chosen-select option[value="'+val.id+'"]').attr("selected", "selected")
-		})
-		$('.chosen-select').trigger("chosen:updated")
-	}, null)
+	var selLocation = $('#ecLocation');
+	$(selLocation).val($(selLocation).attr("data-id")).change(); 
+	//$(selLocation).chosen();
 });

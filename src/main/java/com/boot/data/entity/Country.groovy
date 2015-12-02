@@ -7,10 +7,8 @@ import javax.persistence.Id
 import com.fasterxml.jackson.annotation.JsonProperty
 
 @ToString
-public class Country{
-	@Id
-	@JsonProperty
-	String id
-	String name
+public class Country implements EntityObject{
+	Long countryId
+	String country
 	List<State> states
 }

@@ -1,3 +1,4 @@
+<%@page import="com.boot.data.entity.State"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -91,33 +92,22 @@
 						<div class="form-group">
 							<label for="input-text" class="col-sm-2 control-label">Location</label>
 							<div class="col-sm-10">
-								<div class="row">
-									<div class="col-md-6">
-										<!-- Countries -->
-										<!-- 
-										<c:if test="${not empty countries}">
-											<select class="form-control" id ="registerCountrySelect">
-												<c:forEach items="${countries}" var="country">
-													<option value="${country.id}">
-														<c:out value="${country.name}" />
-													</option>
-												</c:forEach>
-											</select>
-											<p class="help-block">Country</p>
-										</c:if>
-										-->
-										<select class="form-control" id ="selCountry" name="country" data-id="${principal.location.country.id}">
-										</select>
-										<p class="help-block">Country</p>
-									</div>
-									<div class="col-md-6">
-										<select class="form-control sStates" id="selState" name="state" data-id="${principal.location.state.id}">
-										</select>
-										<p class="help-block">State</p>
-									</div>
-								</div>
+								<select data-placeholder="State" class="chosen-select form-control" id="ecLocation" data-id="${principal.location.state.stateId}" tabindex="6" name="state">
+						            <option value=""></option>
+						            <c:forEach items="${countries}" var="country">
+										<optgroup label="${country.country}">
+											<c:forEach items="${country.states}" var="state">
+												<option value="${state.stateId}">
+													${state.state}
+												</option>
+											</c:forEach>
+										</optgroup>
+									</c:forEach>
+		
+						          </select>
 							</div>
 						</div>
+
 						<div class="form-group">
 							<label for="input-text" class="col-sm-2 control-label">Contact Number</label>
 							<div class="col-sm-10">
@@ -150,10 +140,10 @@
 						<div class="form-group">
 							<label for="input-text" class="col-sm-3 control-label">Highest Qualification</label>
 							<div class="col-sm-9">
-								<select class="form-control" id="ecQualification" name="qualification" data-id="${principal.qualification.id}">
+								<select class="form-control" id="ecQualification" name="qualification" data-id="${principal.qualification.qualificationId}">
 									<option value=""></option>
 									<c:forEach items="${qualifications}" var="qualification">
-										<option value="${qualification.id}">${qualification.name}</option>
+										<option value="${qualification.qualificationId}">${qualification.qualification}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -161,10 +151,10 @@
 						<div class="form-group">
 							<label for="input-text" class="col-sm-3 control-label">Field of Study</label>
 							<div class="col-sm-9">
-								<select class="form-control" id="ecFieldOfStudy" name="fieldOfStudy" data-id="${principal.fieldOfStudy.id}">
+								<select class="form-control" id="ecFieldOfStudy" name="fieldOfStudy" data-id="${principal.field.fieldId}">
 								<option value=""></option>
 									<c:forEach items="${fieldOfStudies}" var="fieldOfStudy">
-										<option value="${fieldOfStudy.id}">${fieldOfStudy.name}</option>
+										<option value="${fieldOfStudy.fieldId}">${fieldOfStudy.field}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -172,10 +162,10 @@
 						<div class="form-group">
 							<label for="input-text" class="col-sm-3 control-label">Specializations</label>
 							<div class="col-sm-9">
-								<select class="form-control" id="ecSpecialization" name="specialization" data-id="${principal.specialization.id}">
+								<select class="form-control" id="ecSpecialization" name="specialization" data-id="${principal.specialization.specializationId}">
 									<option value=""></option>
 									<c:forEach items="${specializations}" var="specialization">
-										<option value="${specialization.id}">${specialization.name}</option>
+										<option value="${specialization.specializationId}">${specialization.specialization}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -216,7 +206,7 @@
 						        <select data-placeholder="Choose skills..." class="chosen-select form-control" multiple tabindex="5" name="skills">
 						        	<option value=""></option>
 									<c:forEach items="${skills}" var="skill">
-										<option value="${skill.id}">${skill.name}</option>
+										<option value="${skill.skillId}">${skill.skill}</option>
 									</c:forEach>
 								</select>
 							</div>

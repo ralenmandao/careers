@@ -51,18 +51,107 @@
 	</head>
 	
 	
-	
 	<!-- BODY -->
 	<body class="tooltips">	
 		<jsp:include page="${views}head.jsp"></jsp:include>
-			<!-- ============================================================== -->
-			<!-- START YOUR CONTENT HERE -->
-			<!-- ============================================================== -->
-            <div class="body content rows scroll-y" id="body-container">
+		<!-- ============================================================== -->
+		<!-- START YOUR CONTENT HERE -->
+		<!-- ============================================================== -->
+           <div class="scroll-y" id="body-container">
+			
+			<div class="body content rows scroll-y">
 				
+				<!-- Page header -->
+				<div class="page-heading animated fadeInDownBig">
+					<h1>AVAILABLE JOBS</h1>
+				</div>
+				<!-- End page header -->
+
+				<div class="box-info full">
+					<div class="box-info" style="padding-top:3%;">
+							<form class="form-inline" role="form">
+							  <div class="form-group">
+								<input type="email" class="form-control" id="exampleInputEmail2" placeholder="I'm looking for.." style="width:315px;">
+							  </div>
+							  <div class="form-group">
+							  <div class="checkbox">
+								<label class=""> in
+								</label>
+							  </div>
+							  <div class="form-group">
+								<input type="email" class="form-control" id="exampleInputEmail2" placeholder="Location" style="width:315px;">
+							  </div> 
+							  <select class="form-control" style="width:320px;">
+									<option>Select Category</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
+								</select>
+							  <a class="btn btn-primary md-trigger" data-modal="form-modal">Search</a>
+							 </div>
+						</form>
+					</div>
+					<hr>
+				 <div class="box-info full">
+					<div class="box-info"> 
+						<li class="media">
+							<a class="pull-left" href="#fakelink">
+								<img class="media-object" src="assets/img/avatar/3.jpg" alt="Avatar">
+							</a>
+							<div class="media-body">
+								 <h4 class="media-heading"><a href="#fakelink">Senior Developer</a><br> <small>Clark,Freeport Zone</small>
+								 <a href="#" class="btn btn-gray fa fa-plus toggle"></a>
+								 <a href="#" class="btn btn-gray fa fa-star"></a>
+								 <a href="#" class="btn btn-gray fa fa-link"></a>
+								 </h4>
+									 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, maxime, excepturi, mollitia, voluptatibus similique aliquid a dolores autem laudantium sapiente ad enim ipsa modi laborum accusantium deleniti neque architecto vitae.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, maxime, excepturi, mollitia, voluptatibus similique aliquid a dolores autem laudantium sapiente ad enim ipsa modi laborum accusantium deleniti neque architecto vitae.
+									 <a href="#"> Read More</a></p>
+							</div>
+						</li>
+					</div>
+				 </div>
+				 
+				 <div class="box-info full">
+					<div class="box-info"> 
+						<li class="media">
+							<a class="pull-left" href="#fakelink">
+								<img class="media-object" src="assets/img/avatar/1.jpg" alt="Avatar">
+							</a>
+							<div class="media-body">
+								 <h4 class="media-heading"><a href="#fakelink">Front-End Developer</a><br> <small>Clark,Freeport Zone</small>
+								 <a href="#" class="btn btn-gray fa fa-plus toggle"></a>
+								 <a href="#" class="btn btn-gray fa fa-star"></a>
+								 <a href="#" class="btn btn-gray fa fa-link"></a>
+								 </h4>
+									 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, maxime, excepturi, mollitia, voluptatibus similique aliquid a dolores autem laudantium sapiente ad enim ipsa modi laborum accusantium deleniti neque architecto vitae.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, maxime, excepturi, mollitia, voluptatibus similique aliquid a dolores autem laudantium sapiente ad enim ipsa modi laborum accusantium deleniti neque architecto vitae.
+									 <a href="#"> Read More</a></p>
+							</div>
+						</li>
+					</div>
+					<div class="box-info"> 
+						<li class="media">
+							<a class="pull-left" href="#fakelink">
+								<img class="media-object" src="assets/img/avatar/2.jpg" alt="Avatar">
+							</a>
+							<div class="media-body">
+								 <h4 class="media-heading"><a href="#fakelink">Front-End Developer</a><br> <small>Clark,Freeport Zone</small>
+								 <a href="#" class="btn btn-gray fa fa-plus toggle"></a>
+								 <a href="#" class="btn btn-gray fa fa-star"></a>
+								 <a href="#" class="btn btn-gray fa fa-link"></a>
+								 </h4>
+									 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, maxime, excepturi, mollitia, voluptatibus similique aliquid a dolores autem laudantium sapiente ad enim ipsa modi laborum accusantium deleniti neque architecto vitae.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, maxime, excepturi, mollitia, voluptatibus similique aliquid a dolores autem laudantium sapiente ad enim ipsa modi laborum accusantium deleniti neque architecto vitae.
+									 <a href="#"> Read More</a></p>
+							</div>
+						</li>
+					</div>
+				 
+				 </div>
+				 
+				</div>
 				<!-- Footer -->
 				<footer>
-				&copy; 2014 <a href="index.html">Lanceng Admin</a>. Design with love by <a href="http://isohdesign.com/" target="_blank">Isoh Design Studio</a> from <a href="#fakelink">Yogyakarta, ID</a>
+				© 2014 <a href="index.html">Lanceng Admin</a>. Design with love by <a href="http://isohdesign.com/" target="_blank">Isoh Design Studio</a> from <a href="#fakelink">Yogyakarta, ID</a>
 				</footer>
 				<!-- End Footer -->
 			
@@ -73,116 +162,8 @@
 			
 			
         </div>
-		<!-- END CONTENT -->
-		
-		
-		
-		
-		
-		<!--
-		============================================================================
-		MODAL DIALOG EXAMPLE
-		You can change transition style, just view element page
-		============================================================================
-		-->
-		<!-- Modal Upload Picture -->
-		<div class="md-modal md-fade-in-scale-up" id="md-fade-in-scale-up">
-			<div class="md-content">
-				<h3>Upload Photo</h3>
-				<div>
-					<spring:url value="/candidate/uploadPicture" var="uploadPicture" />
-					<form method="POST" action="${uploadPicture}" enctype="multipart/form-data">
-					 	Picture : <input class="btn btn-default btn-xs" type="file" name="file" />
-					</form>
-					<br>
-					<p>
-						<button class="btn btn-danger md-close">Close</button>
-						<button class="btn btn-success md-close">Save</button>
-					</p>
-				</div>
-			</div><!-- End div .md-content -->
-		</div>
-		<!-- Modal Logout Primary -->
-		<div class="md-modal md-fall" id="logout-modal">
-			<div class="md-content">
-				<h3><strong>Logout</strong> Confirmation</h3>
-				<div>
-					<p class="text-center">Are you sure want to logout from this awesome system?</p>
-					<p class="text-center">
-					<button class="btn btn-danger md-close">Nope!</button>
-					<a href="#" class="btn btn-success md-close">Yeah, I'm sure</a>
-					</p>
-				</div>
-			</div>
-		</div><!-- End .md-modal -->
-		
-		<!-- Modal Logout Alternatif -->
-		<div class="md-modal md-just-me" id="logout-modal-alt">
-			<div class="md-content">
-				<h3><strong>Logout</strong> Confirmation</h3>
-				<div>
-					<p class="text-center">Are you sure want to logout from this awesome system?</p>
-					<spring:url value="/logout" var="logoutUrl"/>
-					<form:form action="${logoutUrl}" method="post" class="text-center">
-					<button class="btn btn-danger md-close">Nope!</button>
-					<button type="submit" class="btn btn-success md-close">Yeah, I'm sure</button>
-					</form:form>
-				</div>
-			</div>
-		</div><!-- End .md-modal -->
-		
-		<!-- Modal Task Progress -->	
-		<div class="md-modal md-slide-stick-top" id="task-progress">
-			<div class="md-content">
-				<h3><strong>Task Progress</strong> Information</h3>
-				<div>
-					<p>CLEANING BUGS</p>
-					<div class="progress progress-xs for-modal">
-					  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-						<span class="sr-only">80&#37; Complete</span>
-					  </div>
-					</div>
-					<p>POSTING SOME STUFF</p>
-					<div class="progress progress-xs for-modal">
-					  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 65%">
-						<span class="sr-only">65&#37; Complete</span>
-					  </div>
-					</div>
-					<p>BACKUP DATA FROM SERVER</p>
-					<div class="progress progress-xs for-modal">
-					  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 95%">
-						<span class="sr-only">95&#37; Complete</span>
-					  </div>
-					</div>
-					<p>RE-DESIGNING WEB APPLICATION</p>
-					<div class="progress progress-xs for-modal">
-					  <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-						<span class="sr-only">100&#37; Complete</span>
-					  </div>
-					</div>
-					<p class="text-center">
-					<button class="btn btn-danger btn-sm md-close">Close</button>
-					</p>
-				</div>
-			</div>
-		</div><!-- End .md-modal -->
-		<!--
-		============================================================================
-		END MODAL DIALOG EXAMPLE
-		============================================================================
-		-->
-		
-		<!--
-		MODAL OVERLAY
-		Always place this div at the end of the page content
-		-->
-		<div class="md-overlay"></div>
-		
-		
-		
-	</div><!-- End div .container -->
+	<jsp:include page="${views}foot.jsp"></jsp:include>
 	<!-- END PAGE -->
-
 	<!--
 	================================================
 	JAVASCRIPT

@@ -1,27 +1,25 @@
 package com.boot.controller;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
+import org.springframework.validation.Errors
+import org.springframework.web.bind.annotation.ModelAttribute
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
 
 import com.boot.data.entity.Candidate
-import com.boot.data.repository.GCandidateRepository
-import com.boot.data.repository.GUserRepository
+import com.boot.data.service.CandidateService
+import com.boot.data.service.UserService
 
 @Controller
 @RequestMapping("/register")
 public class RegisterController {
 	
-	@Autowired
-	private GUserRepository userRepo;
-	@Autowired
-	private GCandidateRepository candidateRepo;
+	@Autowired UserService userService;
+	@Autowired CandidateService candidateService;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String register(Model model){
@@ -38,7 +36,7 @@ public class RegisterController {
 		
 		// check email availability if and only if email field does not have an error
 		if(errors.getFieldError("user.username") == null){
-			if(userRepo.findByEmail(candidateRegistration.getUser().getUsername())){
+			if(userService.findByEmail(candidateRegistration.getUser().getEmail())){
 				errors.rejectValue("user.username", "", "Email already exist");
 			}
 		}
@@ -48,10 +46,7 @@ public class RegisterController {
 			return "register";
 		}
 		
-		candidateRegistration.user.username = candidateRegistration.user.email
-		// Add candidate if there is no errors
-		candidateRepo.save(candidateRegistration);
-		// Add candidate to the Session
+		candidateService.add(candidateRegistration)
 		return "redirect:/login/?success";
 	}
 }
