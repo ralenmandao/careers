@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component
 
 import com.boot.data.entity.SecUserDetails
 import com.boot.data.entity.User
-import com.boot.data.service.UserService
+import com.boot.data.repository.UserRepo
 
 @Component
 public class SecUserDetailsService implements UserDetailsService {
-
+	
 	@Autowired
-	UserService repo;
+	UserRepo repo;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

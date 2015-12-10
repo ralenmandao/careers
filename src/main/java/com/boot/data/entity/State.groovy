@@ -2,10 +2,13 @@ package com.boot.data.entity;
 
 import groovy.transform.ToString
 
+import org.springframework.data.annotation.Id
+
 
 @ToString()
 public class State implements EntityObject {
-	Long stateId
-	String state
-	Long countryId
+	@Id
+	String id
+	String name
+	String countryId
 }

@@ -1,7 +1,9 @@
 package com.boot.data.repository
 
+import org.springframework.data.mongodb.repository.MongoRepository
+
 import com.boot.data.entity.State
 
-interface StateRepo extends BaseRepository<State, Long>{
-	List<State> getAllByCountryId(Long countryId)
+interface StateRepo extends MongoRepository<State, String>{
+	State findByName(String name)
 }

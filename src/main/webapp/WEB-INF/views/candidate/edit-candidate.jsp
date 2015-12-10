@@ -92,13 +92,15 @@
 						<div class="form-group">
 							<label for="input-text" class="col-sm-2 control-label">Location</label>
 							<div class="col-sm-10">
-								<select data-placeholder="State" class="chosen-select form-control" id="ecLocation" data-id="${principal.location.state.stateId}" tabindex="6" name="state">
+								<select data-placeholder="State" class="chosen-select form-control" id="ecLocation" data-id="${principal.location.state.id}" tabindex="6" name="state">
 						            <option value=""></option>
 						            <c:forEach items="${countries}" var="country">
-										<optgroup label="${country.country}">
+										<optgroup label="${country.name}">
 											<c:forEach items="${country.states}" var="state">
-												<option value="${state.stateId}">
-													${state.state}
+												<option value="${state.id}" <c:if test="${principal.location.state.id eq state.id}">
+													selected
+												</c:if>>
+													${state.name}
 												</option>
 											</c:forEach>
 										</optgroup>
@@ -140,10 +142,10 @@
 						<div class="form-group">
 							<label for="input-text" class="col-sm-3 control-label">Highest Qualification</label>
 							<div class="col-sm-9">
-								<select class="form-control" id="ecQualification" name="qualification" data-id="${principal.qualification.qualificationId}">
+								<select class="form-control" id="ecQualification" name="qualification" data-id="${principal.qualification.id}">
 									<option value=""></option>
 									<c:forEach items="${qualifications}" var="qualification">
-										<option value="${qualification.qualificationId}">${qualification.qualification}</option>
+										<option value="${qualification.id}">${qualification.name}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -151,10 +153,10 @@
 						<div class="form-group">
 							<label for="input-text" class="col-sm-3 control-label">Field of Study</label>
 							<div class="col-sm-9">
-								<select class="form-control" id="ecFieldOfStudy" name="fieldOfStudy" data-id="${principal.field.fieldId}">
+								<select class="form-control" id="ecFieldOfStudy" name="fieldOfStudy" data-id="${principal.field.id}">
 								<option value=""></option>
 									<c:forEach items="${fieldOfStudies}" var="fieldOfStudy">
-										<option value="${fieldOfStudy.fieldId}">${fieldOfStudy.field}</option>
+										<option value="${fieldOfStudy.id}">${fieldOfStudy.name}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -162,10 +164,10 @@
 						<div class="form-group">
 							<label for="input-text" class="col-sm-3 control-label">Specializations</label>
 							<div class="col-sm-9">
-								<select class="form-control" id="ecSpecialization" name="specialization" data-id="${principal.specialization.specializationId}">
+								<select class="form-control" id="ecSpecialization" name="specialization" data-id="${principal.specialization.id}">
 									<option value=""></option>
 									<c:forEach items="${specializations}" var="specialization">
-										<option value="${specialization.specializationId}">${specialization.specialization}</option>
+										<option value="${specialization.id}">${specialization.name}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -197,7 +199,7 @@
 						<div class="form-group">
 							<label for="input-text" class="col-sm-3 control-label">Title</label>
 							<div class="col-sm-9">
-								<input type="text" value="${principal.title}" class="form-control" id="input-text" name="contact" placeholder="">
+								<input type="text" value="${principal.title}" class="form-control" id="input-text" name="title" placeholder="">
 							</div>
 						</div>
 						<div class="form-group">
@@ -206,7 +208,14 @@
 						        <select data-placeholder="Choose skills..." class="chosen-select form-control" multiple tabindex="5" name="skills">
 						        	<option value=""></option>
 									<c:forEach items="${skills}" var="skill">
-										<option value="${skill.skillId}">${skill.skill}</option>
+										<option value="${skill.id}"
+											<c:forEach var="item" items="${principal.skills}">
+											  <c:if test="${item.id eq skill.id}">
+											    selected
+											  </c:if>
+											</c:forEach>
+												>
+										${skill.name}</option>
 									</c:forEach>
 								</select>
 							</div>

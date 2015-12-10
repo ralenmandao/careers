@@ -59,14 +59,58 @@
 		<!-- START YOUR CONTENT HERE -->
 		<!-- ============================================================== -->
            <div class="body content rows scroll-y" id="body-container">
-			
-			
-			<!-- Footer -->
-			<footer>
-			&copy; 2014 <a href="index.html">Lanceng Admin</a>. Design with love by <a href="http://isohdesign.com/" target="_blank">Isoh Design Studio</a> from <a href="#fakelink">Yogyakarta, ID</a>
-			</footer>
-			<!-- End Footer -->
-		
+			<div class="box-info default">
+				<div class="box-info full">
+							<!-- Tab panes -->
+							<div class="tab-content">
+								<h1> ${principal.firstName} ${principal.lastName} </h1> 
+								<h2> ${principal.title} </h2>
+								<!-- Tab about -->
+								<div class="tab-pane active animated fadeInRight" id="about">
+									<div class="user-profile-content">
+										<h5><strong>PROFILE</strong></h5>
+										<p>
+										Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. 
+										</p>
+										<hr>
+										<div class="row">
+											<div class="col-sm-6">
+												<h5><strong>CONTACT</strong></h5>
+													<address>
+														<strong>Phone</strong><br>
+														<abbr title="Phone">${principal.contactNo}</abbr>
+													</address>
+													<address>
+														<strong>Email</strong><br>
+														<a href="mailto:#">${principal.user.email}</a>
+													</address>
+											</div>
+											<div class="col-sm-6">
+												<h5><strong> SKILLS </strong></h5>
+												<c:forEach items="${principal.skills}" var="skill">
+													<p>${skill.name}</p>
+												</c:forEach>
+											</div>
+										</div><!-- End div .row -->
+									</div><!-- End div .user-profile-content -->
+								</div><!-- End div .tab-pane -->
+								<!-- End Tab about -->
+							</div><!-- End div .tab-content -->	
+							<div class="box-info">
+								<h2><strong>EDUCATION</strong></h2>
+								  <dl>
+									<dt>COLLEGE</dt>
+									<dd>Don Honorio Ventura Technological  State University</dd>
+									<dt>June 2012 - March 2016</dt>
+								  </dl>
+							</div>
+			</div>	
+				
+				<!-- Footer -->
+				<footer>
+				&copy; 2014 <a href="index.html">Lanceng Admin</a>. Design with love by <a href="http://isohdesign.com/" target="_blank">Isoh Design Studio</a> from <a href="#fakelink">Yogyakarta, ID</a>
+				</footer>
+				<!-- End Footer -->		
            </div>
 		<!-- ============================================================== -->
 		<!-- END YOUR CONTENT HERE -->

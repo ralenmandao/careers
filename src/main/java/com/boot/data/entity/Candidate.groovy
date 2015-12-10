@@ -2,25 +2,37 @@ package com.boot.data.entity;
 
 import groovy.transform.ToString
 import javax.persistence.Id
+
+import org.springframework.data.mongodb.core.mapping.DBRef;
+
 import com.boot.mongo.config.*;
 
 
 @ToString()
 public class Candidate implements EntityObject{
 	@Id
-	Long candidateId
+	String id
 	String firstName
 	String lastName
 	String contactNo
 	String title
+	@DBRef
 	User user
 	Date birthdate
 	Location location
+	@DBRef
 	Specialization specialization
+	@DBRef
 	Qualification qualification
 	long expectedSalary
+	@DBRef
 	FieldOfStudy field
+	@DBRef
 	List<Skill> skills = []
 	String resumeName
 	def resumeParams = [:]
+	
+	Candidate(){
+		
+	}
 }

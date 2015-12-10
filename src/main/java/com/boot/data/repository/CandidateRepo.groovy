@@ -1,7 +1,13 @@
 package com.boot.data.repository
 
-import com.boot.data.entity.Candidate
+import java.util.List;
 
-interface CandidateRepo extends BaseRepository<Candidate, Long>{
-	public Candidate findByUserId(Long id);
+import org.springframework.data.mongodb.repository.MongoRepository
+
+import com.boot.data.entity.Candidate
+import com.boot.data.entity.User;
+
+interface CandidateRepo extends MongoRepository<Candidate, String>{
+	Candidate findByUserId(String id);
+	List<Candidate> findBySpecialization(String specialization)
 }

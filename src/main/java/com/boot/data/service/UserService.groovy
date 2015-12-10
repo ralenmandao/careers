@@ -1,8 +1,8 @@
 package com.boot.data.service
 
-import com.boot.data.entity.User
+import org.springframework.stereotype.Service
 
-interface UserService extends BaseService<User, Long>{
-	User findByUsername(String username)
-	User findByEmail(String email)
+@Service
+class UserService {
+	
 }

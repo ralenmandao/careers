@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ResumeController {
 	@RequestMapping(method=RequestMethod.GET)
 	public String resumeCreator(){
-		return "resume/resume-creator-1";
+		return "resume/registration";
 	}
 }

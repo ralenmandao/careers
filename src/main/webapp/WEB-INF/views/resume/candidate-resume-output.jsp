@@ -1,15 +1,60 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<!DOCTYPE html>
+<html>
+	
+<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/blank.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:44 GMT -->
+<head>
+	<title>Lanceng - Responsive Admin Template</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="description" content="">
+	<meta name="keywords" content="admin, bootstrap,admin template, bootstrap admin, simple, awesome">
+	<meta name="author" content="">
 
-<spring:url value="/resources/" var="resources" />
-<spring:url value="/" var="root" />
+	<!-- BOOTSTRAP -->
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+	
+	<!-- LANCENG CSS -->
+	<link href="assets/css/style.css" rel="stylesheet">
+	<link href="assets/css/style-responsive.css" rel="stylesheet">
+	
+	<!-- VENDOR -->
+	<link href="assets/css/animate.css" rel="stylesheet">
+	<link href="assets/third/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="assets/third/weather-icon/css/weather-icons.min.css" rel="stylesheet">
+	<link href="assets/third/morris/morris.css" rel="stylesheet">
+	<link href="assets/third/nifty-modal/css/component.css" rel="stylesheet">
+	<link href="assets/third/sortable/sortable-theme-bootstrap.css" rel="stylesheet"> 
+	<link href="assets/third/icheck/skins/minimal/grey.css" rel="stylesheet"> 
+	<link href="assets/third/select/bootstrap-select.min.css" rel="stylesheet"> 
+	<link href="assets/third/summernote/summernote.css" rel="stylesheet">
+	<link href="assets/third/magnific-popup/magnific-popup.css" rel="stylesheet"> 
+	<link href="assets/third/datepicker/css/datepicker.css" rel="stylesheet">
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+	<![endif]-->
+	
+	<!-- FAVICON -->
+	<link rel="shortcut icon" href="assets/img/favicon.ico">
+
+	</head>
+	
+	
+	
+	<!-- BODY -->
+	<body class="tooltips">
+	
+	<!-- BEGIN PAGE -->
 	<div class="container">
 			
 		<!-- Your logo goes here -->
 		<div class="logo-brand header sidebar rows">
 			<div class="logo">
-				<h1><a href="#fakelink"><img src="${resources}assets/img/logo.png" alt="Logo"> CAREERS CCS</a></h1>
+				<h1><a href="#fakelink"><img src="assets/img/logo.png" alt="Logo"> LANCENG ADMIN</a></h1>
 			</div>
 		</div><!-- End div .header .sidebar .rows -->
 	
@@ -24,17 +69,13 @@
 				
 					<!-- User Session -->
 					<div class="media">
-						<!--
-						<a class="pull-left md-trigger" data-modal = "md-fade-in-scale-up">
-							<img class="media-object img-circle" src="${resources}assets/img/avatar/masarie.jpg" alt="Avatar" id="candidate-picture">
+						<a class="pull-left" href="#fakelink">
+							<img class="media-object img-circle" src="assets/img/avatar/masarie.jpg" alt="Avatar">
 						</a>
-						 -->
 						<div class="media-body">
 							Welcome back,
-							<h4 class="media-heading"><strong id="nameContainer">${principal.lastName}, ${principal.firstName}</strong></h4>
-							<!--
-							<a href="#" id="edit">Edit</a>
-							-->
+							<h4 class="media-heading"><strong>Mas Bro</strong></h4>
+							<a href="user-profile.html">Edit</a>
 							<a class="md-trigger" data-modal="logout-modal-alt">Logout</a>
 						</div><!-- End div .media-body -->
 					</div><!-- End div .media -->
@@ -42,10 +83,9 @@
 					
 					<!-- Search form -->
 					<div id="search">
-						<form role="form" action="${root}candidate">
-							<input type="text" class="form-control search" name="search" placeholder="Search here...">
+						<form role="form">
+							<input type="text" class="form-control search" placeholder="Search here...">
 							<i class="fa fa-search"></i>
-							<input type="submit" style="position: absolute; left: -9999px"/>
 						</form>
 					</div><!-- End div #search -->
 					
@@ -53,10 +93,8 @@
 					<!-- Sidebar menu -->				
 					<div id="sidebar-menu">
 						<ul>
-							<li style="background:#65BD77;"><a href="${root}candidate/" style="color:white;"><i class="fa fa-home"></i> Home</a></li>
-							<li><a href="#fakelink" id="edit"><i class="fa fa-users"></i> Account</a></li>
-							<li id = "resume"><a href="${root}candidate/addResume"><i class="fa fa-list-alt"></i> Resume</a></li>
-							<!--
+							<li><a href="index.html"><i class="fa fa-home"></i> Dashboard</a></li>
+							<li><a href="#fakelink"><i class="fa fa-leaf"></i> Frontend <span class="label label-danger new-circle">COMING SOON</span></a></li>
 							<li><a href="#fakelink"><i class="fa fa-bug"></i><i class="fa fa-angle-double-down i-right"></i> Elements</a>
 								<ul>
 									<li><a href="element-primary.html"><i class="fa fa-angle-right"></i> Primary <span class="label label-success new-circle">UPDATED</span></a></li>
@@ -79,8 +117,8 @@
 							<li><a href="tables.html"><i class="fa fa-table"></i> Tables</a></li>
 							<li><a href="gallery.html"><i class="fa fa-picture-o"></i><i class="fa fa-star i-right yellow"></i> Gallery</a></li>
 							<li><a href="morris.html"><i class="fa fa-bar-chart-o"></i> Graph / Chart</a></li>
-							<li><a href="#fakelink"><i class="fa fa-home"></i><i class="fa fa-angle-double-down i-right"></i> Pages <span class="label label-success new-circle animated double shake span-left">13</span></a>
-								<ul>
+							<li class="active"><a href="#fakelink"><i class="fa fa-home"></i><i class="fa fa-angle-double-down i-right"></i> Pages <span class="label label-success new-circle animated double shake span-left">13</span></a>
+								<ul class="visible">
 									<li><a href="login.html"><i class="fa fa-angle-right"></i> Login</a></li>
 									<li><a href="lock-screen.html"><i class="fa fa-angle-right"></i> Lock Screen</a></li>
 									<li><a href="forgot-password.html"><i class="fa fa-angle-right"></i> Forgot Password</a></li>
@@ -93,7 +131,7 @@
 									<li><a href="faq.html"><i class="fa fa-angle-right"></i> FAQ</a></li>
 									<li><a href="search-result.html"><i class="fa fa-angle-right"></i> Search Result <span class="label label-success new-circle">UPDATED</span></a></li>
 									<li><a href="404.html"><i class="fa fa-angle-right"></i> 404</a></li>
-									<li><a href="blank.html"><i class="fa fa-angle-right"></i> Blank</a></li>
+									<li class="active"><a href="blank.html"><i class="fa fa-angle-right"></i> Blank</a></li>
 								</ul>
 							</li>
 							<li><a href="#fakelink"><i class="fa fa-smile-o"></i><i class="fa fa-angle-double-down i-right"></i> Icons</a>
@@ -112,7 +150,6 @@
 								</ul>
 							</li>
 						</ul>
-						-->
 						<div class="clear"></div>
 					</div><!-- End div #sidebar-menu -->
 				</div><!-- End div .sidebar-inner .slimscroller -->
@@ -242,7 +279,7 @@
 										<li class="divider"></li>
 										<li class="unread">
 											<a href="#fakelink">
-											<img src="${resources}assets/img/avatar/2.jpg" class="xs-avatar ava-dropdown" alt="Avatar">
+											<img src="assets/img/avatar/2.jpg" class="xs-avatar ava-dropdown" alt="Avatar">
 											<strong>John Doe</strong><br />
 											<p>Duis autem vel eum iriure dolor in hendrerit ...</p>
 											<p><i>5 minutes ago</i></p>
@@ -250,7 +287,7 @@
 										</li>
 										<li class="unread">
 											<a href="#fakelink">
-											<img src="${resources}assets/img/avatar/1.jpg" class="xs-avatar ava-dropdown" alt="Avatar">
+											<img src="assets/img/avatar/1.jpg" class="xs-avatar ava-dropdown" alt="Avatar">
 											<strong>Annisa Rusmanovski</strong><br />
 											<p>Duis autem vel eum iriure dolor in hendrerit ...</p>
 											<p><i>2 hours ago</i></p>
@@ -258,7 +295,7 @@
 										</li>
 										<li>
 											<a href="#fakelink">
-											<img src="${resources}assets/img/avatar/3.jpg" class="xs-avatar ava-dropdown" alt="Avatar">
+											<img src="assets/img/avatar/3.jpg" class="xs-avatar ava-dropdown" alt="Avatar">
 											<strong>Ari Rusmanto</strong><br />
 											<p>Duis autem vel eum iriure dolor in hendrerit ...</p>
 											<p><i>5 hours ago</i></p>
@@ -293,3 +330,167 @@
 				<!-- END NAVBAR CONTENT-->
             </div>
 			<!-- END CONTENT HEADER -->
+			
+			
+			
+			
+			<!-- ============================================================== -->
+			<!-- START YOUR CONTENT HERE -->
+			<!-- ============================================================== -->
+            <div class="body content rows scroll-y">
+			
+			
+            </div>
+			<!-- ============================================================== -->
+			<!-- END YOUR CONTENT HERE -->
+			<!-- ============================================================== -->
+			
+			
+        </div>
+		<!-- END CONTENT -->
+		
+		
+		
+		
+		
+		<!--
+		============================================================================
+		MODAL DIALOG EXAMPLE
+		You can change transition style, just view element page
+		============================================================================
+		-->
+		<!-- Modal Logout Primary -->
+		<div class="md-modal md-fall" id="logout-modal">
+			<div class="md-content">
+				<h3><strong>Logout</strong> Confirmation</h3>
+				<div>
+					<p class="text-center">Are you sure want to logout from this awesome system?</p>
+					<p class="text-center">
+					<button class="btn btn-danger md-close">Nope!</button>
+					<a href="login.html" class="btn btn-success md-close">Yeah, I'm sure</a>
+					</p>
+				</div>
+			</div>
+		</div><!-- End .md-modal -->
+		
+		<!-- Modal Logout Alternatif -->
+		<div class="md-modal md-just-me" id="logout-modal-alt">
+			<div class="md-content">
+				<h3><strong>Logout</strong> Confirmation</h3>
+				<div>
+					<p class="text-center">Are you sure want to logout from this awesome system?</p>
+					<p class="text-center">
+					<button class="btn btn-danger md-close">Nope!</button>
+					<a href="login.html" class="btn btn-success md-close">Yeah, I'm sure</a>
+					</p>
+				</div>
+			</div>
+		</div><!-- End .md-modal -->
+		
+		<!-- Modal Task Progress -->	
+		<div class="md-modal md-slide-stick-top" id="task-progress">
+			<div class="md-content">
+				<h3><strong>Task Progress</strong> Information</h3>
+				<div>
+					<p>CLEANING BUGS</p>
+					<div class="progress progress-xs for-modal">
+					  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+						<span class="sr-only">80&#37; Complete</span>
+					  </div>
+					</div>
+					<p>POSTING SOME STUFF</p>
+					<div class="progress progress-xs for-modal">
+					  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 65%">
+						<span class="sr-only">65&#37; Complete</span>
+					  </div>
+					</div>
+					<p>BACKUP DATA FROM SERVER</p>
+					<div class="progress progress-xs for-modal">
+					  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 95%">
+						<span class="sr-only">95&#37; Complete</span>
+					  </div>
+					</div>
+					<p>RE-DESIGNING WEB APPLICATION</p>
+					<div class="progress progress-xs for-modal">
+					  <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+						<span class="sr-only">100&#37; Complete</span>
+					  </div>
+					</div>
+					<p class="text-center">
+					<button class="btn btn-danger btn-sm md-close">Close</button>
+					</p>
+				</div>
+			</div>
+		</div><!-- End .md-modal -->
+		<!--
+		============================================================================
+		END MODAL DIALOG EXAMPLE
+		============================================================================
+		-->
+		
+		<!--
+		MODAL OVERLAY
+		Always place this div at the end of the page content
+		-->
+		<div class="md-overlay"></div>
+		
+		
+		
+	</div><!-- End div .container -->
+	<!-- END PAGE -->
+
+	<!--
+	================================================
+	JAVASCRIPT
+	================================================
+	-->
+	<!-- Basic Javascripts (Jquery and bootstrap) -->
+	<script src="assets/js/jquery.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	
+	<!-- VENDOR -->
+	
+	<!-- Slimscroll js -->
+	<script src="assets/third/slimscroll/jquery.slimscroll.min.js"></script>
+	
+	<!-- Morris js -->
+	<script src="../../../../cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+	<script src="assets/third/morris/morris.js"></script>
+	
+	<!-- Nifty modals js -->
+	<script src="assets/third/nifty-modal/js/classie.js"></script>
+	<script src="assets/third/nifty-modal/js/modalEffects.js"></script>
+	
+	<!-- Sortable js -->
+	<script src="assets/third/sortable/sortable.min.js"></script>
+	
+	<!-- Bootstrao selectpicker js -->
+	<script src="assets/third/select/bootstrap-select.min.js"></script>
+	
+	<!-- Summernote js -->
+	<script src="assets/third/summernote/summernote.js"></script>
+	
+	<!-- Magnific popup js -->
+	<script src="assets/third/magnific-popup/jquery.magnific-popup.min.js"></script> 
+	
+	<!-- Bootstrap file input js -->
+	<script src="assets/third/input/bootstrap.file-input.js"></script>
+	
+	<!-- Bootstrao datepicker js -->
+	<script src="assets/third/datepicker/js/bootstrap-datepicker.js"></script>
+	
+	<!-- Icheck js -->
+	<script src="assets/third/icheck/icheck.min.js"></script>
+	
+	<!-- Form wizard js -->
+	<script src="assets/third/wizard/jquery.snippet.min.html"></script>
+	<script src="assets/third/wizard/jquery.easyWizard.js"></script>
+	<script src="assets/third/wizard/scripts.js"></script>
+	
+	<!-- LANCENG TEMPLATE JAVASCRIPT -->
+	<script src="assets/js/lanceng.js"></script>
+
+	</body>
+
+<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/blank.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:44 GMT -->
+</html>

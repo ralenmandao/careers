@@ -61,93 +61,47 @@
 			
 			<div class="body content rows scroll-y">
 				
-				<!-- Page header -->
+				<!-- Page header
 				<div class="page-heading animated fadeInDownBig">
 					<h1>AVAILABLE JOBS</h1>
 				</div>
+				-->
 				<!-- End page header -->
-
-				<div class="box-info full">
-					<div class="box-info" style="padding-top:3%;">
-							<form class="form-inline" role="form">
+				 <div class="box-info full">
+					<div class="box-info centered" style="padding-top:3%;">
+							<spring:url value="/candidate" var="searchForm"/>
+							<form class="form-inline" role="form" action="${searchForm}">
 							  <div class="form-group">
-								<input type="email" class="form-control" id="exampleInputEmail2" placeholder="I'm looking for.." style="width:315px;">
+								<input type="text" class="form-control" id="exampleInputEmail2" name="search" placeholder="I'm looking for.." style="width:315px;" value = "${search}">
 							  </div>
-							  <div class="form-group">
-							  <div class="checkbox">
-								<label class=""> in
-								</label>
-							  </div>
-							  <div class="form-group">
-								<input type="email" class="form-control" id="exampleInputEmail2" placeholder="Location" style="width:315px;">
-							  </div> 
-							  <select class="form-control" style="width:320px;">
-									<option>Select Category</option>
-									<option>2</option>
-									<option>3</option>
-									<option>4</option>
-									<option>5</option>
-								</select>
-							  <a class="btn btn-primary md-trigger" data-modal="form-modal">Search</a>
-							 </div>
+							  <button class="btn btn-primary md-trigger" type="submit" data-modal="form-modal">Search</button>
 						</form>
 					</div>
+					
 					<hr>
-				 <div class="box-info full">
-					<div class="box-info"> 
-						<li class="media">
-							<a class="pull-left" href="#fakelink">
-								<img class="media-object" src="assets/img/avatar/3.jpg" alt="Avatar">
-							</a>
+					<c:choose> 
+					  <c:when test="${not empty jobs}">
+					    <c:forEach items="${jobs}" var="job">
+				 		<div class="box-info"> 
 							<div class="media-body">
-								 <h4 class="media-heading"><a href="#fakelink">Senior Developer</a><br> <small>Clark,Freeport Zone</small>
+								 <h4 class="media-heading"><a href="#fakelink">${job.name}</a><br> <small>${job.location.state.name}, ${job.location.country.name}</small>
 								 <a href="#" class="btn btn-gray fa fa-plus toggle"></a>
 								 <a href="#" class="btn btn-gray fa fa-star"></a>
 								 <a href="#" class="btn btn-gray fa fa-link"></a>
 								 </h4>
-									 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, maxime, excepturi, mollitia, voluptatibus similique aliquid a dolores autem laudantium sapiente ad enim ipsa modi laborum accusantium deleniti neque architecto vitae.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, maxime, excepturi, mollitia, voluptatibus similique aliquid a dolores autem laudantium sapiente ad enim ipsa modi laborum accusantium deleniti neque architecto vitae.
+									 <p>${job.description}
 									 <a href="#"> Read More</a></p>
 							</div>
-						</li>
-					</div>
+						</div>
+				 		</c:forEach>
+					  </c:when>
+					  <c:otherwise>
+					  	<h1>No jobs found!</h1>
+					  </c:otherwise>
+					</c:choose>
+				 	
 				 </div>
-				 
-				 <div class="box-info full">
-					<div class="box-info"> 
-						<li class="media">
-							<a class="pull-left" href="#fakelink">
-								<img class="media-object" src="assets/img/avatar/1.jpg" alt="Avatar">
-							</a>
-							<div class="media-body">
-								 <h4 class="media-heading"><a href="#fakelink">Front-End Developer</a><br> <small>Clark,Freeport Zone</small>
-								 <a href="#" class="btn btn-gray fa fa-plus toggle"></a>
-								 <a href="#" class="btn btn-gray fa fa-star"></a>
-								 <a href="#" class="btn btn-gray fa fa-link"></a>
-								 </h4>
-									 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, maxime, excepturi, mollitia, voluptatibus similique aliquid a dolores autem laudantium sapiente ad enim ipsa modi laborum accusantium deleniti neque architecto vitae.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, maxime, excepturi, mollitia, voluptatibus similique aliquid a dolores autem laudantium sapiente ad enim ipsa modi laborum accusantium deleniti neque architecto vitae.
-									 <a href="#"> Read More</a></p>
-							</div>
-						</li>
-					</div>
-					<div class="box-info"> 
-						<li class="media">
-							<a class="pull-left" href="#fakelink">
-								<img class="media-object" src="assets/img/avatar/2.jpg" alt="Avatar">
-							</a>
-							<div class="media-body">
-								 <h4 class="media-heading"><a href="#fakelink">Front-End Developer</a><br> <small>Clark,Freeport Zone</small>
-								 <a href="#" class="btn btn-gray fa fa-plus toggle"></a>
-								 <a href="#" class="btn btn-gray fa fa-star"></a>
-								 <a href="#" class="btn btn-gray fa fa-link"></a>
-								 </h4>
-									 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, maxime, excepturi, mollitia, voluptatibus similique aliquid a dolores autem laudantium sapiente ad enim ipsa modi laborum accusantium deleniti neque architecto vitae.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, maxime, excepturi, mollitia, voluptatibus similique aliquid a dolores autem laudantium sapiente ad enim ipsa modi laborum accusantium deleniti neque architecto vitae.
-									 <a href="#"> Read More</a></p>
-							</div>
-						</li>
-					</div>
-				 
-				 </div>
-				 
+
 				</div>
 				<!-- Footer -->
 				<footer>

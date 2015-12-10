@@ -60,12 +60,54 @@
 		<!-- ============================================================== -->
            <div class="body content rows scroll-y" id="body-container">
 			
-			
-			<!-- Footer -->
-			<footer>
-			&copy; 2014 <a href="index.html">Lanceng Admin</a>. Design with love by <a href="http://isohdesign.com/" target="_blank">Isoh Design Studio</a> from <a href="#fakelink">Yogyakarta, ID</a>
-			</footer>
-			<!-- End Footer -->
+								
+				<!-- Page header -->
+				<div class="page-heading animated fadeInDownBig">
+					<h1>Blank Page <small>lorem ipsum dolor</small></h1>
+				</div>
+				<!-- End page header -->
+				
+				<!-- Sample Resume -->
+				<div class="box-info full">
+					<!-- FOrm selector #myWizard -->
+					<form id="myWizard" action="${root}candidate/addResume" method="post">
+						<!-- First step -->
+						<section class="step" data-step-title="First step">
+							<div class="row">
+							<div class="col-sm-3 col-xs-6">
+								<div class="box-info full">
+									<div class="img-wrap">
+									<img src="${resources}images/small/img001_small.jpg" alt="Image small">
+									</div>
+									<div class="des-thumbnail">
+										<h4>Simple Resume</h4>
+										<p>
+										Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+										</p>
+									</div>
+								</div>
+							</div> <!-- End div. col-sm-6 -->
+							</div><!-- End div .row -->
+						</section>
+						<!-- End first step -->
+						
+						
+						<!-- Second step -->
+						<section class="step" data-step-title="Second step">
+							<div class="row">
+								
+							</div><!-- End div .row -->
+						</section>
+						<!-- End second step -->
+					</form>
+				</div><!-- End div .box-info -->
+				<!-- End form wizard -->
+
+				<!-- Footer -->
+				<footer>
+				&copy; 2014 <a href="index.html">Lanceng Admin</a>. Design with love by <a href="http://isohdesign.com/" target="_blank">Isoh Design Studio</a> from <a href="#fakelink">Yogyakarta, ID</a>
+				</footer>
+				<!-- End Footer -->
 		
            </div>
 		<!-- ============================================================== -->

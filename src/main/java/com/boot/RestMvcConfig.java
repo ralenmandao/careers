@@ -1,0 +1,22 @@
+package com.boot;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
+
+import com.boot.controller.Numb;
+import com.boot.data.entity.Country;
+import com.boot.data.entity.Job;
+import com.boot.data.entity.Qualification;
+import com.boot.data.entity.Skill;
+import com.boot.data.entity.Specialization;
+import com.boot.data.entity.State;
+
+@Configuration
+public class RestMvcConfig extends RepositoryRestMvcConfiguration{
+	@Override
+    protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config)
+    {
+        config.exposeIdsFor(Country.class, State.class, Qualification.class, Skill.class, Numb.class, Job.class, Specialization.class);
+    }
+}

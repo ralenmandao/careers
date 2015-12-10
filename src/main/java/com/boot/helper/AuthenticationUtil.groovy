@@ -1,9 +1,13 @@
 package com.boot.helper;
 
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.core.userdetails.UserDetails
 
-import com.boot.exception.NoPrincipalUserFound;
+import com.boot.data.entity.Candidate
+import com.boot.data.repository.CandidateRepo
+import com.boot.data.repository.UserRepo
+import com.boot.exception.NoPrincipalUserFound
 
 /**
  * AuthenticationUtil.java
@@ -12,7 +16,9 @@ import com.boot.exception.NoPrincipalUserFound;
  * @author ralen
  *
  */
-public class AuthenticationUtil {
+public abstract class AuthenticationUtil {
+	
+	private AuthenticationUtil(){}
 	/**
 	 * get the principal/username
 	 * 

@@ -60,20 +60,20 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 ////		return db;
 //	}
 
-	@Bean
-	public Sql getSql(){
-		//def db = [url:'jdbc:hsqldb:mem:testDB', user:'sa', password:'', driver:'org.hsqldb.jdbc.JDBCDriver']
-		def db = [url:'jdbc:mysql://127.0.0.1:3306/ccscareersdb', user:'root', password:'root', driver:'com.mysql.jdbc.Driver']
-		def sql = Sql.newInstance(db.url, db.user, db.password, db.driver)
-		return sql
-	}
-	
-	@Bean
-	@Autowired
-	public JdbcTemplate getJdbcTemplate(DataSource dataSource) {
-		final JdbcTemplate template = new JdbcTemplate(dataSource);
-		return template;
-	}
+//	@Bean
+//	public Sql getSql(){
+//		//def db = [url:'jdbc:hsqldb:mem:testDB', user:'sa', password:'', driver:'org.hsqldb.jdbc.JDBCDriver']
+//		def db = [url:'jdbc:mysql://127.0.0.1:3306/ccscareersdb', user:'root', password:'root', driver:'com.mysql.jdbc.Driver']
+//		def sql = Sql.newInstance(db.url, db.user, db.password, db.driver)
+//		return sql
+//	}
+//	
+//	@Bean
+//	@Autowired
+//	public JdbcTemplate getJdbcTemplate(DataSource dataSource) {
+//		final JdbcTemplate template = new JdbcTemplate(dataSource);
+//		return template;
+//	}
 
 	@Override
 	public void configureDefaultServletHandling(

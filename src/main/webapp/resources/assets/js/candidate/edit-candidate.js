@@ -15,6 +15,7 @@ $(document).ready(function(){
 	$(selSpecialization).val($(selSpecialization).attr("data-id")).change(); 
 	
 	var selLocation = $('#ecLocation');
-	$(selLocation).val($(selLocation).attr("data-id")).change(); 
+	$(selLocation).chosen();
+	//$(selLocation).val($(selLocation).attr("data-id")).change(); 
 	//$(selLocation).chosen();
 });
