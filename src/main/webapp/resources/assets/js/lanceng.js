@@ -1,5 +1,6 @@
-var contextPath = "http://localhost:8080";
 
+var contextPath = ""
+	
 function get(path, fSuccess, fError){
 	$.ajax({
 		type: "GET",

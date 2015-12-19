@@ -7,9 +7,6 @@ import com.boot.data.entity.Job
 import com.boot.data.entity.Specialization
 
 interface JobRepo extends MongoRepository<Job, String>{
-	List<Job> findBySpecialization(String specialization)
-	List<Job> findBySpecializationIdAndFieldIdOrderByPostedDesc(String specialization, String field)
-	List<Job> findByFieldIdOrderByPostedDesc(String field)
 	List<Job> findByNameLikeIgnoreCaseOrDescriptionLikeIgnoreCase(String name, String desc)
 	List<Job> findByNameContaining(String name)
 }

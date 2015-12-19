@@ -22,4 +22,9 @@ public class HomeController {
 	public String home(Locale locale ,Model model){
 		return "home";
 	}
+	
+	@RequestMapping(value ="/404", method = RequestMethod.GET)
+	public String my404(Locale locale ,Model model){
+		return "404";
+	}
 }

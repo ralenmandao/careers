@@ -2,6 +2,7 @@
  * 
  */
 $(document).ready(function(){
+	/* Edit account info auto select existing values */
 	var selCountry = $('#selCountry');
 	var selState = $('#selState');
 	
@@ -16,6 +17,12 @@ $(document).ready(function(){
 	
 	var selLocation = $('#ecLocation');
 	$(selLocation).chosen();
-	//$(selLocation).val($(selLocation).attr("data-id")).change(); 
-	//$(selLocation).chosen();
+	
+	
+	/* Resume creator */
+	get("/candidate/getResumeEditor1", function(data){
+		//$("#registrationInput").html(data)
+		alert(data)
+	}, function(){ })
+	
 });

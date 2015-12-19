@@ -2,8 +2,9 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<spring:url value="/resources/" var="resources" />
-<spring:url value="/" var="root" />
+	<spring:url value="/resources/" var="resources" />
+	<spring:url value="/" var="root" />
+	
 	<div class="container">
 		<spring:url value="/" var="root"></spring:url>
 		<!-- Your logo goes here -->
@@ -31,7 +32,7 @@
 						 -->
 						<div class="media-body">
 							Welcome back,
-							<h4 class="media-heading"><strong id="nameContainer">${principal.lastName}, ${principal.firstName}</strong></h4>
+							<h4 class="media-heading"><strong id="nameContainer">${principal.companyName}</strong></h4>
 							<!--
 							<a href="#" id="edit">Edit</a>
 							-->
@@ -53,10 +54,9 @@
 					<!-- Sidebar menu -->				
 					<div id="sidebar-menu">
 						<ul>
-							<li style="background:#65BD77;"><a href="${root}candidate/" style="color:white;"><i class="fa fa-home"></i> Home</a></li>
+							<li style="background:#65BD77;"><a href="${root}employer/" style="color:white;"><i class="fa fa-home"></i> Home</a></li>
 							<li><a href="#fakelink" id="edit"><i class="fa fa-users"></i> Account</a></li>
-							<li id = "resume"><a href="${root}candidate/addResume"><i class="fa fa-list-alt"></i> Resume</a></li>
-							<li id = "resume"><a href="${root}candidate/jobApplication"><i class="fa fa-list-alt"></i> Job Applications</a></li>
+							<li id = "resume"><a href="${root}employer/postJob"><i class="fa fa-list-alt"></i> Post a Job</a></li>
 							<!--
 							<li><a href="#fakelink"><i class="fa fa-bug"></i><i class="fa fa-angle-double-down i-right"></i> Elements</a>
 								<ul>
@@ -118,6 +118,16 @@
 					</div><!-- End div #sidebar-menu -->
 				</div><!-- End div .sidebar-inner .slimscroller -->
             </div><!-- End div .body .rows .scroll-y -->
+			
+			<!-- Sidebar footer -->
+            <div class="footer rows animated fadeInUpBig">
+				<div class="progress progress-xs progress-striped active">
+				  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+					<span class="progress-precentage">80&#37;</span>
+				  </div><!-- End div .pogress-bar -->
+				  <a data-toggle="tooltip" title="See task progress" class="btn btn-default md-trigger" data-modal="task-progress"><i class="fa fa-inbox"></i></a>
+				</div><!-- End div .progress .progress-xs -->
+            </div><!-- End div .footer .rows -->
         </div>
 		<!-- END SIDEBAR -->
 		
@@ -170,7 +180,7 @@
 							
 								<!-- Dropdown User session -->
 								<li class="dropdown">
-									<a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">Howdy, <strong>${principal.firstName}</strong> <i class="fa fa-chevron-down i-xs"></i></a>
+									<a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">Howdy, <strong>${principal.companyName}</strong> <i class="fa fa-chevron-down i-xs"></i></a>
 									<ul class="dropdown-menu animated half flipInX">
 										<li><a href="#fakelink">My Profile</a></li>
 										<li><a href="#fakelink">Change Password</a></li>

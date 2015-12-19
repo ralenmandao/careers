@@ -47,10 +47,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/", "/home").permitAll()
 				.antMatchers("*").permitAll()
-				.antMatchers("/candidate/**", "/resume/**")
+				.antMatchers("/candidate/**", "/resume/**", "/job/**")
 				.hasRole("CANDIDATE")
-				.antMatchers("/emloyer/**")
-				.hasRole("EMPLOYER").and().formLogin().loginPage("/login")
+				.antMatchers("/employer/**")
+				.hasRole("EMPLOYER").and()
+				.formLogin().loginPage("/login")
 				.successHandler(customSuccessHandler)
 				.usernameParameter("username").passwordParameter("password")
 				.and().csrf().disable().exceptionHandling()
@@ -61,6 +62,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 					public void handle(HttpServletRequest arg0, HttpServletResponse arg1,
 							AccessDeniedException arg2) throws IOException, ServletException {
 						arg2.printStackTrace();
+						arg0.getRequestDispatcher("/404").forward(arg0, arg1);
 					}
 				});
 	}

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam
 
 import com.boot.data.entity.Candidate
 import com.boot.data.entity.Location
+import com.boot.data.repository.CandidateApplicationRepo;
 import com.boot.data.repository.CandidateRepo
 import com.boot.data.repository.CountryRepo
 import com.boot.data.repository.FieldRepo
@@ -42,26 +43,13 @@ public class CandidateController {
 	@Autowired CountryRepo countryRepo
 	@Autowired StateRepo stateRepo
 	@Autowired JobRepo jobRepo
+	@Autowired CandidateApplicationRepo candidateApplicationRepo
 
 	@RequestMapping(method=RequestMethod.GET)
 	public String candidate(Model model, HttpSession session) throws NoPrincipalUserFound{
 		Candidate candidate = getPrincipalCandidate();
-		def jobs
+		def jobs = jobRepo.findAll()
 		logger.info(candidate.toString())
-		if(candidate.specialization?.id && candidate.field?.id){
-			logger.info 'DOUBLEEEEEEEEEEEEEEEEEEEEE'
-			jobs = jobRepo.findBySpecializationIdAndFieldIdOrderByPostedDesc(candidate.specialization.id, candidate.field.id)
-		}else if(candidate.specialization != null){
-			logger.info 'SPECCCCCCCCCCCCCCCCCCCCCCCCC'
-			jobs = jobRepo.findBySpecialization(candidate.specialization.id)
-			println jobs
-		}else if(candidate.field?.id){
-			logger.info 'CANDIDATEEEEEEEEEEEEEEEEEEE'
-			jobs = jobRepo.findByFieldIdOrderByPostedDesc(candidate.field.id)
-		}else{
-			logger.info 'ALLLLLLLLLLLLLLLLLLLLL'
-			jobs = jobRepo.findAll()
-		}
 		session.setAttribute("principal", candidate);
 		model.addAttribute('jobs', jobs)
 		return "candidate";
@@ -69,8 +57,8 @@ public class CandidateController {
 
 	@RequestMapping(params='search')
 	public String candidateSearch(Model model,
-		@RequestParam('search') String search,
-		HttpSession session){
+			@RequestParam('search') String search,
+			HttpSession session){
 		Candidate candidate = getPrincipalCandidate();
 		session.setAttribute("principal", candidate);
 		def jobs = jobRepo.findByNameLikeIgnoreCaseOrDescriptionLikeIgnoreCase(search,search)
@@ -117,7 +105,7 @@ public class CandidateController {
 				candidate.location = new Location()
 			println state
 			def dstate = stateRepo.findOne(state)
-			def dcountry = countryRepo.findOne(dstate.id)
+			def dcountry = countryRepo.findOne(dstate.countryId)
 			candidate.location.state = dstate
 			candidate.location.country = dcountry
 		}
@@ -170,7 +158,7 @@ public class CandidateController {
 	public String addResume(){
 		Candidate candidate = getPrincipalCandidate()
 		if(candidate.resumeName){
-			return "redirect:/candidate/resume"	
+			return "redirect:/candidate/resume"
 		}
 		return "resume/registration"
 	}
@@ -182,7 +170,7 @@ public class CandidateController {
 		candidateRepo.save(candidate)
 		return "redirect:/candidate/resume"
 	}
-	
+
 	@RequestMapping(value="resume", method=RequestMethod.GET)
 	public String resume(Model model){
 		Candidate candidate = getPrincipalCandidate()
@@ -190,11 +178,24 @@ public class CandidateController {
 		return "resume/resume1"
 	}
 
-	@RequestMapping(value="editResune", method=RequestMethod.GET)
+	@RequestMapping(value="editResume", method=RequestMethod.GET)
 	public String editResume(Model model){
 		Candidate candidate = getPrincipalCandidate()
 
 		return "resume/resume1-output"
+	}
+	
+	@RequestMapping(value="getResumeEditor1", method=RequestMethod.GET)
+	public String resume1Editor(Model model){
+		return "resume/resume1-registration"
+	}
+	
+	@RequestMapping(value="jobApplication", method=RequestMethod.GET)
+	public String jobApplication(Model model){
+		def candidate =  getPrincipalCandidate()
+		def jobs = candidateApplicationRepo.findByCandidateId(candidate.id).collect{ it.job }
+		model.addAttribute("jobs",jobs)
+		return "candidate/job-applications"
 	}
 
 	private Candidate getPrincipalCandidate(){

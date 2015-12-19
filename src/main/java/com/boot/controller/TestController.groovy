@@ -29,27 +29,6 @@ import com.boot.data.repository.UserRepo
 @Controller
 @RequestMapping("/test")
 public class TestController {
-	//
-	//	@Autowired
-	//	CustomerRepository repo
-	//	@Autowired
-	//	userRepository userRepo
-	//	@Autowired
-	//	candidateRepo candidateRepo
-	//	@Autowired
-	//	countryRepository countryRepo
-	//	@Autowired
-	//	stateRepository stateRepo
-	//	@Autowired
-	//	qualificationRepository qualificationRepo
-	//	@Autowired
-	//	GFieldOfStudyRepository fieldRepo
-	//	@Autowired
-	//	specializationRepository specializationRepo
-	//	@Autowired
-	//	SkillRepository skillRepo
-	//
-
 	@Autowired UserRepo userRepo;
 	@Autowired CandidateRepo candidateRepo;
 	@Autowired CountryRepo countryRepo
@@ -59,13 +38,11 @@ public class TestController {
 	@Autowired SpecializationRepo specializationRepo
 	@Autowired SkillRepo skillRepo
 	@Autowired JobRepo jobRepo
-	@Autowired NumbRepo numbRepo
 
 	@RequestMapping(method=RequestMethod.GET)
 	@ResponseBody
 	public String test(){
 		def lol = specializationRepo.findOne('566581ba21e352d21faa205c')
-		numbRepo.insert(new Numb())
 		return ""
 	}
 
@@ -100,7 +77,6 @@ public class TestController {
 		specializationRepo.deleteAll()
 		skillRepo.deleteAll()
 		jobRepo.deleteAll()
-		numbRepo.deleteAll()
 		return ""
 	}
 
@@ -172,9 +148,10 @@ public class TestController {
 			posted: new Date(),
 			expiry: new Date(),
 			skills: [skillRepo.findByName('C++')],
-			salary: 100000,
-			specialization: specializationRepo.findByName('Programming'),
-			field: fieldRepo.findByName('Networking'))
+			salaryFrom: 100000,
+			salaryTo: 100001)
+//			specialization: specializationRepo.findByName('Programming'),
+//			field: fieldRepo.findByName('Networking'))
 		
 		def job2 = new Job(name: 'Java Programmer',
 			location: new Location(country: countryRepo.findByName('USA'), state: stateRepo.findByName('UsaClark')),
@@ -182,9 +159,10 @@ public class TestController {
 			posted: new Date(),
 			expiry: new Date(),
 			skills: [skillRepo.findByName('Java')],
-			salary: 100000,
-			specialization: specializationRepo.findByName('Networking'),
-			field: fieldRepo.findByName('Networking'))
+			salaryFrom: 100000,
+			salaryTo: 100001)
+//			specialization: specializationRepo.findByName('Networking'),
+//			field: fieldRepo.findByName('Networking'))
 		jobRepo.save(job1)
 		jobRepo.save(job2)
 	}

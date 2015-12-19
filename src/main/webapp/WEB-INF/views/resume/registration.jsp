@@ -82,7 +82,7 @@
 									<div class="des-thumbnail">
 										<h4>Simple Resume</h4>
 										<p>
-										Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+										A simple resume to display your skills
 										</p>
 									</div>
 								</div>
@@ -94,7 +94,7 @@
 						
 						<!-- Second step -->
 						<section class="step" data-step-title="Second step">
-							<div class="row">
+							<div class="row" id = "registrationInput">
 								
 							</div><!-- End div .row -->
 						</section>
@@ -114,58 +114,7 @@
 		<!-- END YOUR CONTENT HERE -->
 		<!-- ============================================================== -->
 	<jsp:include page="${views}foot.jsp"></jsp:include>
-	<!-- END PAGE -->
-	<!--
-	================================================
-	JAVASCRIPT
-	================================================
-	-->
-	<!-- Basic Javascripts (Jquery and bootstrap) -->
-	<script src="${resources}assets/js/jquery.js"></script>
-	<script src="${resources}assets/js/bootstrap.min.js"></script>
-	
-	<!-- VENDOR -->
-	
-	<!-- Slimscroll js -->
-	<script src="${resources}assets/third/slimscroll/jquery.slimscroll.min.js"></script>
-	
-	<!-- Morris js -->
-	<script src="${resources}assets/js/raphael-min.js"></script>
-	<script src="${resources}assets/third/morris/morris.js"></script>
-	
-	<!-- Nifty modals js -->
-	<script src="${resources}assets/third/nifty-modal/js/classie.js"></script>
-	<script src="${resources}assets/third/nifty-modal/js/modalEffects.js"></script>
-	
-	<!-- Sortable js -->
-	<script src="${resources}assets/third/sortable/sortable.min.js"></script>
-	
-	<!-- Bootstrao selectpicker js -->
-	<script src="${resources}assets/third/select/bootstrap-select.min.js"></script>
-	
-	<!-- Summernote js -->
-	<script src="${resources}assets/third/summernote/summernote.js"></script>
-	
-	<!-- Magnific popup js -->
-	<script src="${resources}assets/third/magnific-popup/jquery.magnific-popup.min.js"></script> 
-	
-	<!-- Bootstrap file input js -->
-	<script src="${resources}assets/third/input/bootstrap.file-input.js"></script>
-	
-	<!-- Bootstrao datepicker js -->
-	<script src="${resources}assets/third/datepicker/js/bootstrap-datepicker.js"></script>
-	
-	<!-- Icheck js -->
-	<script src="${resources}assets/third/icheck/icheck.min.js"></script>
-	
-	<!-- Form wizard js -->
-	<script src="${resources}assets/third/wizard/jquery.snippet.min.html"></script>
-	<script src="${resources}assets/third/wizard/jquery.easyWizard.js"></script>
-	<script src="${resources}assets/third/wizard/scripts.js"></script>
-	
-	<!-- LANCENG TEMPLATE JAVASCRIPT -->
-	<script src="${resources}assets/js/candidate/candidate.js"></script>
-	<script src="${resources}assets/js/lanceng.js"></script>
+	<jsp:include page="${views}script-imports.jsp"></jsp:include>
 	</body>
 
 <!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:44:24 GMT -->

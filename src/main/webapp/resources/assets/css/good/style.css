@@ -1,0 +1,22 @@
+/* General & Typography */
+/* ------------------------------------------------------ */
+
+body {
+	background: #ffffff;
+	color: #303c42;
+	font-size: 14px;
+	font-family: 'Lato', Helvetica, Arial, sans-serif;
+	line-height: 20px;
+	cursor: default;
+	-webkit-font-smoothing: antialiased;
+	opacity: 0;
+}
+
+body.loaded {
+	background: url(../img/bg-pattern.png) repeat 0 0;
+	opacity: 1;
+	-webkit-transition: opacity 0.3s ease-in;
+	-moz-transition: opacity 0.3s ease-in;
+	-o-transition: opacity 0.3s ease-in;
+	transition: opacity 0.3s ease-in;
+}

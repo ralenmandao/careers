@@ -35,7 +35,6 @@
 				<div>
 					<p class="text-center">Are you sure want to logout from this awesome system?</p>
 					<p class="text-center">
-					<button class="btn btn-danger md-close">Nope!</button>
 					<a href="#" class="btn btn-success md-close">Yeah, I'm sure</a>
 					</p>
 				</div>
@@ -50,7 +49,6 @@
 					<p class="text-center">Are you sure want to logout from this awesome system?</p>
 					<spring:url value="/logout" var="logoutUrl"/>
 					<form:form action="${logoutUrl}" method="post" class="text-center">
-					<button class="btn btn-danger md-close">Nope!</button>
 					<button type="submit" class="btn btn-success md-close">Yeah, I'm sure</button>
 					</form:form>
 				</div>

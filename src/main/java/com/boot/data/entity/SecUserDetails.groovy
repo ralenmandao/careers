@@ -12,12 +12,7 @@ class SecUserDetails implements UserDetails{
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		def authorities = ['ROLE_ADMIN', 'ROLE_CANDIDATE', 'ROLE_EMPLOYER']
-		def simpleGrantedAuthorities = []
-		authorities.each{
-			simpleGrantedAuthorities << new SimpleGrantedAuthority(it)
-		}
-		return simpleGrantedAuthorities
+		return [new SimpleGrantedAuthority(user.role)]
 	}
 
 	@Override

@@ -16,9 +16,8 @@ public class Job implements EntityObject {
 	Date expiry
 	@DBRef
 	List<Skill> skills
-	long salary
+	long salaryFrom
+	long salaryTo
 	@DBRef
-	Specialization specialization
-	@DBRef
-	FieldOfStudy field
+	List<Candidate> applicants
 }
