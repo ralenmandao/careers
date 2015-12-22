@@ -77,7 +77,7 @@
 							<div class="alert alert-success" role="alert">
 							  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 							  <span class="sr-only">Error:</span>
-							  Registration Successful
+							  Registration Successful please verify your email
 							</div>
 						</c:if>
 						<c:if test="${param.error != null}">
@@ -85,6 +85,20 @@
 							  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 							  <span class="sr-only">Error:</span>
 							  Invalid email address or password
+							</div>
+						</c:if>
+						<c:if test="${param.disabled != null}">
+							<div class="alert alert-danger" role="alert">
+							  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							  <span class="sr-only">Error:</span>
+							  Account is not yet activated or disabled please check your email
+							</div>
+						</c:if>
+						<c:if test="${param.activated != null}">
+							<div class="alert alert-success" role="alert">
+							  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							  <span class="sr-only">Error:</span>
+							  Account successfully activated
 							</div>
 						</c:if>
 						<div class="form-group login-input">

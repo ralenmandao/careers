@@ -6,9 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
 
+import com.boot.data.entity.Admin
 import com.boot.data.entity.Candidate
 import com.boot.data.entity.Country
 import com.boot.data.entity.FieldOfStudy
+import com.boot.data.entity.Industry
 import com.boot.data.entity.Job
 import com.boot.data.entity.Location
 import com.boot.data.entity.Qualification
@@ -16,9 +18,11 @@ import com.boot.data.entity.Skill
 import com.boot.data.entity.Specialization
 import com.boot.data.entity.State
 import com.boot.data.entity.User
+import com.boot.data.repository.AdminRepo
 import com.boot.data.repository.CandidateRepo
 import com.boot.data.repository.CountryRepo
 import com.boot.data.repository.FieldRepo
+import com.boot.data.repository.IndustryRepo
 import com.boot.data.repository.JobRepo
 import com.boot.data.repository.QualificationRepo
 import com.boot.data.repository.SkillRepo
@@ -38,12 +42,14 @@ public class TestController {
 	@Autowired SpecializationRepo specializationRepo
 	@Autowired SkillRepo skillRepo
 	@Autowired JobRepo jobRepo
-
+	@Autowired IndustryRepo industryRepo
+	@Autowired AdminRepo adminRepo
+	@Autowired EmployerRepo employerRepo
+	
 	@RequestMapping(method=RequestMethod.GET)
 	@ResponseBody
 	public String test(){
-		def lol = specializationRepo.findOne('566581ba21e352d21faa205c')
-		return ""
+		return adminRepo.findByUser('56761d839230d7f2ba7b3bbb')
 	}
 
 	public loadBasicUser(){
@@ -57,12 +63,17 @@ public class TestController {
 
 	@RequestMapping(value="/reset", method=RequestMethod.GET)
 	public String reset(){
+		candidateRepo.deleteAll()
+		userRepo.deleteAll()
+		employerRepo.deleteAll()
 		loadBasicCountry()
 		loadBasicQualification()
 		loadBasicFieldOfStudy()
 		loadBasicSpecialization()
 		loadBasicSkill()
 		loadBasicJob()
+		loadBasicIndustry()
+		loadBasicAdmin()
 	}
 	
 	@RequestMapping(value="/delete", method=RequestMethod.GET)
@@ -165,5 +176,28 @@ public class TestController {
 //			field: fieldRepo.findByName('Networking'))
 		jobRepo.save(job1)
 		jobRepo.save(job2)
+	}
+	
+	public loadBasicIndustry(){
+		industryRepo.deleteAll()
+		def industry1 = new Industry(name: 'Call Center')
+		def industry2 = new Industry(name: 'IT-Enabled Services')
+		industryRepo.save(industry1)
+		industryRepo.save(industry2)
+	}
+	
+	public loadBasicAdmin(){
+		adminRepo.deleteAll()
+		def user = new User(username: 'admin', 
+			   			  password: 'admin', 
+					      role: 'ROLE_ADMIN',
+						  enabled: true,
+						  email: 'admin@yahoo.com')
+		userRepo.save(user)
+		
+		def admin1 = new Admin(firstName: 'Ralen', 
+							   lastName: 'Mandap',
+							   user: user)
+		adminRepo.save(admin1)
 	}
 }

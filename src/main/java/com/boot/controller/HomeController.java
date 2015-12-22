@@ -27,4 +27,9 @@ public class HomeController {
 	public String my404(Locale locale ,Model model){
 		return "404";
 	}
+	
+	@RequestMapping(value="second-resume")
+	public String firstResume(){
+		return "resume/second-resume/main";
+	}
 }

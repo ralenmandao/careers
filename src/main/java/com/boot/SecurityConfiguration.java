@@ -10,12 +10,15 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import com.boot.data.jdbc.JdbcOperations;
 import com.boot.data.service.imp.SecUserDetailsService;
@@ -45,23 +48,34 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/home").permitAll()
-				.antMatchers("*").permitAll()
+		http.authorizeRequests().antMatchers("/", "/home", "/employer/register", "/candidate/activate/**").permitAll()
 				.antMatchers("/candidate/**", "/resume/**", "/job/**")
 				.hasRole("CANDIDATE")
 				.antMatchers("/employer/**")
-				.hasRole("EMPLOYER").and()
+				.hasRole("EMPLOYER")
+				.antMatchers("/admin/**")
+				.hasRole("ADMIN").and()
 				.formLogin().loginPage("/login")
 				.successHandler(customSuccessHandler)
 				.usernameParameter("username").passwordParameter("password")
+				.failureHandler(new AuthenticationFailureHandler() {
+					@Override
+					public void onAuthenticationFailure(HttpServletRequest arg0, HttpServletResponse arg1, AuthenticationException arg2)
+							throws IOException, ServletException {
+						if(arg2 instanceof DisabledException){
+							arg1.sendRedirect("/login?disabled");
+						}else{
+							arg1.sendRedirect("/login?error");
+						}
+					}
+				})
 				.and().csrf().disable().exceptionHandling()
 				.accessDeniedPage("/login")
 				.accessDeniedHandler(new AccessDeniedHandler() {
-					
 					@Override
 					public void handle(HttpServletRequest arg0, HttpServletResponse arg1,
 							AccessDeniedException arg2) throws IOException, ServletException {
-						arg2.printStackTrace();
+//						arg2.printStackTrace();
 						arg0.getRequestDispatcher("/404").forward(arg0, arg1);
 					}
 				});

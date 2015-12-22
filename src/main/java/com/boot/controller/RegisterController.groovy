@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod
 import com.boot.data.entity.Candidate
 import com.boot.data.repository.CandidateRepo
 import com.boot.data.repository.UserRepo
+import com.boot.helper.MailMail
 
 @Controller
 @RequestMapping("/register")
@@ -20,6 +21,7 @@ public class RegisterController {
 	
 	@Autowired UserRepo userRepo
 	@Autowired CandidateRepo candidateRepo
+	@Autowired MailMail mail
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String register(Model model){
@@ -49,9 +51,13 @@ public class RegisterController {
 		// Setup the candidate
 		candidateRegistration.user.username = candidateRegistration.user.email
 		candidateRegistration.user.role = "ROLE_CANDIDATE"
-		candidateRegistration.user.enabled = true
+		candidateRegistration.user.enabled = false
 		userRepo.save(candidateRegistration.user)
 		candidateRepo.save(candidateRegistration)
+		
+		
+		mail.sendMail("DHVTSU-CAREERS", candidateRegistration.user.email,"Account Activation",
+			"To activate your account please click the activation link http://localhost:8080/candidate/activate/${candidateRegistration.id}");
 		return "redirect:/login/?success";
 	}
 }

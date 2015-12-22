@@ -16,7 +16,11 @@ public class Candidate implements EntityObject{
 	String lastName
 	String contactNo
 	String title
-	@DBRef
+	String address
+	Education highSchool
+	Education college
+	List<Experience> experiences = []
+	@DBRef()
 	User user
 	Date birthdate
 	Location location
@@ -30,7 +34,10 @@ public class Candidate implements EntityObject{
 	@DBRef
 	List<Skill> skills = []
 	String resumeName
-	def resumeParams = [:]
+	def resumeParams
+	boolean hasPicture
+	String about
+	String objective
 	
 	Candidate(){
 		

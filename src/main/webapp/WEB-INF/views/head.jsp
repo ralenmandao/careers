@@ -24,14 +24,19 @@
 				
 					<!-- User Session -->
 					<div class="media">
-						<!--
 						<a class="pull-left md-trigger" data-modal = "md-fade-in-scale-up">
-							<img class="media-object img-circle" src="${resources}assets/img/avatar/masarie.jpg" alt="Avatar" id="candidate-picture">
+							<c:choose>
+							    <c:when test="${principal.hasPicture}">
+							       <img class="media-object img-circle" src="${resources}images/profiles/${principal.id}.png" alt="Avatar" id="candidate-picture">
+							    </c:when>    
+							    <c:otherwise>
+							        <img class="media-object img-circle" src="${resources}images/no-profile.png" alt="Avatar" id="candidate-picture">
+							    </c:otherwise>
+							</c:choose>
 						</a>
-						 -->
 						<div class="media-body">
 							Welcome back,
-							<h4 class="media-heading"><strong id="nameContainer">${principal.lastName}, ${principal.firstName}</strong></h4>
+							<h4 class="media-heading"><strong id="nameContainer" style="text-transform:capitalize;">${principal.lastName}, ${principal.firstName}</strong></h4>
 							<!--
 							<a href="#" id="edit">Edit</a>
 							-->
@@ -55,7 +60,7 @@
 						<ul>
 							<li style="background:#65BD77;"><a href="${root}candidate/" style="color:white;"><i class="fa fa-home"></i> Home</a></li>
 							<li><a href="#fakelink" id="edit"><i class="fa fa-users"></i> Account</a></li>
-							<li id = "resume"><a href="${root}candidate/addResume"><i class="fa fa-list-alt"></i> Resume</a></li>
+							<li id = "resume"><a href="${root}candidate/${principal.id}/resume"><i class="fa fa-list-alt"></i> Resume</a></li>
 							<li id = "resume"><a href="${root}candidate/jobApplication"><i class="fa fa-list-alt"></i> Job Applications</a></li>
 							<!--
 							<li><a href="#fakelink"><i class="fa fa-bug"></i><i class="fa fa-angle-double-down i-right"></i> Elements</a>

@@ -11,6 +11,11 @@ public class Employer implements EntityObject{
 	@Id
 	String id
 	String companyName
+	Location location
 	@DBRef
 	User user
+	@DBRef
+	List<Industry> industries
+	long size
+	String overview
 }

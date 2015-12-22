@@ -85,10 +85,10 @@
 						<div class="form-group">
 							<label for="input-text" class="col-sm-3 control-label">Job Description</label>
 							<div class="col-sm-9">
-								<textarea class="summernote-small form-control"></textarea>
+								<textarea class="summernote-small form-control" name="description"></textarea>
 							</div>
 						</div>
-						<button type = "submit" class="btn btn-primary pull-right" name="contact" id="sampleSave">Post</button>
+						<button type = "submit" class="btn btn-primary pull-right" id="sampleSave">Post</button>
 					</form>
 				</div>
             </div>

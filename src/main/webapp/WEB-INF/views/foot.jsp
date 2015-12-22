@@ -11,23 +11,6 @@
 		You can change transition style, just view element page
 		============================================================================
 		-->
-		<!-- Modal Upload Picture -->
-		<div class="md-modal md-fade-in-scale-up" id="md-fade-in-scale-up">
-			<div class="md-content">
-				<h3>Upload Photo</h3>
-				<div>
-					<spring:url value="/candidate/uploadPicture" var="uploadPicture" />
-					<form method="POST" action="${uploadPicture}" enctype="multipart/form-data">
-					 	Picture : <input class="btn btn-default btn-xs" type="file" name="file" />
-					</form>
-					<br>
-					<p>
-						<button class="btn btn-danger md-close">Close</button>
-						<button class="btn btn-success md-close">Save</button>
-					</p>
-				</div>
-			</div><!-- End div .md-content -->
-		</div>
 		<!-- Modal Logout Primary -->
 		<div class="md-modal md-fall" id="logout-modal">
 			<div class="md-content">

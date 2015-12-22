@@ -14,17 +14,22 @@
 	<jsp:include page="${views}style-imports.jsp"></jsp:include>
 	</head>
 	<!-- BODY -->
-	<body class="tooltips full-content">
-	<!-- BEGIN PAGE -->
-	<div class="container">
-		<!-- Begin Login Page -->
-		<div class="full-content-center animated fadeInDownBig">
+	<body class="tooltips">	
+		<jsp:include page="${views}employer/head.jsp"></jsp:include>
+		<!-- ============================================================== -->
+		<!-- START YOUR CONTENT HERE -->
+		<!-- ============================================================== -->
+         <div class="scroll-y" id="body-container">
+			<div class="body content rows scroll-y">
+					
+            </div>
+			<!-- ============================================================== -->
+			<!-- END YOUR CONTENT HERE -->
+			<!-- ============================================================== -->
 			
-		</div>
-		<!-- End Login Page -->
-	</div>
-	<jsp:include page="${views}foot.jsp"></jsp:include>
-	<jsp:include page="${views}script-imports.jsp"></jsp:include>
+        </div>
+		<jsp:include page="${views}foot.jsp"></jsp:include>
+		<jsp:include page="${views}script-imports.jsp"></jsp:include>
 	</body>
 
 <!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:44 GMT -->

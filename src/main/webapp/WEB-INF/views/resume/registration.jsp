@@ -73,11 +73,12 @@
 					<form id="myWizard" action="${root}candidate/addResume" method="post">
 						<!-- First step -->
 						<section class="step" data-step-title="First step">
-							<div class="row">
+<!--						<div class="row">
 							<div class="col-sm-3 col-xs-6">
 								<div class="box-info full">
-									<div class="img-wrap">
-									<img src="${resources}images/small/img001_small.jpg" alt="Image small">
+									<div class="img-wrap cc-selector">
+										<label class="drinkcard-cc visa" for="visa"></label>
+       								    <input class="first-resume" style="height:150px;" type="radio" name="credit-card" value="mastercard" />
 									</div>
 									<div class="des-thumbnail">
 										<h4>Simple Resume</h4>
@@ -86,8 +87,34 @@
 										</p>
 									</div>
 								</div>
-							</div> <!-- End div. col-sm-6 -->
+							</div> 
+							<div class="col-sm-3 col-xs-6">
+								<div class="box-info full">
+									<div class="img-wrap second-resume" style="height:150px;">
+									
+									</div>
+									<div class="des-thumbnail">
+										<h4>Simple Resume</h4>
+										<p>
+										A simple resume to display your skills
+										</p>
+									</div>
+								</div>
+							</div>
 							</div><!-- End div .row -->
+							<fieldset class="row">
+						       <input type="radio" name="feeling" id="feelingSad" value="sad" />
+						       <label for="feelingSad">
+						       		<img src="${resources}images/no-profile.png" />
+						       </label>
+						       <input type="radio" name="feeling" id="feelingHappy" value="happy" />
+						       <label for="feelingHappy">
+						       		<img src="${resources}images/no-profile.png" />
+						       </label>
+						    </fieldset>
+						    <style>
+						    	
+						    </style>
 						</section>
 						<!-- End first step -->
 						

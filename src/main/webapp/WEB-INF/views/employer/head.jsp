@@ -55,7 +55,7 @@
 					<div id="sidebar-menu">
 						<ul>
 							<li style="background:#65BD77;"><a href="${root}employer/" style="color:white;"><i class="fa fa-home"></i> Home</a></li>
-							<li><a href="#fakelink" id="edit"><i class="fa fa-users"></i> Account</a></li>
+							<li><a href="/employer/edit"><i class="fa fa-users"></i> Account</a></li>
 							<li id = "resume"><a href="${root}employer/postJob"><i class="fa fa-list-alt"></i> Post a Job</a></li>
 							<!--
 							<li><a href="#fakelink"><i class="fa fa-bug"></i><i class="fa fa-angle-double-down i-right"></i> Elements</a>

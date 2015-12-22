@@ -1,73 +1,28 @@
-<%@page import="com.boot.data.entity.State"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 	
-<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:43:15 GMT -->
+<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:43 GMT -->
 <head>
-	<title>Careers - ${principal.firstName} ${principal.lastName}</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-	<meta name="description" content="">
-	<meta name="keywords" content="admin, bootstrap,admin template, bootstrap admin, simple, awesome">
-	<meta name="author" content="">
-
+	<title>Careers - Login</title>
 	<spring:url value="/resources/" var="resources" />
 	<spring:url value="/WEB-INF/views/" var="views" />
 	<spring:url value="/" var="root" />
-	<script>
-		var principal = "${principal.user.username}"
-	</script>
-
-	<!-- BOOTSTRAP -->
-	<link href="${resources}assets/css/bootstrap.min.css" rel="stylesheet">
-	
-	<!-- LANCENG CSS -->
-	<link href="${resources}assets/css/style.css" rel="stylesheet">
-	<link href="${resources}assets/css/style-responsive.css" rel="stylesheet">
-	
-	<!-- VENDOR -->
-	<link href="${resources}assets/css/animate.css" rel="stylesheet">
-	<link href="${resources}assets/third/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-	<link href="${resources}assets/third/weather-icon/css/weather-icons.min.css" rel="stylesheet">
-	<link href="${resources}assets/third/morris/morris.css" rel="stylesheet">
-	<link href="${resources}assets/third/nifty-modal/css/component.css" rel="stylesheet">
-	<link href="${resources}assets/third/sortable/sortable-theme-bootstrap.css" rel="stylesheet"> 
-	<link href="${resources}assets/third/icheck/skins/minimal/grey.css" rel="stylesheet"> 
-	<link href="${resources}assets/third/select/bootstrap-select.min.css" rel="stylesheet"> 
-	<link href="${resources}assets/third/summernote/summernote.css" rel="stylesheet">
-	<link href="${resources}assets/third/magnific-popup/magnific-popup.css" rel="stylesheet"> 
-	<link href="${resources}assets/third/datepicker/css/datepicker.css" rel="stylesheet">
-
-	<!-- CHOSEN -->
-	<link href="${resources}assets/css/chosen.min.css" rel="stylesheet">
-
-	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-	<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-	<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-	<![endif]-->
-	
-	<!-- FAVICON -->
-	<link rel="shortcut icon" href="${resources}assets/img/favicon.ico">
+	<jsp:include page="${views}style-imports.jsp"></jsp:include>
 	</head>
-	
-	
-	
 	<!-- BODY -->
 	<body class="tooltips">	
-	<!-- BEGIN PAGE -->
-			<jsp:include page="${views}head.jsp"></jsp:include>
-			<!-- ============================================================== -->
-			<!-- START YOUR CONTENT HERE -->
-			<!-- ============================================================== -->
-            <div class="body content rows scroll-y" id="body-container">
-			<div class="box-info">
+		<jsp:include page="${views}head.jsp"></jsp:include>
+		<!-- ============================================================== -->
+		<!-- START YOUR CONTENT HERE -->
+		<!-- ============================================================== -->
+         <div class="scroll-y" id="body-container">
+			<div class="body content rows scroll-y">
+				<div class="box-info">
 					<h2><strong>Personal</strong> Information</h2>
 					<form class="form-horizontal" role="form" method="post" action="${root}candidate/savePersonalInformation">
 						<!-- Text input -->
@@ -91,8 +46,8 @@
 						</div>
 						<div class="form-group">
 							<label for="input-text" class="col-sm-2 control-label">Location</label>
-							<div class="col-sm-10">
-								<select data-placeholder="State" class="chosen-select form-control" id="ecLocation" data-id="${principal.location.state.id}" tabindex="6" name="state">
+							<div class="col-sm-9">
+								<select data-placeholder="State" class="chosen-select form-control" id="ecLocation" data-id="${principal.location.state.id}" tabindex="6" name="state" width="100%;">
 						            <option value=""></option>
 						            <c:forEach items="${countries}" var="country">
 										<optgroup label="${country.name}">
@@ -105,11 +60,15 @@
 											</c:forEach>
 										</optgroup>
 									</c:forEach>
-		
 						          </select>
 							</div>
 						</div>
-
+						<div class="form-group">
+							<label for="input-text" class="col-sm-2 control-label">Address</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="input-text" name="address" placeholder="" value="${principal.address}">
+							</div>
+						</div>
 						<div class="form-group">
 							<label for="input-text" class="col-sm-2 control-label">Contact Number</label>
 							<div class="col-sm-10">
@@ -223,181 +182,154 @@
 						<button type = "submit" class="btn btn-primary pull-right">Save</button>
 					</form>
 				</div>
+				<div class="box-info">
+					<h2><strong>Education</strong></h2>
+					<form class="form-horizontal" role="form" method="post" action="${root}candidate/saveEducation">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">High School</label>
+							<div class="col-sm-10">
+								<div class="row">
+									<div class="col-sm-6">
+										<c:choose>
+										    <c:when test="${not empty principal.highSchool}">
+										       <input type="text" name="highschool-year" value="${principal.highSchool.startYear}-${principal.highSchool.endYear}" class="form-control" data-mask="9999-9999" placeholder="Year eg. 2010-2014">
+										    </c:when>    
+										    <c:otherwise>
+										       <input type="text" name="highschool-year" class="form-control" data-mask="9999-9999" placeholder="Year eg. 2010-2014">
+										    </c:otherwise>
+										</c:choose>
+									</div>
+									<div class="col-sm-6">
+										<input type="text" name="highschool-name" value="${principal.highSchool.school}" class="form-control" data-mask="aaaaaa" placeholder="School name">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">College</label>
+							<div class="col-sm-10">
+								<div class="row">
+									<div class="col-sm-4">
+										<c:choose>
+										    <c:when test="${not empty principal.college}">
+										       <input type="text" name="college-year" value="${principal.college.startYear}-${principal.college.endYear}" class="form-control" data-mask="9999-9999" placeholder="Year eg. 2010-2014">
+										    </c:when>    
+										    <c:otherwise>
+										       <input type="text" name="college-year" class="form-control" data-mask="9999-9999" placeholder="Year eg. 2010-2014">
+										    </c:otherwise>
+										</c:choose>
+									</div>
+									<div class="col-sm-4">
+										<input type="text" name="college-course" value="${principal.college.course}" class="form-control" data-mask="aaaaaa" placeholder="College course">
+									</div>
+									<div class="col-sm-4">
+										<input type="text" name="college-name" value="${principal.college.school}" class="form-control" data-mask="aaaaaa" placeholder="College course">
+									</div>
+								</div>
+							</div>
+						</div>
+						<button type = "submit" class="btn btn-primary pull-right">Save</button>
+					</form>
+				</div>
+				<div class="box-info">
+					<h2><strong>Experience</strong></h2>
+					<form class="form-horizontal" role="form" method="post" action="${root}candidate/saveExperience">
+						<button id="add-experience" onclick="return false;" class="btn btn-default">Add</button>
+						<div id="experience-container">
+						<c:forEach items="${principal.experiences}" var="exp">
+							<div>
+								<hr>
+								<div class="form-group">
+									<label class="col-sm-2 control-label"></label>
+									<div class="col-sm-10">
+										<div class="row">
+											<div class="col-sm-4">
+												<input type="text" class="form-control" value="${exp.startYear}-${exp.endYear}" name="experience-year" placeholder="Year eg. 2010-2014">
+											</div>
+											<div class="col-sm-4">
+												<input type="text" class="form-control" value="${exp.position}" name="experience-position" data-mask="aaaaaa" placeholder="Position">
+											</div>
+											<div class="col-sm-4">
+												<input type="text" class="form-control" value="${exp.companyName}"  name="experience-company-name" data-mask="aaaaaa" placeholder="Company name">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label"></label>
+									<div class="col-sm-10">
+										<textarea class="form-control" name="experience-role" placeholder="Role description" style="height: 100px; resize: none">${exp.role}</textarea>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+						</div>
+						<button type = "submit" class="btn btn-primary pull-right">Save</button>
+					</form>
+				</div>
+				<div class="box-info">
+					<h2><strong>Other</strong> Information</h2>
+					<form class="form-horizontal" role="form" method="post" action="${root}candidate/saveOther">
+						<div class="form-group">
+							<label for="input-text" class="col-sm-2 control-label">About yourself</label>
+							<div class="col-sm-10">
+								<textarea class="summernote-small form-control" name="about">${principal.about}</textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="input-text" class="col-sm-2 control-label">Objective</label>
+							<div class="col-sm-10">
+								<textarea class="summernote-small form-control" name="objective">${principal.objective}</textarea>
+							</div>
+						</div>
+						<button type = "submit" class="btn btn-primary pull-right">Save</button>
+					</form>
+				</div>
             </div>
 			<!-- ============================================================== -->
 			<!-- END YOUR CONTENT HERE -->
 			<!-- ============================================================== -->
-			
-			
+			<div style="display:none">
+				<div id="experience-form">
+					<hr>
+					<div class="form-group">
+						<label class="col-sm-2 control-label"></label>
+						<div class="col-sm-10">
+							<div class="row">
+								<div class="col-sm-4">
+									<input type="text" class="form-control" name="experience-year" data-mask="9999-9999" placeholder="Year eg. 2010-2014">
+								</div>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" name="experience-position" data-mask="aaaaaa" placeholder="Position">
+								</div>
+								<div class="col-sm-4">
+									<input type="text" class="form-control"  name="experience-company-name" data-mask="aaaaaa" placeholder="Company name">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label"></label>
+						<div class="col-sm-10">
+							<textarea class="form-control" name="experience-role" placeholder="Role description" style="height: 100px; resize: none"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
         </div>
-		<!-- END CONTENT -->
-		
-		
-		
-		
-		
-		<!--
-		============================================================================
-		MODAL DIALOG EXAMPLE
-		You can change transition style, just view element page
-		============================================================================
-		-->
-		<!-- Modal Upload Picture -->
-		<div class="md-modal md-fade-in-scale-up" id="md-fade-in-scale-up">
-			<div class="md-content">
-				<h3>Upload Photo</h3>
-				<div>
-					<spring:url value="/candidate/uploadPicture" var="uploadPicture" />
-					<form method="POST" action="${uploadPicture}" enctype="multipart/form-data">
-					 	Picture : <input class="btn btn-default btn-xs" type="file" name="file" />
-					</form>
-					<br>
-					<p>
-						<button class="btn btn-danger md-close">Close</button>
-						<button class="btn btn-success md-close">Save</button>
-					</p>
-				</div>
-			</div><!-- End div .md-content -->
-		</div>
-		<!-- Modal Logout Primary -->
-		<div class="md-modal md-fall" id="logout-modal">
-			<div class="md-content">
-				<h3><strong>Logout</strong> Confirmation</h3>
-				<div>
-					<p class="text-center">Are you sure want to logout from this awesome system?</p>
-					<p class="text-center">
-					<a href="#" class="btn btn-success md-close">Yeah, I'm sure</a>
-					</p>
-				</div>
-			</div>
-		</div><!-- End .md-modal -->
-		
-		<!-- Modal Logout Alternatif -->
-		<div class="md-modal md-just-me" id="logout-modal-alt">
-			<div class="md-content">
-				<h3><strong>Logout</strong> Confirmation</h3>
-				<div>
-					<p class="text-center">Are you sure want to logout from this awesome system?</p>
-					<spring:url value="/logout" var="logoutUrl"/>
-					<form:form action="${logoutUrl}" method="post" class="text-center">
-					<button type="submit" class="btn btn-success md-close">Yeah, I'm sure</button>
-					</form:form>
-				</div>
-			</div>
-		</div><!-- End .md-modal -->
-		
-		<!-- Modal Task Progress -->	
-		<div class="md-modal md-slide-stick-top" id="task-progress">
-			<div class="md-content">
-				<h3><strong>Task Progress</strong> Information</h3>
-				<div>
-					<p>CLEANING BUGS</p>
-					<div class="progress progress-xs for-modal">
-					  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-						<span class="sr-only">80&#37; Complete</span>
-					  </div>
-					</div>
-					<p>POSTING SOME STUFF</p>
-					<div class="progress progress-xs for-modal">
-					  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 65%">
-						<span class="sr-only">65&#37; Complete</span>
-					  </div>
-					</div>
-					<p>BACKUP DATA FROM SERVER</p>
-					<div class="progress progress-xs for-modal">
-					  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 95%">
-						<span class="sr-only">95&#37; Complete</span>
-					  </div>
-					</div>
-					<p>RE-DESIGNING WEB APPLICATION</p>
-					<div class="progress progress-xs for-modal">
-					  <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-						<span class="sr-only">100&#37; Complete</span>
-					  </div>
-					</div>
-					<p class="text-center">
-					<button class="btn btn-danger btn-sm md-close">Close</button>
-					</p>
-				</div>
-			</div>
-		</div><!-- End .md-modal -->
-		<!--
-		============================================================================
-		END MODAL DIALOG EXAMPLE
-		============================================================================
-		-->
-		
-		<!--
-		MODAL OVERLAY
-		Always place this div at the end of the page content
-		-->
-		<div class="md-overlay"></div>
-		
-		
-		
-	</div><!-- End div .container -->
-	<!-- END PAGE -->
-	<style>
-	
-	</style>
-	<!--
-	================================================
-	JAVASCRIPT
-	================================================
-	-->
-	<!-- Basic Javascripts (Jquery and bootstrap) -->
-	<script src="${resources}assets/js/jquery.js"></script>
-	<script src="${resources}assets/js/bootstrap.min.js"></script>
-	
-	<!-- VENDOR -->
-	
-	<!-- Slimscroll js -->
-	<script src="${resources}assets/third/slimscroll/jquery.slimscroll.min.js"></script>
-	
-	<!-- Morris js -->
-	<script src="${resources}assets/js/raphael-min.js"></script>
-	<script src="${resources}assets/third/morris/morris.js"></script>
-	
-	<!-- Nifty modals js -->
-	<script src="${resources}assets/third/nifty-modal/js/classie.js"></script>
-	<script src="${resources}assets/third/nifty-modal/js/modalEffects.js"></script>
-	
-	<!-- Sortable js -->
-	<script src="${resources}assets/third/sortable/sortable.min.js"></script>
-	
-	<!-- Bootstrao selectpicker js -->
-	<script src="${resources}assets/third/select/bootstrap-select.min.js"></script>
-	
-	<!-- Summernote js -->
-	<script src="${resources}assets/third/summernote/summernote.js"></script>
-	
-	<!-- Magnific popup js -->
-	<script src="${resources}assets/third/magnific-popup/jquery.magnific-popup.min.js"></script> 
-	
-	<!-- Bootstrap file input js -->
-	<script src="${resources}assets/third/input/bootstrap.file-input.js"></script>
-	
-	<!-- Bootstrao datepicker js -->
-	<script src="${resources}assets/third/datepicker/js/bootstrap-datepicker.js"></script>
-	
-	<!-- Icheck js -->
-	<script src="${resources}assets/third/icheck/icheck.min.js"></script>
-	
-	<!-- Form wizard js -->
-	<script src="${resources}assets/third/wizard/jquery.snippet.min.html"></script>
-	<script src="${resources}assets/third/wizard/jquery.easyWizard.js"></script>
-	<script src="${resources}assets/third/wizard/scripts.js"></script>
-	
-	<!-- My Scrips -->
-	<script src="${resources}assets/js/candidate/edit-candidate.js"></script>
-	
-	<!-- CHOSEN -->
-	<script src="${resources}assets/js/chosen.jquery.min.js"></script>
-	
-	<!-- LANCENG TEMPLATE JAVASCRIPT -->
-	<script src="${resources}assets/js/candidate/candidate.js"></script>
-	<script src="${resources}assets/js/lanceng.js"></script>
+		<jsp:include page="${views}foot.jsp"></jsp:include>
+		<jsp:include page="${views}script-imports.jsp"></jsp:include>
+		<script>
+			$(document).ready(function(){
+				$('#add-experience').on('click', function(){
+					$("#experience-form").clone().
+					find("input:text").val("").end().
+					find("textarea").val("").end().
+					appendTo("#experience-container");
+				})
+			})
+		</script>
 	</body>
 
-<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:44:24 GMT -->
+<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:44 GMT -->
 </html>

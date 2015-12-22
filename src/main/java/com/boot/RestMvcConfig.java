@@ -17,6 +17,6 @@ public class RestMvcConfig extends RepositoryRestMvcConfiguration {
 	protected void configureRepositoryRestConfiguration(
 			RepositoryRestConfiguration config) {
 		config.exposeIdsFor(Country.class, State.class, Qualification.class,
-				Skill.class, Job.class, Specialization.class);
+							Skill.class, Job.class, Specialization.class);
 	}
 }

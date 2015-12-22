@@ -16,12 +16,15 @@ import org.springframework.web.bind.annotation.RequestParam
 
 import com.boot.data.entity.Country
 import com.boot.data.entity.Employer
+import com.boot.data.entity.Industry
 import com.boot.data.entity.Job
 import com.boot.data.entity.Location
 import com.boot.data.entity.State
+import com.boot.data.entity.Industry
 import com.boot.data.repository.CandidateRepo
 import com.boot.data.repository.CountryRepo
 import com.boot.data.repository.FieldRepo
+import com.boot.data.repository.IndustryRepo
 import com.boot.data.repository.JobRepo
 import com.boot.data.repository.QualificationRepo
 import com.boot.data.repository.SkillRepo
@@ -46,6 +49,7 @@ public class EmployerController {
 	@Autowired StateRepo stateRepo
 	@Autowired JobRepo jobRepo
 	@Autowired EmployerRepo employerRepo
+	@Autowired IndustryRepo industryRepo
 
 	@RequestMapping(value="register", method=RequestMethod.GET)
 	public String register(Model model, HttpSession session) {
@@ -111,6 +115,35 @@ public class EmployerController {
 		jobRepo.save(job)
 		return "redirect:postJob"
 	}
+							 
+	 @RequestMapping(value="edit")
+	 public String editEmployer(HttpSession session, Model model){
+		 session.setAttribute('principal', getPrincipalEmployer())
+		 model.addAttribute('industries',industryRepo.findAll())
+		 model.addAttribute('countries', countryRepo.findAll())
+		 return "employer/edit-employer"
+	 }
+	 
+	 @RequestMapping(value="edit", method = RequestMethod.POST)
+	 public String editEmployerSave(HttpSession session, 
+		 							Model model, 
+									@RequestParam(name='industries', required = false) List<Industry> industries,
+									@RequestParam(name='companySize', required = false) Long companySize,
+									@RequestParam(name='companyOverview', required = false) String companyOverview,
+									@RequestParam(name='state', required = false) String stateId){
+		 def employer = getPrincipalEmployer()
+		 employer.industries = industries
+		 if(companySize) employer.size = companySize
+		 if(companyOverview) employer.overview = companyOverview
+		 if(stateId){
+			 def state = stateRepo.findOne(stateId)
+			 def country = countryRepo.findOne(state.countryId)
+			 def loc = new Location(state: state, country: country)
+			 employer.location = loc
+		 }
+		 employerRepo.save(employer)
+		 return "redirect:edit"
+	 }
 	
 	private Employer getPrincipalEmployer(){
 		String principalUser = AuthenticationUtil.getPrincipal();
