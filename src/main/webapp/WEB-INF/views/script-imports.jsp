@@ -47,6 +47,10 @@
 	<!-- Icheck js -->
 	<script src="${resources}assets/third/icheck/icheck.min.js"></script>
 	
+	<!-- Form validation -->
+	<script src="${resources}assets/third/validator/bootstrapValidator.min.js"></script>
+	<script src="${resources}assets/third/validator/example.js"></script>
+	
 	<!-- Form wizard js -->
 	<script src="${resources}assets/third/wizard/jquery.snippet.min.html"></script>
 	<script src="${resources}assets/third/wizard/jquery.easyWizard.js"></script>

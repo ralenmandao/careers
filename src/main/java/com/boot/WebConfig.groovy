@@ -11,7 +11,9 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver
 
-import com.boot.helper.MailMail
+import com.mongodb.Mongo
+import com.mongodb.MongoClient
+import com.mongodb.MongoClientURI
 @Configuration
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter {

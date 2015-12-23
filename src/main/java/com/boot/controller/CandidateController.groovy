@@ -57,7 +57,7 @@ public class CandidateController {
 		Candidate candidate = getPrincipalCandidate();
 		def jobs = jobRepo.findAll()
 		logger.info(candidate.toString())
-		session.setAttribute("principal", candidate);
+		model.addAttribute('principal', candidate);
 		model.addAttribute('jobs', jobs)
 		return "candidate";
 	}
@@ -67,7 +67,7 @@ public class CandidateController {
 			@RequestParam('search') String search,
 			HttpSession session){
 		Candidate candidate = getPrincipalCandidate();
-		session.setAttribute("principal", candidate);
+		model.addAttribute('principal', candidate);
 		def jobs = jobRepo.findByNameLikeIgnoreCaseOrDescriptionLikeIgnoreCase(search,search)
 		println search
 		model.addAttribute('jobs', jobs)
@@ -82,7 +82,7 @@ public class CandidateController {
 		model.addAttribute("specializations", specializationRepo.findAll())
 		model.addAttribute("skills", skillRepo.findAll())
 		model.addAttribute("countries", countryRepo.findAll())
-		session.setAttribute("principal", getPrincipalCandidate());
+		model.addAttribute('principal', getPrincipalCandidate());
 		return "candidate/edit-candidate";
 	}
 

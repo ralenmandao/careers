@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -11,6 +12,7 @@
 	<spring:url value="/resources/" var="resources" />
 	<spring:url value="/WEB-INF/views/" var="views" />
 	<spring:url value="/" var="root" />
+	<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
 	<link href="${resources}assets/css/resume/resume2/theme.css" rel="stylesheet">
 	<jsp:include page="${views}style-imports.jsp"></jsp:include>
 	</head>
@@ -56,9 +58,14 @@
 				              <div class="row">
 				
 				                <div class="col-sm-4 col-sm-push-8 text-center">
-				
-				                  <img src="${resources}images/no-profile.png" class="img-circle cv-portrait-photo">
-				
+									 <c:choose>
+									    <c:when test="${candidate.hasPicture}">
+									       <img src="${resources}images/profiles/${candidate.id}.png" alt="Avatar" class="img-circle cv-portrait-photo">
+									    </c:when>    
+									    <c:otherwise>
+									        <img src="${resources}images/no-profile.png" alt="Avatar" class="img-circle cv-portrait-photo">
+									    </c:otherwise>
+									</c:choose>
 				                </div>
 				
 				                <div class="col-xs-12 col-sm-8 col-sm-pull-4">
@@ -151,7 +158,10 @@
 				              <div class="pull-left">
 				                <span class="fa fa-calendar-o bg-primary text-primary"></span>
 				              </div>
-				              <div class="media-body">${candidate.birthdate}</div>
+				              <div class="media-body">
+				              
+				             	 <fmt:formatDate type="date"  dateStyle="long" value="${candidate.birthdate}" />
+				               </div>
 				
 				            </article>
 				
@@ -162,123 +172,11 @@
 				
 				            <h3 class="text-uppercase">// Skills</h3>
 				
-				            <article>
-				
-				              <div class="row">
-				
-				                <div class="col-sm-6 col-md-12 wow" data-wow-delay=".5s">
-				
-				                  <!-- Skills 1 -->
-				                  <h4>Programming</h4>
-				                  <hr>
-				
-				                  <h6>Java</h6>
-				                  <div class="progress">
-				                    <div class="progress-bar" style="width: 85%"></div>
-				                  </div>
-				
-				                  <h6>C++</h6>
-				                  <div class="progress">
-				                    <div class="progress-bar" style="width: 60%"></div>
-				                  </div>
-				
-				                  <h6>VB.Net</h6>
-				                  <div class="progress">
-				                    <div class="progress-bar" style="width: 75%"></div>
-				                  </div>
-				
-				                  <h6>PHP</h6>
-				                  <div class="progress">
-				                    <div class="progress-bar" style="width: 55%"></div>
-				                  </div>
-				
-				                  <br>
-				
-				                </div>
-				
-				                <div class="col-sm-6 col-md-12 wow" data-wow-delay=".8s">
-				                  <!-- Skills 2 -->
-				                  <h4>Databases</h4>
-				                  <hr>
-				
-				                  <h6>Oracle 8/7</h6>
-				                  <div class="progress">
-				                    <div class="progress-bar" style="width: 70%"></div>
-				                  </div>
-				
-				                  <h6>MS Access</h6>
-				                  <div class="progress">
-				                    <div class="progress-bar" style="width: 60%"></div>
-				                  </div>
-				
-				                  <h6>SQL Server</h6>
-				                  <div class="progress">
-				                    <div class="progress-bar" style="width: 90%"></div>
-				                  </div>
-				
-				                  <h6>MySQL</h6>
-				                  <div class="progress">
-				                    <div class="progress-bar" style="width: 80%"></div>
-				                  </div>
-				
-				                  <br>
-				
-				                </div>
-				
-				                <div class="col-sm-12 wow" data-wow-delay=".3s">
-				
-				                  <h4>Systems</h4>
-				                  <hr>
-				
-				                  <h6>AIX</h6>
-				                  <div class="progress">
-				                    <div class="progress-bar progress-bar-success" style="width: 70%"></div>
-				                  </div>
-				
-				                  <h6>Linus</h6>
-				                  <div class="progress">
-				                    <div class="progress-bar progress-bar-info" style="width: 60%"></div>
-				                  </div>
-				
-				                  <h6>Unix</h6>
-				                  <div class="progress">
-				                    <div class="progress-bar progress-bar-warning" style="width: 90%"></div>
-				                  </div>
-				
-				                  <h6>Windows NT V4.0</h6>
-				                  <div class="progress">
-				                    <div class="progress-bar progress-bar-danger" style="width: 80%"></div>
-				                  </div>
-				
-				                  <br>
-				
-				                </div>
-				
-				              </div>
-				
-				            </article>
-				
+				            <c:forEach items="${candidate.skills}" var="skill">
+				            	<h4 style="margin-left: 30px"><span class="fa fa-check bg-primary text-primary" style="padding:5px;margin-right:15px;"></span> ${skill.name}</h4>
+				            </c:forEach>
 				          </section><!--/ skills -->
-				
-				          <!-- hobbies -->
-				          <section class="cv-section">
-				
-				            <h3 class="text-uppercase">// Hobbies</h3>
-				
-				            <article class="wow" data-wow-delay=".5s">
-				
-				              <p><i class="fa fa-check"></i>&nbsp; Classical Music</p>
-				              <hr>
-				
-				              <p><i class="fa fa-check"></i>&nbsp; Traveling</p>
-				              <hr>
-				
-				              <p><i class="fa fa-check"></i>&nbsp; Table Tennis</p>
-				
-				            </article>
-				
-				          </section><!--/ hobbies -->
-				
+
 				        </div><!--/ column right -->
 				
 				      </div>

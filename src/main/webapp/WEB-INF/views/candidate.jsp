@@ -29,7 +29,7 @@
 				</div>
 				-->
 				<!-- End page header -->
-				 <div class="box-info full">
+				 <div class="box-info">
 					<div class="box-info centered" style="padding-top:3%;">
 							<spring:url value="/candidate" var="searchForm"/>
 							<form class="form-inline" role="form" action="${searchForm}">
@@ -46,9 +46,6 @@
 				 		<div class="box-info"> 
 							<div class="media-body">
 								 <h4 class="media-heading"><a href="/job/${job.id}">${job.name}</a><br> <small>${job.location.state.name}, ${job.location.country.name}</small>
-								 <a href="#" class="btn btn-gray fa fa-plus toggle"></a>
-								 <a href="#" class="btn btn-gray fa fa-star"></a>
-								 <a href="#" class="btn btn-gray fa fa-link"></a>
 								 </h4>
 									 <p>${job.description}</p>
 							</div>

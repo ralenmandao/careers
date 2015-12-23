@@ -14,5 +14,6 @@ public class BootApplication {
     	SpringApplicationBuilder builder = new SpringApplicationBuilder(BootApplication.class);
     	builder.headless(false);
     	ConfigurableApplicationContext context = builder.run(args);
+    	
     }
 }
