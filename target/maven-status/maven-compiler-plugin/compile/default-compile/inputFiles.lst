@@ -55,7 +55,6 @@ C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\Cand
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\User.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\jdbc\JdbcOperations.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\controller\AdminController.groovy
-C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\CandidateRegistrationEntity.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\controller\EmployerRepo.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\Skill.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\Job.groovy
@@ -67,7 +66,6 @@ C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\Coun
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\repository\BaseCrudRepository.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\repository\CountryRepo.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\repository\UserRepo.groovy
-C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\validation\CandidateRegistrationValidator.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\Location.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\UserInfo.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\repository\SkillRepo.groovy

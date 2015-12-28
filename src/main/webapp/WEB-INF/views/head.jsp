@@ -60,8 +60,32 @@
 						<ul>
 							<li style="background:#65BD77;"><a href="${root}candidate/" style="color:white;"><i class="fa fa-home"></i> Home</a></li>
 							<li><a href="#fakelink" id="edit"><i class="fa fa-users"></i> Account</a></li>
-							<li id = "resume"><a href="${root}candidate/${principal.id}/resume"><i class="fa fa-list-alt"></i> Resume</a></li>
-							<li id = "resume"><a href="${root}candidate/jobApplication"><i class="fa fa-list-alt"></i> Job Applications</a></li>
+							
+							
+							<c:choose>
+							    <c:when test="${not empty principal.contactNo && 
+							    				not empty principal.title && 
+							    				not empty principal.address &&  
+							    				not empty principal.highSchool && 
+							    				not empty principal.college && 
+							    				not empty principal.birthdate && 
+							    				not empty principal.location && 
+							    				not empty principal.specialization && 
+							    				not empty principal.qualification && 
+							    				not empty principal.expectedSalary && 
+							    				not empty principal.field && 
+							    				not empty principal.skills && 
+							    				principal.hasPicture && 
+							    				not empty principal.about && 
+							    				not empty principal.objective}">
+							       <li><a href="${root}candidate/${principal.id}/resume"><i class="fa fa-list-alt"></i> Resume</a></li>
+							    </c:when>    
+							    <c:otherwise>
+							       <li id = "resume"><a href="#"><i class="fa fa-list-alt"></i> Resume</a></li>
+							    </c:otherwise>
+							</c:choose>
+							
+							<li><a href="#"><i class="fa fa-list-alt"></i> Job Applications</a></li>
 							<!--
 							<li><a href="#fakelink"><i class="fa fa-bug"></i><i class="fa fa-angle-double-down i-right"></i> Elements</a>
 								<ul>

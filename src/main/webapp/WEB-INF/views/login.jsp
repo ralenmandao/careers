@@ -84,11 +84,6 @@
 							</div>
 						</div>
 					</form>
-					<p class="text-center"><strong>- or -</strong></p>
-					
-					<button type="button" class="btn btn-primary btn-block btn-facebook"><i class="fa fa-facebook"></i> Login with Facebook account</button>
-					<button type="button" class="btn btn-primary btn-block btn-twitter"><i class="fa fa-twitter"></i> Login with Twitter account</button>
-					
 				</div>
 				<p class="text-center"><a href="forgot-password.html"><i class="fa fa-lock"></i> Forgot password?</a></p>
 			</div>

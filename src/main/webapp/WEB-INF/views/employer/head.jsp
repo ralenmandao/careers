@@ -25,11 +25,16 @@
 				
 					<!-- User Session -->
 					<div class="media">
-						<!--
 						<a class="pull-left md-trigger" data-modal = "md-fade-in-scale-up">
-							<img class="media-object img-circle" src="${resources}assets/img/avatar/masarie.jpg" alt="Avatar" id="candidate-picture">
+							<c:choose>
+							    <c:when test="${principal.hasPicture}">
+							       <img class="media-object img-circle" src="${resources}images/profiles/${principal.id}.png" alt="Avatar" id="candidate-picture">
+							    </c:when>    
+							    <c:otherwise>
+							        <img class="media-object img-circle" src="${resources}images/no-profile.png" alt="Avatar" id="candidate-picture">
+							    </c:otherwise>
+							</c:choose>
 						</a>
-						 -->
 						<div class="media-body">
 							Welcome back,
 							<h4 class="media-heading"><strong id="nameContainer">${principal.companyName}</strong></h4>
@@ -160,39 +165,6 @@
 							<!-- Left navbar -->
 							<ul class="nav navbar-nav">
 
-							</ul>
-						
-							<!-- Right navbar -->
-							<ul class="nav navbar-nav navbar-right top-navbar">
-								
-								<!-- Dropdown notifications -->
-								<li class="dropdown">
-									<a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i><span class="label label-danger absolute">1</span></a>
-								</li>
-								<!-- End Dropdown notifications -->
-							
-								
-								<!-- Dropdown Messages -->
-								<li class="dropdown">
-									<a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i><span class="label label-danger absolute">1</span></a>
-								</li>
-								<!-- End Dropdown messages -->
-							
-								<!-- Dropdown User session -->
-								<li class="dropdown">
-									<a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">Howdy, <strong>${principal.companyName}</strong> <i class="fa fa-chevron-down i-xs"></i></a>
-									<ul class="dropdown-menu animated half flipInX">
-										<li><a href="#fakelink">My Profile</a></li>
-										<li><a href="#fakelink">Change Password</a></li>
-										<li><a href="#fakelink">Account Setting</a></li>
-										<li class="divider"></li>
-										<li class="dropdown-header">Another action</li>
-										<li><a href="#fakelink">Help</a></li>
-										<li><a href="lock-screen.html">Lock me</a></li>
-										<li><a class="md-trigger" data-modal="logout-modal">Logout</a></li>
-									</ul>
-								</li>
-								<!-- End Dropdown User session -->
 							</ul>
 						</div><!-- End div .navbar-collapse -->
 					</div><!-- End div .container -->

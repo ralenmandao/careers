@@ -296,26 +296,12 @@ public class CandidateController {
 	public String activateAccount(
 		@PathVariable("id") String id){
 		def candidate = candidateRepo.findOne(id)
+		if(candidate.user.enabled){
+			return "404"
+		}
 		candidate.user.enabled = true
 		userRepo.save(candidate.user)
 		return "redirect:/login?activated"
-	}
-
-		
-	private Resume1 processResume1Param(def map){
-		Resume1 resume = new Resume1();
-		def hsYear = map['highschool-year'][0]
-		resume.hs = [startYear: hsYear.split('-')[0], endYear: hsYear.split('-')[1], school: map['highschool-name'][0]]
-		def cYear = map['college-year'][0]
-		resume.college = [startYear: cYear.split('-')[0], endYear: cYear.split('-')[1], school: map['college-name'][0]]
-		for(int x = 0; x < map['experience-year'].size(); x++){
-			def eYear = map['experience-year'][x].toString()
-			resume.experience << [startYear: eYear.split('-')[0], endYear: eYear.split('-')[1], position: map['experience-position'][x],
-				companyName: map['experience-company-name'][x], role: map['experience-role'][x]]
-		}
-		resume.about = map['about'][0]
-		resume.objective = map['objective'][0]
-		resume
 	}
 		
 	private Candidate getPrincipalCandidate(){

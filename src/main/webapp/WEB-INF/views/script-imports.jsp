@@ -50,11 +50,13 @@
 	<!-- Form validation -->
 	<script src="${resources}assets/third/validator/bootstrapValidator.min.js"></script>
 	<script src="${resources}assets/third/validator/example.js"></script>
+	<script src="${resources}assets/third/validator/parsley.min.js"></script>
 	
-	<!-- Form wizard js -->
+	<!-- Form wizard js 
 	<script src="${resources}assets/third/wizard/jquery.snippet.min.html"></script>
 	<script src="${resources}assets/third/wizard/jquery.easyWizard.js"></script>
 	<script src="${resources}assets/third/wizard/scripts.js"></script>
+	-->
 	
 	<!-- LANCENG TEMPLATE JAVASCRIPT -->
 	<script src="${resources}assets/js/candidate/edit-candidate.js"></script>

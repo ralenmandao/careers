@@ -15,6 +15,8 @@ public class Job implements EntityObject {
 	Date posted
 	Date expiry
 	@DBRef
+	Employer employer
+	@DBRef
 	List<Skill> skills
 	long salaryFrom
 	long salaryTo

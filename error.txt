@@ -1,0 +1,10 @@
+data-parsley-required="true"
+
+data-parsley-minlength="3"
+data-parsley-maxlength="20"
+
+data-parsley-equalto="#password"
+
+data-parsley-type="email"
+
+data-parsley-pattern="\d+"

@@ -7,7 +7,7 @@
 
 <!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:43 GMT -->
 <head>
-<title>Careers - Login</title>
+<title>Careers - Register Candidate</title>
 <spring:url value="/resources/" var="resources" />
 <spring:url value="/WEB-INF/views/" var="views" />
 <spring:url value="/" var="root" />
@@ -30,8 +30,7 @@
 					</h2>
 					<spring:url value="/register" var="registerForm" />
 					<form:form modelAttribute="candidateRegistration" role="form"
-						action="${registerForm}" method="POST"
-						id="registerForm">
+						action="${registerForm}" method="POST" id="registerForm">
 						<c:if test="${not empty errors}">
 							<div class="error-container">
 								<div class="alert alert-danger" role="alert">
@@ -47,34 +46,46 @@
 						</c:if>
 						<div class="form-group login-input">
 							<i class="fa fa-user overlay"></i>
-							<div class="row">
-								<div class="col-md-6">
-									<form:input path="firstName" type="text"
-										class="form-control text-input" placeholder="First Name" 
-										name="firstName"/>
-								</div>
-								<div class="col-md-6">
-									<form:input path="lastName" type="text"
-										class="form-control text-input" placeholder="Last Name" 
-										name="lastName"/>
-								</div>
-							</div>
+							<form:input path="firstName" type="text"
+								class="form-control text-input" placeholder="First Name"
+								name="firstName" data-parsley-required="true"
+								data-parsley-minlength="3"
+								data-parsley-maxlength="20"/>
+						</div>
+						<div class="form-group login-input">
+							<i class="fa fa-user overlay"></i>
+							<form:input path="lastName" type="text"
+								class="form-control text-input" placeholder="Last Name"
+								name="lastName" data-parsley-required="true"
+								data-parsley-minlength="3"
+								data-parsley-maxlength="20"/>
 						</div>
 						<div class="form-group login-input">
 							<i class="fa fa-envelope overlay"></i>
 							<form:input path="user.email" type="email"
-								class="form-control text-input" placeholder="Your email" />
+								class="form-control text-input" name="email"
+								placeholder="Your email" data-parsley-required="true"
+								data-parsley-minlength="3"
+								data-parsley-maxlength="30"
+								data-parsley-type="email"/>
 						</div>
 						<div class="form-group login-input">
 							<i class="fa fa-key overlay"></i>
 							<form:input path="user.password" type="password"
 								class="form-control text-input" id="password"
-								placeholder="Password" />
+								placeholder="Password" name="password"
+								data-parsley-required="true"
+								data-parsley-minlength="3"
+								data-parsley-maxlength="20"/>
 						</div>
 						<div class="form-group login-input">
 							<i class="fa fa-eye overlay"></i> <input type="password"
 								class="form-control text-input" id="repassword"
-								placeholder="Re-Password" />
+								placeholder="Re-Password" name="repassword"
+								data-parsley-required="true"
+								data-parsley-minlength="3"
+								data-parsley-maxlength="20"
+								data-parsley-equalto="#password"/>
 						</div>
 
 						<button type="submit" class="btn btn-success btn-block"
@@ -82,19 +93,6 @@
 							<i class="fa fa-rocket"></i> Register
 						</button>
 					</form:form>
-
-					<p class="text-center">
-						<strong>- or -</strong>
-					</p>
-
-					<button type="button"
-						class="btn btn-primary btn-block btn-facebook">
-						<i class="fa fa-facebook"></i> Register with Facebook
-					</button>
-					<button type="button" class="btn btn-primary btn-block btn-twitter">
-						<i class="fa fa-twitter"></i> Register with Twitter
-					</button>
-
 				</div>
 				<p class="text-center">
 					<a href="login.html"><i class="fa fa-sign-in"></i> Back to
@@ -109,24 +107,7 @@
 	<jsp:include page="${views}foot.jsp"></jsp:include>
 	<jsp:include page="${views}script-imports.jsp"></jsp:include>
 	<script>
-		//$(document).ready(function(){
-			$('#registerForm').bootstrapValidator({
-				message : 'bootstrap',
-				fields : {
-					firstName : {
-						validators : {
-							notEmpty: {
-								message : 'name is required'	
-							},
-							regexp: {
-								regexp: /^[a-zA-Z ]+$/,
-								message: 'name must be alphanumeric only'
-							}
-						}
-					}
-				}
-			})
-		//})
+		$('#registerForm').parsley();
 	</script>
 </body>
 

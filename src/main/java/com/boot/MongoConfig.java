@@ -7,7 +7,7 @@ import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 
-@Configuration
+//@Configuration
 public class MongoConfig extends AbstractMongoConfiguration{
 
 	@Override

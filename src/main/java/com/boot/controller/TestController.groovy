@@ -49,7 +49,9 @@ public class TestController {
 	@RequestMapping(method=RequestMethod.GET)
 	@ResponseBody
 	public String test(){
-		return adminRepo.findByUser('56761d839230d7f2ba7b3bbb')
+		employerRepo.deleteAll()
+		userRepo.deleteAll()
+		return ""
 	}
 
 	public loadBasicUser(){
@@ -153,29 +155,29 @@ public class TestController {
 
 	public loadBasicJob(){
 		jobRepo.deleteAll()
-		def job1 = new Job(name: 'Senior Java Programmer', 
-			location: new Location(country: countryRepo.findByName('USA'), state: stateRepo.findByName('UsaClark')),
-			description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, maxime, excepturi, mollitia, voluptatibus similique aliquid a dolores autem laudantium sapiente ad enim ipsa modi laborum accusantium deleniti neque architecto vitae.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, ',
-			posted: new Date(),
-			expiry: new Date(),
-			skills: [skillRepo.findByName('C++')],
-			salaryFrom: 100000,
-			salaryTo: 100001)
-//			specialization: specializationRepo.findByName('Programming'),
-//			field: fieldRepo.findByName('Networking'))
-		
-		def job2 = new Job(name: 'Java Programmer',
-			location: new Location(country: countryRepo.findByName('USA'), state: stateRepo.findByName('UsaClark')),
-			description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, maxime, excepturi, mollitia, voluptatibus similique aliquid a dolores autem laudantium sapiente ad enim ipsa modi laborum accusantium deleniti neque architecto vitae.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, ',
-			posted: new Date(),
-			expiry: new Date(),
-			skills: [skillRepo.findByName('Java')],
-			salaryFrom: 100000,
-			salaryTo: 100001)
-//			specialization: specializationRepo.findByName('Networking'),
-//			field: fieldRepo.findByName('Networking'))
-		jobRepo.save(job1)
-		jobRepo.save(job2)
+//		def job1 = new Job(name: 'Senior Java Programmer', 
+//			location: new Location(country: countryRepo.findByName('USA'), state: stateRepo.findByName('UsaClark')),
+//			description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, maxime, excepturi, mollitia, voluptatibus similique aliquid a dolores autem laudantium sapiente ad enim ipsa modi laborum accusantium deleniti neque architecto vitae.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, ',
+//			posted: new Date(),
+//			expiry: new Date(),
+//			skills: [skillRepo.findByName('C++')],
+//			salaryFrom: 100000,
+//			salaryTo: 100001)
+////			specialization: specializationRepo.findByName('Programming'),
+////			field: fieldRepo.findByName('Networking'))
+//		
+//		def job2 = new Job(name: 'Java Programmer',
+//			location: new Location(country: countryRepo.findByName('USA'), state: stateRepo.findByName('UsaClark')),
+//			description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, maxime, excepturi, mollitia, voluptatibus similique aliquid a dolores autem laudantium sapiente ad enim ipsa modi laborum accusantium deleniti neque architecto vitae.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, ',
+//			posted: new Date(),
+//			expiry: new Date(),
+//			skills: [skillRepo.findByName('Java')],
+//			salaryFrom: 100000,
+//			salaryTo: 100001)
+////			specialization: specializationRepo.findByName('Networking'),
+////			field: fieldRepo.findByName('Networking'))
+//		jobRepo.save(job1)
+//		jobRepo.save(job2)
 	}
 	
 	public loadBasicIndustry(){

@@ -73,6 +73,21 @@
 				</div>
 			</div>
 		</div><!-- End .md-modal -->
+		
+		<div class="md-modal md-fade-in-scale-up" id="md-complete-your-profile">
+			<div class="md-content">
+				<h3><strong>Error</strong></h3>
+				<div>
+					<p>
+						Complete your profile or upload your resume to proceed
+					</p>
+					<p>
+						<button id="md-complete-your-profile-close" class="btn btn-danger md-close">Close me!</button>
+					</p>
+				</div>
+			</div>
+			<!-- End div .md-content -->
+		</div>
 		<!--
 		============================================================================
 		END MODAL DIALOG EXAMPLE

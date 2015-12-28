@@ -8,7 +8,7 @@
 
 <!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:43 GMT -->
 <head>
-<title>Careers - Login</title>
+<title>Careers - ${principal.firstName} ${principal.lastName}</title>
 <spring:url value="/resources/" var="resources" />
 <spring:url value="/WEB-INF/views/" var="views" />
 <spring:url value="/" var="root" />
@@ -271,7 +271,7 @@
 								<div class="col-sm-4">
 									<input type="text" name="college-name"
 										value="${principal.college.school}" class="form-control"
-										data-mask="aaaaaa" placeholder="College course">
+										data-mask="aaaaaa" placeholder="College Name">
 								</div>
 							</div>
 						</div>

@@ -43,6 +43,21 @@
 			<!-- ============================================================== -->
 			
         </div>
+     <div class="md-modal md-fade-in-scale-up" id="md-fade-in-scale-up">
+		<div class="md-content">
+			<h3>Upload Photo</h3>
+			<div>
+				<spring:url value="/employer/profileUpload" var="uploadPicture" />
+				<form method="POST" action="${uploadPicture}" enctype="multipart/form-data">
+				 	Picture : <input class="btn btn-default btn-xs" type="file" name="file" />
+				 	<br>
+				 	<br>
+				 	<input type="hidden" value="${principal.id}" name="id">
+				 	<button class="btn btn-success md-close" type="submit">Save</button>
+				</form>
+			</div>
+		</div><!-- End div .md-content -->
+	</div>
 	<jsp:include page="${views}foot.jsp"></jsp:include>
 	<jsp:include page="${views}script-imports.jsp"></jsp:include>
 	</body>

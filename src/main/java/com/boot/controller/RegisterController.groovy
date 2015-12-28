@@ -36,13 +36,11 @@ public class RegisterController {
 			@ModelAttribute("candidateRegistration") Candidate candidateRegistration,
 			Errors errors, HttpSession session) throws Exception{
 		
-		// check email availability if and only if email field does not have an error
-		if(errors.getFieldError("user.username") == null){
-			if(userRepo.findByEmail(candidateRegistration.getUser().getEmail())){
-				errors.rejectValue("user.username", "", "Email already exist");
-			}
+
+		if(userRepo.findByEmail(candidateRegistration.getUser().getEmail())){
+			errors.rejectValue("user.email", "", "Email already exist");
 		}
-		
+			
 		if(errors.hasErrors()){
 			model.addAttribute("errors", errors.getFieldErrors());
 			return "register";

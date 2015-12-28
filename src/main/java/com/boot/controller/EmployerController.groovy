@@ -9,10 +9,13 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.validation.Errors
 import org.springframework.web.bind.annotation.ModelAttribute
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.multipart.MultipartFile;
 
 import com.boot.data.entity.Country
 import com.boot.data.entity.Employer
@@ -20,7 +23,6 @@ import com.boot.data.entity.Industry
 import com.boot.data.entity.Job
 import com.boot.data.entity.Location
 import com.boot.data.entity.State
-import com.boot.data.entity.Industry
 import com.boot.data.repository.CandidateRepo
 import com.boot.data.repository.CountryRepo
 import com.boot.data.repository.FieldRepo
@@ -32,6 +34,7 @@ import com.boot.data.repository.SpecializationRepo
 import com.boot.data.repository.StateRepo
 import com.boot.data.repository.UserRepo
 import com.boot.helper.AuthenticationUtil
+import com.boot.helper.MailMail
 
 @Controller
 @RequestMapping("/employer")
@@ -50,6 +53,8 @@ public class EmployerController {
 	@Autowired JobRepo jobRepo
 	@Autowired EmployerRepo employerRepo
 	@Autowired IndustryRepo industryRepo
+	
+	@Autowired MailMail mail
 
 	@RequestMapping(value="register", method=RequestMethod.GET)
 	public String register(Model model, HttpSession session) {
@@ -62,14 +67,44 @@ public class EmployerController {
 	@RequestMapping(value="register", method=RequestMethod.POST)
 	public String registerPost(Model model,
 			HttpSession session,
-			@ModelAttribute Employer employer) {
-			
+			@ModelAttribute Employer employer,
+			Errors errors) {
+		
+		if(userRepo.findByEmail(employer.user.email)){
+			errors.rejectValue("user.email", "", "Email already exist");
+		}
+		
+		if(errors.hasErrors()){
+			model.addAttribute("errors", errors.getFieldErrors());
+			if(!model.containsAttribute('employerRegistration')){
+				model.addAttribute('employerRegistration', new Employer())
+			}
+			return "employer/register";
+		}
+		
 		employer.user.username = employer.user.email
 		employer.user.role = "ROLE_EMPLOYER"
-		employer.user.enabled = true
+		employer.user.enabled = false
 		userRepo.insert(employer.user)
 		employerRepo.insert(employer)
-		return "redirect:/login"
+		
+		mail.sendMail("DHVTSU-CAREERS", employer.user.email ,"Account Activation",
+			"To activate your account please click the activation link http://localhost:8080/employer/activate/${employer.id}");
+		return "redirect:/login?success"
+	}
+			
+	@RequestMapping(value="/activate/{id}")
+	public String activateAccount(
+		@PathVariable("id") String id){
+		def employer = employerRepo.findOne(id)
+		
+		if(employer.user.enabled){
+			return "404"
+		}
+		
+		employer.user.enabled = true
+		userRepo.save(employer.user)
+		return "redirect:/login?activated"
 	}
 			
 	@RequestMapping
@@ -111,7 +146,7 @@ public class EmployerController {
 		def job = new Job(name: title, location: new Location(country: country, state: state), 
 						  description: description, posted: new Date(), 
 						  expiry:sdf.parse(expiry), salaryFrom: salaryFrom, salaryTo: salaryTo,
-						  skills: mySkills)
+						  skills: mySkills, employer: getPrincipalEmployer())
 		jobRepo.save(job)
 		return "redirect:postJob"
 	}
@@ -144,6 +179,27 @@ public class EmployerController {
 		 employerRepo.save(employer)
 		 return "redirect:edit"
 	 }
+									
+	@RequestMapping(value="/profileUpload", method=RequestMethod.POST)
+	public String handleFileUpload(
+		@RequestParam("file") MultipartFile file,
+		@RequestParam("id") String id){
+		if (!file.isEmpty()) {
+			try {
+				byte[] bytes = file.getBytes();
+				BufferedOutputStream stream =
+						new BufferedOutputStream(new FileOutputStream(new File("src/main/webapp/resources/images/profiles/${id}.png")));
+				stream.write(bytes);
+				stream.close();
+			} catch (Exception e) {
+				e.printStackTrace()
+			}
+		}
+		def employer = getPrincipalEmployer()
+		employer.hasPicture = true
+		employerRepo.save(employer)
+		return "redirect:/employer"
+	}
 	
 	private Employer getPrincipalEmployer(){
 		String principalUser = AuthenticationUtil.getPrincipal();

@@ -18,4 +18,5 @@ public class Employer implements EntityObject{
 	List<Industry> industries
 	long size
 	String overview
+	boolean hasPicture = false
 }
