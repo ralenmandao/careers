@@ -120,7 +120,7 @@ public class CandidateController {
 		if(address) candidate.address = address
 		logger.info "Updating candidate ${candidate}"
 		candidateRepo.save(candidate);
-		return "redirect:/candidate/edit";
+		return "redirect:/candidate/edit?success";
 	}
 			
 	@RequestMapping(value="saveEducation", method=RequestMethod.POST)
@@ -140,7 +140,7 @@ public class CandidateController {
 				endYear: cYear.split('-')[1], course: cCourse)
 		}
 		candidateRepo.save(candidate);
-		return "redirect:/candidate/edit";
+		return "redirect:/candidate/edit?success";
 	}
 		
 	@RequestMapping(value="saveExperience", method=RequestMethod.POST)
@@ -160,7 +160,7 @@ public class CandidateController {
 				position: position, companyName: company, role: role)
 		}
 		candidateRepo.save(candidate);
-		return "redirect:/candidate/edit";
+		return "redirect:/candidate/edit?success";
 	}
 		
 	@RequestMapping(value="saveOther", method=RequestMethod.POST)
@@ -171,7 +171,7 @@ public class CandidateController {
 		candidate.about = about
 		candidate.objective = objective
 		candidateRepo.save(candidate);
-		return "redirect:/candidate/edit";
+		return "redirect:/candidate/edit?success";
 	}
 
 	@RequestMapping(value="saveProfessionalInformation", method=RequestMethod.POST)
@@ -211,7 +211,7 @@ public class CandidateController {
 		}
 		candidate.title = title
 		candidateRepo.save(candidate)
-		return "redirect:/candidate/edit";
+		return "redirect:/candidate/edit?success";
 	}
 
 	@RequestMapping(value="addResume", method=RequestMethod.GET)
@@ -227,6 +227,7 @@ public class CandidateController {
 			return "redirect:/candidate/addResume"
 		}
 		model.addAttribute('candidate', candidate)
+		model.addAttribute('principal', candidate)
 		return "/resume/${candidate.resumeName}/main"
 	}
 	
@@ -268,6 +269,7 @@ public class CandidateController {
 		def candidate =  getPrincipalCandidate()
 		def jobs = candidateApplicationRepo.findByCandidateId(candidate.id).collect{ it.job }
 		model.addAttribute("jobs",jobs)
+		model.addAttribute("principal", candidate)
 		return "candidate/job-applications"
 	}
 	
@@ -304,6 +306,26 @@ public class CandidateController {
 		return "redirect:/login?activated"
 	}
 		
+	@RequestMapping(value="/changeEmail")
+	public String changeEmail(@RequestParam('email') String email){
+		def candidate = getPrincipalCandidate()
+		def user = userRepo.findByEmail(email)
+		if(user){
+			return "redirect:/candidate/edit?emailNotAvailable"
+		}
+		candidate.user.email = email
+		userRepo.save(candidate.user)
+		return "redirect:/candidate/edit?success"
+	}
+	
+	@RequestMapping(value="/changePassword")
+	public String changePassword(@RequestParam('password') String password){
+		def candidate = getPrincipalCandidate()
+		candidate.user.password = password
+		userRepo.save(candidate.user)
+		return "redirect:/candidate/edit?success"
+	}
+
 	private Candidate getPrincipalCandidate(){
 		String principalUser = AuthenticationUtil.getPrincipal();
 		def user = userRepo.findByUsername(principalUser)

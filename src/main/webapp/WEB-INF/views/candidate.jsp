@@ -68,20 +68,10 @@
 			</div>
 
 		</div>
-		<!-- Footer -->
-		<footer>
-			© 2014 <a href="index.html">Lanceng Admin</a>. Design with love by <a
-				href="http://isohdesign.com/" target="_blank">Isoh Design Studio</a>
-			from <a href="#fakelink">Yogyakarta, ID</a>
-		</footer>
-		<!-- End Footer -->
-
 	</div>
 	<!-- ============================================================== -->
 	<!-- END YOUR CONTENT HERE -->
 	<!-- ============================================================== -->
-
-	</div>
 	<div class="md-modal md-fade-in-scale-up" id="md-fade-in-scale-up">
 		<div class="md-content">
 			<h3>Upload Photo</h3>

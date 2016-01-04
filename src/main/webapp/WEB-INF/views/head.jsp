@@ -12,7 +12,6 @@
 				<h1><a href="#fakelink"><img src="${resources}assets/img/logo-login.png" alt="Logo"> CAREERS CCS</a></h1>
 			</div>
 		</div><!-- End div .header .sidebar .rows -->
-	
 		<!-- BEGIN SIDEBAR -->
 		<div class="left side-menu">
 			
@@ -40,7 +39,7 @@
 							<!--
 							<a href="#" id="edit">Edit</a>
 							-->
-							<a class="md-trigger" data-modal="logout-modal-alt">Logout</a>
+							<a class="logout" class="md-trigger" data-modal="logout-modal-alt">Logout</a>
 						</div><!-- End div .media-body -->
 					</div><!-- End div .media -->
 					
@@ -85,7 +84,7 @@
 							    </c:otherwise>
 							</c:choose>
 							
-							<li><a href="#"><i class="fa fa-list-alt"></i> Job Applications</a></li>
+							<li><a href="/candidate/jobApplication"><i class="fa fa-list-alt"></i> Job Applications</a></li>
 							<!--
 							<li><a href="#fakelink"><i class="fa fa-bug"></i><i class="fa fa-angle-double-down i-right"></i> Elements</a>
 								<ul>

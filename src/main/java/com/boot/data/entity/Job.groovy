@@ -20,6 +20,9 @@ public class Job implements EntityObject {
 	List<Skill> skills
 	long salaryFrom
 	long salaryTo
+	String type
+	int experienceFrom
+	int experienceTo
 	@DBRef
 	List<Candidate> applicants
 }

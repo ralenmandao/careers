@@ -49,8 +49,7 @@ public class TestController {
 	@RequestMapping(method=RequestMethod.GET)
 	@ResponseBody
 	public String test(){
-		employerRepo.deleteAll()
-		userRepo.deleteAll()
+		jobRepo.delete('567de4a8afbac4211a2db22f')
 		return ""
 	}
 
@@ -140,8 +139,8 @@ public class TestController {
 		specializationRepo.deleteAll()
 		def sp = new Specialization(name: 'Programming')
 		def sp1 = new Specialization(name: 'Networking')
-		specializationRepo.insert(sp)
-		specializationRepo.insert(sp1)
+		specializationRepo.save(sp)
+		specializationRepo.save(sp1)
 
 	}
 

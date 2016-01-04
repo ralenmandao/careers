@@ -17,12 +17,4 @@ $(document).ready(function(){
 	
 	var selLocation = $('#ecLocation');
 	$(selLocation).chosen();
-	
-	
-	/* Resume creator */
-	get("/candidate/getResumeEditor1", function(data){
-		//$("#registrationInput").html(data)
-		alert(data)
-	}, function(){ })
-	
 });

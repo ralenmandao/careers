@@ -8,7 +8,7 @@
 	
 <!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:43 GMT -->
 <head>
-	<title>Careers - Login</title>
+	<title>Careers - ${candidate.firstName} ${candidate.lastName}</title>
 	<spring:url value="/resources/" var="resources" />
 	<spring:url value="/WEB-INF/views/" var="views" />
 	<spring:url value="/" var="root" />
@@ -26,6 +26,7 @@
 			<div class="body content rows scroll-y">
 				<div class="box-info">
 				<div class="container">				
+				<a href="/candidate/addResume?edit=true" class="btn btn-success" style="position:absolute;right:10px;">Edit</a>
 				    <!-- wrapper -->
 				    <div>
 				
@@ -82,7 +83,8 @@
 				
 				          </section><!--/ about me -->
 				
-				          <!-- experiences -->
+						<c:if test="${not empty candidate.experiences}">
+							<!-- experiences -->
 				          <section class="cv-section">
 				
 				            <h3 class="text-uppercase">// Experiences</h3>
@@ -99,6 +101,7 @@
 						        </article>
 							</c:forEach>	
 				          </section><!--/ experiences -->
+						</c:if>
 				
 				          <!-- education -->
 				          <section class="cv-section">

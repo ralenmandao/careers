@@ -22,6 +22,18 @@
 	<!-- ============================================================== -->
 	<div class="scroll-y" id="body-container">
 		<div class="body content rows scroll-y">
+		<c:if test="${param.emailNotAvailable != null}">
+			<div class="alert alert-danger alert-dismissable">
+				  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				  <strong>Error!</strong> email is not available
+				</div>
+		</c:if>
+		<c:if test="${param.success != null}">
+			<div class="alert alert-success alert-dismissable">
+			  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+			  <strong>Success!</strong> updating profile.
+			</div>
+		</c:if>
 			<div class="box-info">
 				<h2>
 					<strong>Personal</strong> Information
@@ -98,7 +110,7 @@
 				<h2>
 					<strong>Login</strong> Information
 				</h2>
-				<form class="form-horizontal" role="form">
+				<div class="form-horizontal" role="form">
 					<!-- Text input -->
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Email</label>
@@ -107,10 +119,44 @@
 						</div>
 					</div>
 					<div class="pull-right">
-						<button class="btn btn-primary">Change Email</button>
-						<button class="btn btn-primary">Change Password</button>
+						<button id="change-email" class="btn btn-primary">Change Email</button>
+						<button id="change-password" class="btn btn-primary">Change Password</button>
 					</div>
-				</form>
+					<div style="display:none;" id="change-email-form">
+						<br>
+						<br>
+						<h2><strong>Change</strong> Email</h2>
+						<form class="form-horizontal" role="form" action="/candidate/changeEmail" method="post">
+							<div class="form-group">
+								<label for="input-text" class="col-sm-2 control-label">New Email</label>
+								<div class="col-sm-10" id="firstNameContainer">
+									<input type="text" class="form-control" name="email" placeholder="" value="">
+								</div>
+							</div>
+							<div class="pull-right">
+								<button type="input" class="btn btn-danger btn-cancel" onclick="$('#change-email-form').hide(500);return false;">Cancel</button>
+								<button type = "submit" class="btn btn-primary btn-save">Save</button>
+							</div>
+						</form>
+					</div>
+					<div style="display:none;" id="change-password-form">
+						<br>
+						<br>
+						<h2><strong>Change</strong> Password</h2>
+						<form class="form-horizontal" role="form" action="/candidate/changePassword" method="post">
+							<div class="form-group">
+								<label for="input-text" class="col-sm-2 control-label">New Password</label>
+								<div class="col-sm-10" id="firstNameContainer">
+									<input type="password" class="form-control" name="password" placeholder="" value="">
+								</div>
+							</div>
+							<div class="pull-right">
+								<button type="input" class="btn btn-danger btn-cancel" onclick="$('#change-password-form').hide(500);return false;">Cancel</button>
+								<button type = "submit" class="btn btn-primary btn-save">Save</button>
+							</div>
+						</form>
+					</div>
+				</div>
 			</div>
 			<div class="box-info">
 				<h2>
@@ -402,74 +448,13 @@
 										.appendTo("#experience-container");
 							})
 
-					$('#personalInformationForm').bootstrapValidator({
-						message : 'bootstrap',
-						fields : {
-							firstName : {
-								validators : {
-									notEmpty: {
-										message : 'first name is required'	
-									},
-									stringLength: {
-										min: 5,
-										max: 20,
-										message: 'first name minimum of 5 characters maximum of 20'
-									},
-									regexp: {
-										regexp: /^[a-zA-Z ]+$/,
-										message: 'first name must contain only letters'
-									}
-								}
-							},
-							lastName : {
-								validators : {
-									notEmpty: {
-										message : 'last name is required'	
-									},
-									stringLength: {
-										min: 5,
-										max: 20,
-										message: 'last name minimum of 5 characters maximum of 20'
-									},
-									regexp: {
-										regexp: /^[a-zA-Z ]+$/,
-										message: 'last name must contain only letters'
-									}
-								}
-							},
-							birthdate : {
-								validators : {
-									notEmpty : {
-										message : 'birthdate is required'
-									}
-								}
-							},
-							state : {
-								validators: {
-									notEmpty: {
-										message: 'location is required'
-									}	
-								}
-							},
-							address : {
-								validators: {
-									notEmpty: {
-										message: 'address is required'
-									}	
-								}
-							},
-							contact: {
-								validators: {
-									notEmpty: {
-										message: 'contact number is required'
-									},
-									regexp: {
-										regexp: /^[0-9+ ]+$/,
-										message: 'invalid format'
-									}
-								}
-							}
-						}
+					
+					$('#change-email').on('click', function(){
+						$('#change-email-form').toggle(500);
+					})
+					
+					$('#change-password').on('click', function(){
+						$('#change-password-form').toggle(500);
 					})
 				})
 	</script>

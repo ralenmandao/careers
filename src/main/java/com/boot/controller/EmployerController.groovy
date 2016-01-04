@@ -129,13 +129,13 @@ public class EmployerController {
 	public String receiveJob(HttpSession session, 
 							 Model model,
 							 @RequestParam(name="title") String title,
-							 @RequestParam(name="salaryTo") int salaryTo,
-							 @RequestParam(name="salaryFrom") int salaryFrom,
+							 @RequestParam(name="salary") String salary,
 							 @RequestParam(name="stateId") String stateId,
 							 @RequestParam(name="skills") List<String> skills,
 							 @RequestParam(name="expiry") String expiry,
-							 @RequestParam(name="description") String description){	
-							 
+							 @RequestParam(name="description") String description,
+							 @RequestParam(name="type") String type,
+							 @RequestParam(name="experience") String experience){	
 		State state = stateRepo.findOne(stateId)
 		Country country = countryRepo.findOne(state.countryId)	
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -145,8 +145,9 @@ public class EmployerController {
 		}
 		def job = new Job(name: title, location: new Location(country: country, state: state), 
 						  description: description, posted: new Date(), 
-						  expiry:sdf.parse(expiry), salaryFrom: salaryFrom, salaryTo: salaryTo,
-						  skills: mySkills, employer: getPrincipalEmployer())
+						  expiry:sdf.parse(expiry), salaryFrom: salary.split('-')[0] as long, salaryTo: salary.split('-')[1] as long,
+						  skills: mySkills, employer: getPrincipalEmployer(), type: type, 
+						  experienceFrom: experience.split('-')[0] as int, experienceTo: experience.split('-')[1] as int)
 		jobRepo.save(job)
 		return "redirect:postJob"
 	}

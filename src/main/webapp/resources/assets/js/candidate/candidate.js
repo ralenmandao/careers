@@ -10,6 +10,16 @@ $(document).ready(function(){
 	
 	
 	
+	// FIXING LOGOUT ON CANDIDATE
+	
+	$('.logout').on('click', function(){
+		$('#logout-modal-alt').addClass('md-show')
+	})
+	
+	$('.md-overlay').on('click', function(){
+		$('#logout-modal-alt').removeClass('md-show')
+	})
+	
 	// Job md showing when user profile is not complet
 	$('#resume').on('click', function(){
 		$('#md-complete-your-profile').addClass('md-show')

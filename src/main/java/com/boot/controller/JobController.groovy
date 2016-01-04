@@ -40,11 +40,13 @@ public class JobController {
 	public String register(Model model,
 						   @PathVariable("jobId") String jobId){
 		def job = jobRepo.findOne(jobId)
+		def candidate = getPrincipalCandidate()
 		if(job){
 			model.addAttribute("job",job)
 		}else{
 			return "404"
 		}
+		model.addAttribute('principal',candidate)
 		return "job/job-display";
 	}
 						   

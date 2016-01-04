@@ -41,7 +41,7 @@
 							<!--
 							<a href="#" id="edit">Edit</a>
 							-->
-							<a class="md-trigger" data-modal="logout-modal-alt">Logout</a>
+							<a class="logout" class="md-trigger" data-modal="logout-modal-alt">Logout</a>
 						</div><!-- End div .media-body -->
 					</div><!-- End div .media -->
 					
@@ -61,7 +61,7 @@
 						<ul>
 							<li style="background:#65BD77;"><a href="${root}employer/" style="color:white;"><i class="fa fa-home"></i> Home</a></li>
 							<li><a href="/employer/edit"><i class="fa fa-users"></i> Account</a></li>
-							<li id = "resume"><a href="${root}employer/postJob"><i class="fa fa-list-alt"></i> Post a Job</a></li>
+							<li><a href="${root}employer/postJob"><i class="fa fa-list-alt"></i> Post a Job</a></li>
 							<!--
 							<li><a href="#fakelink"><i class="fa fa-bug"></i><i class="fa fa-angle-double-down i-right"></i> Elements</a>
 								<ul>

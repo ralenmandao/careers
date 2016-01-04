@@ -7,7 +7,7 @@
 	
 <!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:43 GMT -->
 <head>
-	<title>Careers - Login</title>
+	<title>Careers - ${candidate.firstName} ${candidate.lastName}</title>
 	<link href='http://fonts.googleapis.com/css?family=Roboto+Slab:700,400|Shadows+Into+Light+Two' rel='stylesheet' type='text/css'>
 	<spring:url value="/resources/" var="resources" />
 	<spring:url value="/WEB-INF/views/" var="views" />
@@ -113,31 +113,33 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-xs-12 col-sm-7 col-md-7 col-lg-12">
-							<div class="well">
-								<h3 class="red">#Experience</h3>
-								<div class="panel-group" id="accordion">
-									<c:forEach items="${candidate.experiences}" var="exp">
-										<div class="panel panel-default">
-											<div class="panel-heading">
-											  <h4 class="panel-title">
-												<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-												  ${exp.position} (${exp.startYear}-${exp.endYear}) - ${exp.companyName}
-												</a>
-											  </h4>
-											</div>
-											<div id="collapseOne" class="panel-collapse collapse in">
-											  <div class="panel-body">
-												${exp.role}
+					<c:if test="${not empty candidate.experiences}">
+						<div class="row">
+							<div class="col-xs-12 col-sm-7 col-md-7 col-lg-12">
+								<div class="well">
+									<h3 class="red">#Experience</h3>
+									<div class="panel-group" id="accordion">
+										<c:forEach items="${candidate.experiences}" var="exp">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+												  <h4 class="panel-title">
+													<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+													  ${exp.position} (${exp.startYear}-${exp.endYear}) - ${exp.companyName}
+													</a>
+												  </h4>
+												</div>
+												<div id="collapseOne" class="panel-collapse collapse in">
+												  <div class="panel-body">
+													${exp.role}
+												  </div>
+												</div>
 											  </div>
-											</div>
-										  </div>
-									</c:forEach>
+										</c:forEach>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					</c:if>
 				</div>
             </div>
 			<!-- ============================================================== -->
