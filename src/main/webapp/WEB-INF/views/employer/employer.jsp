@@ -21,21 +21,8 @@
 		<!-- ============================================================== -->
            <div class="scroll-y" id="body-container">
 			<div class="body content rows scroll-y">
-				<div class="box-info default">
-					<c:forEach items="${candidates}" var="candidate">
-						<div class="candidate-item">
-							<hr>
-							<h5><strong>${candidate.firstName} ${candidate.lastName}</strong></h5>
-							<h5>${candidate.location.country.name}, ${candidate.location.state.name}</h5>
-							<h6><strong>Skills :</strong>
-							
-							<c:forEach items="${candidate.skills}" var="skill">
-								<span class="label label-success">${skill.name}</span>
-							</c:forEach>
-							</h6>
-							<br>
-						</div>
-					</c:forEach>
+				<div class="box-info col-sm-5">
+					<h2><strong>Job Posted</strong></h2>
 				</div>
             </div>
 			<!-- ============================================================== -->

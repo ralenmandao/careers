@@ -29,18 +29,34 @@
 				</div>
 				-->
 				<!-- End page header -->
-				 <div class="box-info full">
+				 <div class="box-info">
+			 		<h2>
+			 			<strong>Job Applications</strong>
+			 		</h2>
 					<c:choose> 
-					  <c:when test="${not empty jobs}">
-					    <c:forEach items="${jobs}" var="job">
+					  <c:when test="${not empty applications}">
+					    <c:forEach items="${applications}" var="application">
 				 		<div class="box-info"> 
 							<div class="media-body">
-								 <h4 class="media-heading"><a href="/job/${job.id}">${job.name}</a><br> <small>${job.location.state.name}, ${job.location.country.name}</small>
-								 <a href="#" class="btn btn-gray fa fa-plus toggle"></a>
-								 <a href="#" class="btn btn-gray fa fa-star"></a>
-								 <a href="#" class="btn btn-gray fa fa-link"></a>
+								 <h4 class="media-heading"><a href="/job/${application.job.id}">${application.job.name}</a>
+								 
+								 <c:if test="${application.viewCount == 0}">
+								 
+								 </c:if>
+								 
+								 <c:choose>
+								    <c:when test="${application.viewCount == 0}">
+								       <span class="label label-danger">Not yet viewed</span>
+								    </c:when>    
+								    <c:otherwise>
+								       <span class="label label-success">${application.viewCount} views</span>
+								    </c:otherwise>
+							    </c:choose>
+							    <br>
+								 
+								 <small>${application.job.location.state.name}, ${application.job.location.country.name}</small>
 								 </h4>
-									 <p>${job.description}</p>
+									 <p>${application.job.description}</p>
 							</div>
 						</div>
 				 		</c:forEach>

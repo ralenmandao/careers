@@ -111,7 +111,6 @@ public class EmployerController {
 	public String employer(HttpSession session, Model model){
 		def employer = getPrincipalEmployer()
 		session.setAttribute('principal',employer)
-		model.addAttribute('candidates', candidateRepo.findAll())
 		return "employer/employer"
 	}
 	

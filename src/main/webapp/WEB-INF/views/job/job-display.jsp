@@ -46,7 +46,7 @@
 				<br>
 				<strong>Job Type :</strong>
 					<c:choose>
-					    <c:when test="${job.type == 'contact'}">
+					    <c:when test="${job.type == 'contract'}">
 					       	Full Time/Contract
 					    </c:when>    
 					    <c:when test="${job.type == 'temporary'}">
@@ -60,7 +60,8 @@
 				<strong>Location :</strong> ${job.location.state.name}, ${job.location.country.name}
 				
 				<hr>
-				<form action="/job/${job.id}/apply" method="post">
+				<c:if test="${not applied}">
+					<form action="/job/${job.id}/apply" method="post">
 					<div class="form-group">
 						<label for="input-text" class="col-sm-2 control-label">Cover Letter</label>
 						<div class="col-sm-10">
@@ -72,6 +73,7 @@
 						<button type = "submit" class="btn btn-primary pull-right" name="contact">Apply Now</button>		
 					</div>
 				</form>
+				</c:if>
 			</div>
 		</div>	
 	</div>

@@ -1,6 +1,5 @@
 package com.boot;
 
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 
 import com.mongodb.Mongo;

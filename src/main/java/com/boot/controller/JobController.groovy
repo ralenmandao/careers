@@ -46,7 +46,9 @@ public class JobController {
 		}else{
 			return "404"
 		}
+		def app = candidateApplicationRepo.findByJobIdAndCandidateId(jobId, candidate.id);
 		model.addAttribute('principal',candidate)
+		model.addAttribute('applied', app != null)
 		return "job/job-display";
 	}
 						   

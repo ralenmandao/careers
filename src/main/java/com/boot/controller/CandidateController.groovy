@@ -35,6 +35,10 @@ import com.boot.data.repository.UserRepo
 import com.boot.exception.NoPrincipalUserFound
 import com.boot.helper.AuthenticationUtil
 
+import groovy.transform.TypeChecked;
+
+import groovy.transform.CompileStatic;
+
 @Controller
 @RequestMapping("/candidate")
 public class CandidateController {
@@ -51,11 +55,17 @@ public class CandidateController {
 	@Autowired StateRepo stateRepo
 	@Autowired JobRepo jobRepo
 	@Autowired CandidateApplicationRepo candidateApplicationRepo
+	@Autowired EmployerRepo employerRepo
 
 	@RequestMapping(method=RequestMethod.GET)
 	public String candidate(Model model, HttpSession session) throws NoPrincipalUserFound{
 		Candidate candidate = getPrincipalCandidate();
 		def jobs = jobRepo.findAll()
+		def applied = candidateApplicationRepo.findByCandidateId(candidate.getId()).collect{ it.job.id }
+		jobs = jobs.findAll{
+			!applied.contains(it.id)
+		}
+		
 		logger.info(candidate.toString())
 		model.addAttribute('principal', candidate);
 		model.addAttribute('jobs', jobs)
@@ -267,8 +277,8 @@ public class CandidateController {
 	@RequestMapping(value="jobApplication", method=RequestMethod.GET)
 	public String jobApplication(Model model){
 		def candidate =  getPrincipalCandidate()
-		def jobs = candidateApplicationRepo.findByCandidateId(candidate.id).collect{ it.job }
-		model.addAttribute("jobs",jobs)
+		def jobs = candidateApplicationRepo.findByCandidateId(candidate.id)
+		model.addAttribute("applications",jobs)
 		model.addAttribute("principal", candidate)
 		return "candidate/job-applications"
 	}
@@ -324,6 +334,16 @@ public class CandidateController {
 		candidate.user.password = password
 		userRepo.save(candidate.user)
 		return "redirect:/candidate/edit?success"
+	}
+	
+	@RequestMapping(value="/c/{id}")
+	public String viewEmployer(
+			@PathVariable("id") String customerId,
+			Model model
+		){
+		model.addAttribute("employer", employerRepo.findOne(customerId))
+		model.addAttribute("principal", getPrincipalCandidate())
+		return "candidate/view-employer"
 	}
 
 	private Candidate getPrincipalCandidate(){

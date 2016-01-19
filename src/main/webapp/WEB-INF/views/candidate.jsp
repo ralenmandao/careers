@@ -49,8 +49,8 @@
 							<div class="box-info">
 								<div class="media-body">
 									<h4 class="media-heading">
-										<a href="/job/${job.id}">${job.name}</a><br>
-										<small>${job.employer.companyName}</small><br>
+										<a href="/job/${job.id}">${job.name}</a> <span style="margin-left: 5px" class="label label-success">${job.type}</span><br>
+										<small><a href="/candidate/c/${job.employer.id}">${job.employer.companyName}</a></small><br>
 										<span class="glyphicon glyphicon-map-marker"></span> <small style="margin-right:5px;">${job.location.state.name},
 											${job.location.country.name}</small>
 										<span class="fa fa-money"></span> <small>${job.salaryFrom} - ${job.salaryTo}</small>
@@ -61,7 +61,7 @@
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
-						<h1>No jobs found!</h1>
+						<h2 style="text-align:center">No jobs found!</h2>
 					</c:otherwise>
 				</c:choose>
 

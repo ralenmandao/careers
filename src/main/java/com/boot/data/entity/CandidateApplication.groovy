@@ -14,4 +14,5 @@ class CandidateApplication {
 	@DBRef
 	Job job
 	String cover
+	int viewCount
 }
