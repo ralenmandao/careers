@@ -111,6 +111,10 @@ public class EmployerController {
 	public String employer(HttpSession session, Model model){
 		def employer = getPrincipalEmployer()
 		session.setAttribute('principal',employer)
+		def jobs = jobRepo.findByEmployerId(employer.id);
+		if(jobs.size() > 3)
+			jobs = jobs.subList(0,2)
+		model.addAttribute('jobs', jobs)
 		return "employer/employer"
 	}
 	
@@ -148,7 +152,7 @@ public class EmployerController {
 						  skills: mySkills, employer: getPrincipalEmployer(), type: type, 
 						  experienceFrom: experience.split('-')[0] as int, experienceTo: experience.split('-')[1] as int)
 		jobRepo.save(job)
-		return "redirect:postJob"
+		return "redirect:/employer?success"
 	}
 							 
 	 @RequestMapping(value="edit")
@@ -200,7 +204,33 @@ public class EmployerController {
 		employerRepo.save(employer)
 		return "redirect:/employer"
 	}
+		
+	@RequestMapping(value="/job/edit/{id}", method=RequestMethod.GET)
+	public String editJob(
+			Model model,
+			@PathVariable("id") String id
+		){
+		model.addAttribute('skills', skillRepo.findAll())
+		if(!model.containsAttribute('formJobPosting')){
+			model.addAttribute('formJobPosting', new Job())
+		}
+		model.addAttribute('countries', countryRepo.findAll())
+		def job = jobRepo.findOne(id)
+		if(job == null)
+			return "404"
+		model.addAttribute('job', job)
+		return "employer/edit-job"
+	}
 	
+	@RequestMapping(value="/job/delete/{id}", method=RequestMethod.GET)
+	public String deleteJob(
+		Model model,
+		@PathVariable("id") String id
+		){
+		jobRepo.delete(id);
+		return "redirect:/employer?deleted"
+	}
+		
 	private Employer getPrincipalEmployer(){
 		String principalUser = AuthenticationUtil.getPrincipal();
 		def user = userRepo.findByUsername(principalUser)

@@ -62,13 +62,17 @@ public class CandidateController {
 		Candidate candidate = getPrincipalCandidate();
 		def jobs = jobRepo.findAll()
 		def applied = candidateApplicationRepo.findByCandidateId(candidate.getId()).collect{ it.job.id }
+		println "aweaweawe + " + applied.size()
 		jobs = jobs.findAll{
 			!applied.contains(it.id)
 		}
 		
 		logger.info(candidate.toString())
+		model.addAttribute('countries', countryRepo.findAll())
+		model.addAttribute('states', stateRepo.findAll())
 		model.addAttribute('principal', candidate);
 		model.addAttribute('jobs', jobs)
+		model.addAttribute('skills', skillRepo.findAll())
 		return "candidate";
 	}
 
@@ -79,6 +83,12 @@ public class CandidateController {
 		Candidate candidate = getPrincipalCandidate();
 		model.addAttribute('principal', candidate);
 		def jobs = jobRepo.findByNameLikeIgnoreCaseOrDescriptionLikeIgnoreCase(search,search)
+		def applied = candidateApplicationRepo.findByCandidateId(candidate.getId()).collect{ it.job.id }
+		println "aweaweawe + " + applied.size()
+		jobs = jobs.findAll{
+			!applied.contains(it.id)
+		}
+		
 		println search
 		model.addAttribute('jobs', jobs)
 		model.addAttribute('search', search)
@@ -344,6 +354,34 @@ public class CandidateController {
 		model.addAttribute("employer", employerRepo.findOne(customerId))
 		model.addAttribute("principal", getPrincipalCandidate())
 		return "candidate/view-employer"
+	}
+		
+	@RequestMapping(value="/advance")
+	public String advanceSearch(
+		Model model, 
+		@RequestParam Map<String,String> params,
+		@RequestParam(required=false) List<String> skills){
+		Candidate candidate = getPrincipalCandidate();
+		def jobs = jobRepo.findByType(params.type)
+		jobs = jobs.findAll{
+			it.location.state.id == params.state
+		}
+		jobs = jobs.findAll{
+			!Collections.disjoint(it.skills.collect{ it.id } , skills);
+		}
+		def applied = candidateApplicationRepo.findByCandidateId(candidate.getId()).collect{ it.job.id }
+		jobs = jobs.findAll{
+			!applied.contains(it.id)
+		}
+		
+		logger.info(candidate.toString())
+		model.addAttribute('countries', countryRepo.findAll())
+		model.addAttribute('states', stateRepo.findAll())
+		model.addAttribute('principal', candidate);
+		model.addAttribute('jobs', jobs)
+		model.addAttribute('skills', skillRepo.findAll())
+		model.addAttribute("asearch", ['state' : params.state, 'skills' : skills, type: params.type])
+		return "candidate";
 	}
 
 	private Candidate getPrincipalCandidate(){

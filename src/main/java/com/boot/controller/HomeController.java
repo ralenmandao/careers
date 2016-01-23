@@ -3,6 +3,8 @@ package com.boot.controller;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -22,7 +24,7 @@ public class HomeController {
 	JobRepo jobRepo;
 	
 	@RequestMapping(method = RequestMethod.GET)   
-	public String home(Locale locale ,Model model){
+	public String home(HttpServletRequest arg0,Locale locale ,Model model){
 		List<Job> jobs = null ;
 		if(jobRepo.count() > 3){
 			jobs = jobRepo.findAll(new Sort(Sort.Direction.ASC, "posted")).subList(0, 2);

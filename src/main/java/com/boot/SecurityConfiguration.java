@@ -34,7 +34,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private JdbcOperations operations;
 	@Autowired
 	private SecUserDetailsService userDetailsService;
-	
+	private static final String[] HEADERS_TO_TRY = { 
+		    "X-Forwarded-For",
+		    "Proxy-Client-IP",
+		    "WL-Proxy-Client-IP",
+		    "HTTP_X_FORWARDED_FOR",
+		    "HTTP_X_FORWARDED",
+		    "HTTP_X_CLUSTER_CLIENT_IP",
+		    "HTTP_CLIENT_IP",
+		    "HTTP_FORWARDED_FOR",
+		    "HTTP_FORWARDED",
+		    "HTTP_VIA",
+		    "REMOTE_ADDR" };
 	
 	@Autowired
 	public void configGlobalSecurity(AuthenticationManagerBuilder auth)
@@ -66,6 +77,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 							arg1.sendRedirect("/login?disabled");
 						}else{
 							arg1.sendRedirect("/login?error");
+							System.out.println("WEEE " + getClientIpAddress(arg0));
 						}
 					}
 				})
@@ -79,5 +91,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 						arg0.getRequestDispatcher("/404").forward(arg0, arg1);
 					}
 				});
+	}
+	
+	public String getClientIpAddress(HttpServletRequest request) {
+	    for (String header : HEADERS_TO_TRY) {
+	        String ip = request.getHeader(header);
+	        if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip)) {
+	            return ip;
+	        }
+	    }
+	    return request.getRemoteAddr();
 	}
 }
