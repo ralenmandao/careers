@@ -62,7 +62,7 @@
 				 		</c:forEach>
 					  </c:when>
 					  <c:otherwise>
-					  	<h1>No jobs found!</h1>
+					  	<h2 style="text-align: center">No jobs applications!</h2>
 					  </c:otherwise>
 					</c:choose>
 				 	

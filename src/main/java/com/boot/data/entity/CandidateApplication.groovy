@@ -15,4 +15,8 @@ class CandidateApplication {
 	Job job
 	String cover
 	int viewCount
+	
+	public void view(){
+		viewCount = viewCount + 1
+	}
 }

@@ -8,6 +8,11 @@ import javax.servlet.http.HttpSession
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
+import org.springframework.data.mongodb.core.query.Criteria
+import org.springframework.data.mongodb.core.query.Query
+import org.springframework.data.mongodb.gridfs.GridFsTemplate
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.PathVariable
@@ -19,9 +24,8 @@ import org.springframework.web.multipart.MultipartFile
 
 import com.boot.data.entity.Candidate
 import com.boot.data.entity.Education
-import com.boot.data.entity.Experience;
+import com.boot.data.entity.Experience
 import com.boot.data.entity.Location
-import com.boot.data.entity.Resume1
 import com.boot.data.repository.CandidateApplicationRepo
 import com.boot.data.repository.CandidateRepo
 import com.boot.data.repository.CountryRepo
@@ -34,10 +38,8 @@ import com.boot.data.repository.StateRepo
 import com.boot.data.repository.UserRepo
 import com.boot.exception.NoPrincipalUserFound
 import com.boot.helper.AuthenticationUtil
-
-import groovy.transform.TypeChecked;
-
-import groovy.transform.CompileStatic;
+import com.mongodb.BasicDBObject
+import com.mongodb.DBObject
 
 @Controller
 @RequestMapping("/candidate")
@@ -56,42 +58,68 @@ public class CandidateController {
 	@Autowired JobRepo jobRepo
 	@Autowired CandidateApplicationRepo candidateApplicationRepo
 	@Autowired EmployerRepo employerRepo
+	@Autowired GridFsTemplate gridFs;
 
 	@RequestMapping(method=RequestMethod.GET)
-	public String candidate(Model model, HttpSession session) throws NoPrincipalUserFound{
+	public String candidate(Model model, HttpSession session,
+			@RequestParam(name="page", required=false) Integer page) throws NoPrincipalUserFound{
 		Candidate candidate = getPrincipalCandidate();
+
+		if(page == null)
+			page = 1
+
 		def jobs = jobRepo.findAll()
 		def applied = candidateApplicationRepo.findByCandidateId(candidate.getId()).collect{ it.job.id }
-		println "aweaweawe + " + applied.size()
 		jobs = jobs.findAll{
 			!applied.contains(it.id)
 		}
-		
-		logger.info(candidate.toString())
+
 		model.addAttribute('countries', countryRepo.findAll())
 		model.addAttribute('states', stateRepo.findAll())
 		model.addAttribute('principal', candidate);
-		model.addAttribute('jobs', jobs)
+		model.addAttribute('jobs', jobs.subList( (page*1) - 1, (page * 1)))
+
+		model.addAttribute('jobSize', jobs.size())
+
 		model.addAttribute('skills', skillRepo.findAll())
 		return "candidate";
+	}
+
+	@RequestMapping(value="/profilePicture/{id}", method = RequestMethod.GET, produces = "image/png")
+	@ResponseBody
+	public byte[] getProfile(
+			@PathVariable("id") String id
+	){
+		def file = gridFs.findOne(new Query(Criteria.where("_id").is(id)));
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		file.writeTo(baos);
+		byte[] bytes = baos.toByteArray();
+		println bytes.length
+		return bytes;
 	}
 
 	@RequestMapping(params='search')
 	public String candidateSearch(Model model,
 			@RequestParam('search') String search,
-			HttpSession session){
+			HttpSession session,
+			@RequestParam(name="page", required=false) Integer page){
 		Candidate candidate = getPrincipalCandidate();
 		model.addAttribute('principal', candidate);
+
+		if(page == null)
+			page = 1
+
 		def jobs = jobRepo.findByNameLikeIgnoreCaseOrDescriptionLikeIgnoreCase(search,search)
 		def applied = candidateApplicationRepo.findByCandidateId(candidate.getId()).collect{ it.job.id }
-		println "aweaweawe + " + applied.size()
 		jobs = jobs.findAll{
 			!applied.contains(it.id)
 		}
-		
+
 		println search
-		model.addAttribute('jobs', jobs)
+		model.addAttribute('jobs', jobs.subList( (page*1) - 1, (page * 1)))
+		model.addAttribute('jobSize', jobs.size())
 		model.addAttribute('search', search)
+
 		return "candidate";
 	}
 
@@ -142,33 +170,33 @@ public class CandidateController {
 		candidateRepo.save(candidate);
 		return "redirect:/candidate/edit?success";
 	}
-			
+
 	@RequestMapping(value="saveEducation", method=RequestMethod.POST)
 	public String saveEducation(Model model,
-		@RequestParam(value='highschool-year', required=false) String hsYear,
-		@RequestParam(value='highschool-name', required=false) String hsName,
-		@RequestParam(value='college-year', required=false) String cYear,
-		@RequestParam(value='college-name', required=false) String cName,
-		@RequestParam(value='college-course', required=false) String cCourse){
+			@RequestParam(value='highschool-year', required=false) String hsYear,
+			@RequestParam(value='highschool-name', required=false) String hsName,
+			@RequestParam(value='college-year', required=false) String cYear,
+			@RequestParam(value='college-name', required=false) String cName,
+			@RequestParam(value='college-course', required=false) String cCourse){
 		Candidate candidate = getPrincipalCandidate();
 		if(hsYear && hsName){
 			candidate.highSchool = new Education(school: hsName, startYear: hsYear.split('-')[0],
-				endYear: hsYear.split('-')[1])
+			endYear: hsYear.split('-')[1])
 		}
 		if(cYear && cName && cCourse){
 			candidate.college = new Education(school: cName, startYear: cYear.split('-')[0],
-				endYear: cYear.split('-')[1], course: cCourse)
+			endYear: cYear.split('-')[1], course: cCourse)
 		}
 		candidateRepo.save(candidate);
 		return "redirect:/candidate/edit?success";
 	}
-		
+
 	@RequestMapping(value="saveExperience", method=RequestMethod.POST)
 	public String saveExperience(Model model,
-		@RequestParam(value="experience-year", required=false) String[] years,
-		@RequestParam(value="experience-position", required=false) String[] positions,
-		@RequestParam(value="experience-company-name", required=false) String[] companies,
-		@RequestParam(value="experience-role", required=false) String[] roles){
+			@RequestParam(value="experience-year", required=false) String[] years,
+			@RequestParam(value="experience-position", required=false) String[] positions,
+			@RequestParam(value="experience-company-name", required=false) String[] companies,
+			@RequestParam(value="experience-role", required=false) String[] roles){
 		Candidate candidate = getPrincipalCandidate();
 		candidate.experiences = []
 		for(int x = 0; x < years.size() ; x++){
@@ -177,16 +205,16 @@ public class CandidateController {
 			String company = companies[x]
 			String role = roles[x]
 			candidate.experiences << new Experience(startYear: year.split('-')[0], endYear: year.split('-')[1],
-				position: position, companyName: company, role: role)
+			position: position, companyName: company, role: role)
 		}
 		candidateRepo.save(candidate);
 		return "redirect:/candidate/edit?success";
 	}
-		
+
 	@RequestMapping(value="saveOther", method=RequestMethod.POST)
 	public String saveOtherInfo(Model model,
-		@RequestParam(value="about", required=false) String about,
-		@RequestParam(value="objective", required=false) String objective){
+			@RequestParam(value="about", required=false) String about,
+			@RequestParam(value="objective", required=false) String objective){
 		Candidate candidate = getPrincipalCandidate();
 		candidate.about = about
 		candidate.objective = objective
@@ -235,13 +263,15 @@ public class CandidateController {
 	}
 
 	@RequestMapping(value="addResume", method=RequestMethod.GET)
-	public String addResume(@RequestParam(value='edit', required=false) Boolean edit){
+	public String addResume(@RequestParam(value='edit', required=false) Boolean edit,
+		Model model){
+		model.addAttribute('principal', getPrincipalCandidate())
 		return "resume/selection"
 	}
 
 	@RequestMapping(value="/{id}/resume", method=RequestMethod.GET)
 	public String addResumePost(Model model,
-		@PathVariable('id') String id){
+			@PathVariable('id') String id){
 		Candidate candidate = candidateRepo.findOne(id)
 		if(!candidate.resumeName){
 			return "redirect:/candidate/addResume"
@@ -250,16 +280,16 @@ public class CandidateController {
 		model.addAttribute('principal', candidate)
 		return "/resume/${candidate.resumeName}/main"
 	}
-	
+
 	@RequestMapping(value="resume/save", method=RequestMethod.POST)
 	public String saveResume(HttpServletRequest request,
-		@RequestParam('resume') String resume){
+			@RequestParam('resume') String resume){
 		Candidate candidate = getPrincipalCandidate()
 		candidate.resumeName = resume
 		candidateRepo.save(candidate)
 		return "redirect:/candidate/${candidate.id}/resume"
 	}
-	
+
 	@RequestMapping(value="reset", method=RequestMethod.GET)
 	public @ResponseBody String resetResume(Model model){
 		Candidate candidate = getPrincipalCandidate()
@@ -282,8 +312,8 @@ public class CandidateController {
 
 		return "resume/resume1-output"
 	}
-	
-	
+
+
 	@RequestMapping(value="jobApplication", method=RequestMethod.GET)
 	public String jobApplication(Model model){
 		def candidate =  getPrincipalCandidate()
@@ -292,31 +322,31 @@ public class CandidateController {
 		model.addAttribute("principal", candidate)
 		return "candidate/job-applications"
 	}
-	
+
 	@RequestMapping(value="/profileUpload", method=RequestMethod.POST)
 	public String handleFileUpload(
-		@RequestParam("file") MultipartFile file,
-		@RequestParam("id") String id){
+			@RequestParam("file") MultipartFile file,
+			@RequestParam("id") String id){
+		def candidate = getPrincipalCandidate()
 		if (!file.isEmpty()) {
 			try {
-				byte[] bytes = file.getBytes();
-				BufferedOutputStream stream =
-						new BufferedOutputStream(new FileOutputStream(new File("src/main/webapp/resources/images/profiles/${id}.png")));
-				stream.write(bytes);
-				stream.close();
+				DBObject metaData = new BasicDBObject();
+				metaData.put("userId", id);
+				def picture = gridFs.store(file.getInputStream(), "${id}.png", "profiles", metaData);
+				candidate.pictureId = picture.getId()
 			} catch (Exception e) {
 				e.printStackTrace()
 			}
 		}
-		def candidate = getPrincipalCandidate()
+
 		candidate.hasPicture = true
 		candidateRepo.save(candidate)
 		return "redirect:/candidate"
 	}
-		
+
 	@RequestMapping(value="/activate/{id}")
 	public String activateAccount(
-		@PathVariable("id") String id){
+			@PathVariable("id") String id){
 		def candidate = candidateRepo.findOne(id)
 		if(candidate.user.enabled){
 			return "404"
@@ -325,7 +355,7 @@ public class CandidateController {
 		userRepo.save(candidate.user)
 		return "redirect:/login?activated"
 	}
-		
+
 	@RequestMapping(value="/changeEmail")
 	public String changeEmail(@RequestParam('email') String email){
 		def candidate = getPrincipalCandidate()
@@ -337,7 +367,7 @@ public class CandidateController {
 		userRepo.save(candidate.user)
 		return "redirect:/candidate/edit?success"
 	}
-	
+
 	@RequestMapping(value="/changePassword")
 	public String changePassword(@RequestParam('password') String password){
 		def candidate = getPrincipalCandidate()
@@ -345,22 +375,26 @@ public class CandidateController {
 		userRepo.save(candidate.user)
 		return "redirect:/candidate/edit?success"
 	}
-	
+
 	@RequestMapping(value="/c/{id}")
 	public String viewEmployer(
 			@PathVariable("id") String customerId,
 			Model model
-		){
+	){
 		model.addAttribute("employer", employerRepo.findOne(customerId))
 		model.addAttribute("principal", getPrincipalCandidate())
 		return "candidate/view-employer"
 	}
-		
+
 	@RequestMapping(value="/advance")
 	public String advanceSearch(
-		Model model, 
-		@RequestParam Map<String,String> params,
-		@RequestParam(required=false) List<String> skills){
+			Model model,
+			@RequestParam Map<String,String> params,
+			@RequestParam(required=false) List<String> skills,
+			@RequestParam(name="page", required=false) Integer page){
+
+		if(page == null)
+			page = 1
 		Candidate candidate = getPrincipalCandidate();
 		def jobs = jobRepo.findByType(params.type)
 		jobs = jobs.findAll{
@@ -373,15 +407,63 @@ public class CandidateController {
 		jobs = jobs.findAll{
 			!applied.contains(it.id)
 		}
-		
-		logger.info(candidate.toString())
+
+
+
 		model.addAttribute('countries', countryRepo.findAll())
 		model.addAttribute('states', stateRepo.findAll())
 		model.addAttribute('principal', candidate);
-		model.addAttribute('jobs', jobs)
+
+		model.addAttribute('jobs', jobs.subList( (page*1) - 1, (page * 1)))
+
+		model.addAttribute('jobSize', jobs.size())
+
 		model.addAttribute('skills', skillRepo.findAll())
 		model.addAttribute("asearch", ['state' : params.state, 'skills' : skills, type: params.type])
 		return "candidate";
+	}
+
+	@RequestMapping(value="/uploadResume", method=RequestMethod.POST)
+	public String handleUploadResume(
+			@RequestParam("file") MultipartFile file,
+			@RequestParam("id") String id){
+		def candidate = getPrincipalCandidate()
+		if (!file.isEmpty()) {
+			try {
+				DBObject metaData = new BasicDBObject();
+				metaData.put("userId", id);
+				def resume = gridFs.store(file.getInputStream(), file.getOriginalFilename() , "resumes", metaData);
+				candidate.resumeId = resume.getId()
+				candidate.realResumeName = file.getOriginalFilename()
+			} catch (Exception e) {
+				e.printStackTrace()
+			}
+		}
+		candidateRepo.save(candidate)
+		return "redirect:/candidate"
+	}
+
+	@RequestMapping(value="/{id}/myresume", method = RequestMethod.GET, produces = "application/pdf")
+	@ResponseBody
+	public byte[] getResume(
+			@PathVariable("id") String id
+	){
+		def candidate = candidateRepo.findOne(id);
+		def file = gridFs.findOne(new Query(Criteria.where("_id").is(candidate.resumeId)));
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		file.writeTo(baos);
+		byte[] bytes = baos.toByteArray();
+		return bytes;
+	}
+
+	@RequestMapping(value="/{id}/myresume/display", method = RequestMethod.GET)
+	public String displayResume(
+			@PathVariable("id") String id,
+			Model model
+	){
+		def candidate = candidateRepo.findOne(id);
+		model.addAttribute('principal', candidate)
+		return "candidate/mainresume";
 	}
 
 	private Candidate getPrincipalCandidate(){

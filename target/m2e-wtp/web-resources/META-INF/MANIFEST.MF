@@ -6,4 +6,5 @@ Implementation-Vendor-Id: com.boot
 Build-Jdk: 1.8.0_51
 Created-By: Maven Integration for Eclipse
 Implementation-Vendor: Pivotal Software, Inc.
+Main-Class: com.boot.BootApplication
 

@@ -36,8 +36,11 @@ public class Candidate implements EntityObject{
 	String resumeName
 	def resumeParams
 	boolean hasPicture
+	String pictureId
 	String about
 	String objective
+	String resumeId
+	String realResumeName
 	
 	Candidate(){
 		

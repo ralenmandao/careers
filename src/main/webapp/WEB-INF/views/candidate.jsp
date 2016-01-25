@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -32,7 +33,8 @@
 			<div class="box-info">
 				<div class="box-info centered" style="padding-top: 3%;">
 					<spring:url value="/candidate" var="searchForm" />
-					<form class="form-inline" role="form" action="/candidate" id="mainSearchForm">
+					<form class="form-inline" role="form" action="/candidate"
+						id="mainSearchForm">
 						<div class="form-group col-md-9">
 							<input type="text" class="form-control" id="exampleInputEmail2"
 								name="search" placeholder="I'm looking for.."
@@ -44,7 +46,8 @@
 							onclick="$('#advance-search').toggle(500);$('#mainSearchForm').toggle(500);return false;">Advance
 							Search</button>
 					</form>
-					<form action="/candidate/advance" id="advance-search" class="form-horizontal"
+					<form action="/candidate/advance" id="advance-search"
+						class="form-horizontal"
 						style="padding-left: 18px; padding-right: 30px; padding-top: 10px;">
 						<div class="form-group">
 							<label for="input-text" class="col-sm-2 control-label">Location</label>
@@ -55,8 +58,7 @@
 									<c:forEach items="${countries}" var="country">
 										<optgroup label="${country.name}">
 											<c:forEach items="${country.states}" var="state">
-												<option value="${state.id}"
-												<c:choose>
+												<option value="${state.id}"<c:choose>
 												    <c:when test="${empty asearch}">
 												       <c:if test="${principal.location.state.id eq state.id}">
 															selected
@@ -79,9 +81,14 @@
 							<label for="type" class="col-sm-2 control-label">Job Type</label>
 							<div class="col-sm-10">
 								<select class="form-control" name="type">
-									<option value="contract" <c:if test="${asearch.type eq 'contract'}">selected</c:if>>Full Time/Contract</option>
-									<option value="temporary" <c:if test="${asearch.type eq 'temporary'}">selected</c:if>>Part Time/Temporary</option>
-									<option value="internship" <c:if test="${asearch.type eq 'internship'}">selected</c:if>>Internship</option>
+									<option value="contract"
+										<c:if test="${asearch.type eq 'contract'}">selected</c:if>>Full
+										Time/Contract</option>
+									<option value="temporary"
+										<c:if test="${asearch.type eq 'temporary'}">selected</c:if>>Part
+										Time/Temporary</option>
+									<option value="internship"
+										<c:if test="${asearch.type eq 'internship'}">selected</c:if>>Internship</option>
 								</select>
 							</div>
 						</div>
@@ -94,8 +101,7 @@
 									<option value=""></option>
 									<c:forEach items="${skills}" var="skill">
 										<option value="${skill.id}"
-										
-										<c:choose>
+											<c:choose>
 										    <c:when test="${empty asearch}">
 										       <c:forEach var="item" items="${principal.skills}">
 												  <c:if test="${item.id eq skill.id}">
@@ -112,7 +118,7 @@
 												</c:forEach>>
 												${skill.name}</option>
 										    </c:otherwise>
-										</c:choose>				
+										</c:choose>
 									</c:forEach>
 								</select>
 							</div>
@@ -149,6 +155,67 @@
 						<h2 style="text-align: center">No jobs found!</h2>
 					</c:otherwise>
 				</c:choose>
+				
+				<!-- 
+				<c:choose>
+					<c:when test="${param.search == null}">
+						<ul class="pagination">
+							<c:if test="${(jobSize / 1) > 1}">
+								<li><a href="/candidate/?page=1">«</a></li>
+								<c:forEach begin="1" end="${jobSize / 1}" varStatus="loop">
+									<li
+										<c:if test="${param.page == null && loop.index == 1}">class="active"</c:if>
+										<c:choose>
+							    <c:when test="${param.page == null && loop.index == 1}">
+							    	class="active"
+							    </c:when>   
+							    <c:when test="${param.page == loop.index}">
+							    	class="active"
+							    </c:when>   
+							    <c:otherwise>
+							    </c:otherwise>
+							</c:choose>><a
+										href="/candidate/?page=${loop.index}">${loop.index}</a></li>
+								</c:forEach>
+							</c:if>
+							<c:if test="${(jobSize / 1) > 2}">
+								<fmt:parseNumber var="i" integerOnly="true" type="number"
+									value="${jobSize / 1}" />
+								<li><a href="/candidate/?page=${i}">»</a></li>
+							</c:if>
+						</ul>
+					</c:when>
+					<c:otherwise>
+						<ul class="pagination">
+							<c:if test="${(jobSize / 1) > 1}">
+								<li><a href="/candidate/?search=${param.search}&page=1">«</a></li>
+								<c:forEach begin="1" end="${jobSize / 1}" varStatus="loop">
+									<li
+										<c:if test="${param.page == null && loop.index == 1}">class="active"</c:if>
+										<c:choose>
+							    <c:when test="${param.page == null && loop.index == 1}">
+							    	class="active"
+							    </c:when>   
+							    <c:when test="${param.page == loop.index}">
+							    	class="active"
+							    </c:when>   
+							    <c:otherwise>
+							    </c:otherwise>
+							</c:choose>><a
+										href="/candidate/?search=${param.search}&page=${loop.index}">${loop.index}</a></li>
+								</c:forEach>
+							</c:if>
+							<c:if test="${(jobSize / 1) > 2}">
+								<fmt:parseNumber var="i" integerOnly="true" type="number"
+									value="${jobSize / 1}" />
+								<li><a href="/candidate/?search=${param.search}&page=${i}">»</a></li>
+							</c:if>
+						</ul>
+					</c:otherwise>
+				</c:choose>
+				 -->
+				 <ul class="pagination" id="mypage">
+				 </ul>
 			</div>
 
 		</div>
@@ -180,10 +247,48 @@
 				$('#md-complete-your-profile').addClass('md-show')
 			})
 			$('#advance-search').toggle()
-			if(window.location.href.indexOf("advance") > -1){
-				$('#advance-search').show()
-				;$('#mainSearchForm').hide()
+			if (window.location.href.indexOf("advance") > -1) {
+				$('#advance-search').show();
+				$('#mainSearchForm').hide()
 			}
+			
+			var PAGE_SIZE = 1;
+			var url = window.location.href;
+			var currentPage = ${param.page}
+			undefined;
+			url = url.replace(/\&page=[0-9]+/, '')
+			url = url.replace(/page=[0-9]+/, '')
+			url = url.replace(/\?page=[0-9]+/, '')
+			
+			var size = ${jobSize}
+			console.log(currentPage)
+			if(size / PAGE_SIZE > 1){
+				$('#mypage').append('<li><a href="' + getApp(1) + '">«</a></li>')
+				for(var x = 1; x <= (size / PAGE_SIZE); x++){
+					if(!currentPage && x == 1){
+						$('#mypage').append('<li class="active"><a href="' + getApp(x) + '">' + x + '</a></li>')	
+					}else if(x == currentPage){
+						$('#mypage').append('<li class="active"><a href="' + getApp(x) + '">' + x + '</a></li>')	
+					}else{
+						$('#mypage').append('<li><a href="' + getApp(x) + '">' + x + '</a></li>')	
+					}
+				}
+			}
+			
+			if(size / PAGE_SIZE > 2){
+				$('#mypage').append('<li><a href="' + getApp(size / PAGE_SIZE) + '">»</a></li>')
+			}
+			
+			function getApp(appz){
+				var app = "";
+				if(url.indexOf("?") >= 0){
+					app = "&page=" + appz;
+				}else{
+					app = "?page=" + appz;
+				}
+				return url + app
+			}
+			
 		})
 	</script>
 	<style>

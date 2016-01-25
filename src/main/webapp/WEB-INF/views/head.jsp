@@ -9,7 +9,7 @@
 		<!-- Your logo goes here -->
 		<div class="logo-brand header sidebar rows">
 			<div class="logo">
-				<h1><a href="#fakelink"><img src="${resources}assets/img/logo-login.png" alt="Logo"> CAREERS CCS</a></h1>
+				<h1><a href="/"><img src="${resources}assets/img/logo-login.png" alt="Logo"> CAREERS CCS</a></h1>
 			</div>
 		</div><!-- End div .header .sidebar .rows -->
 		<!-- BEGIN SIDEBAR -->
@@ -26,7 +26,8 @@
 						<a class="pull-left md-trigger" data-modal = "md-fade-in-scale-up">
 							<c:choose>
 							    <c:when test="${principal.hasPicture}">
-							       <img class="media-object img-circle" src="${resources}images/profiles/${principal.id}.png" alt="Avatar" id="candidate-picture">
+							      <!-- <img class="media-object img-circle" src="${resources}images/profiles/${principal.id}.png" alt="Avatar" id="candidate-picture"> -->
+							      <img class="media-object img-circle" src="/candidate/profilePicture/${principal.pictureId}" alt="Avatar" id="candidate-picture">
 							    </c:when>    
 							    <c:otherwise>
 							        <img class="media-object img-circle" src="${resources}images/no-profile.png" alt="Avatar" id="candidate-picture">
@@ -78,13 +79,16 @@
 							    				not empty principal.about && 
 							    				not empty principal.objective}">
 							       <li><a href="${root}candidate/${principal.id}/resume"><i class="fa fa-list-alt"></i> Resume</a></li>
-							    </c:when>    
+							    </c:when>
 							    <c:otherwise>
 							       <li id = "resume"><a href="#"><i class="fa fa-list-alt"></i> Resume</a></li>
 							    </c:otherwise>
 							</c:choose>
+							<c:if test="${not empty principal.resumeId}">
+								<li id = "resume"><a href="/candidate/${principal.id}/myresume/display"><i class="fa fa-folder-open"></i> ${principal.realResumeName}</a></li>
+							</c:if>
 							
-							<li><a href="/candidate/jobApplication"><i class="fa fa-list-alt"></i> Job Applications</a></li>
+							<li><a href="/candidate/jobApplication"><i class="fa fa-archive"></i> Job Applications</a></li>
 							<!--
 							<li><a href="#fakelink"><i class="fa fa-bug"></i><i class="fa fa-angle-double-down i-right"></i> Elements</a>
 								<ul>

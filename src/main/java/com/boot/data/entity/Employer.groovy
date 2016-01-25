@@ -19,4 +19,5 @@ public class Employer implements EntityObject{
 	long size
 	String overview
 	boolean hasPicture = false
+	String pictureId
 }

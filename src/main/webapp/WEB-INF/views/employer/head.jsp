@@ -10,7 +10,7 @@
 		<!-- Your logo goes here -->
 		<div class="logo-brand header sidebar rows">
 			<div class="logo">
-				<h1><a href="#fakelink"><img src="${resources}assets/img/logo-login.png" alt="Logo"> CAREERS CCS</a></h1>
+				<h1><a href="/"><img src="${resources}assets/img/logo-login.png" alt="Logo"> CAREERS CCS</a></h1>
 			</div>
 		</div><!-- End div .header .sidebar .rows -->
 	
@@ -28,7 +28,7 @@
 						<a class="pull-left md-trigger" data-modal = "md-fade-in-scale-up">
 							<c:choose>
 							    <c:when test="${principal.hasPicture}">
-							       <img class="media-object img-circle" src="${resources}images/profiles/${principal.id}.png" alt="Avatar" id="candidate-picture">
+							        <img class="media-object img-circle" src="/employer/profilePicture/${principal.pictureId}" alt="Avatar" id="candidate-picture">
 							    </c:when>    
 							    <c:otherwise>
 							        <img class="media-object img-circle" src="${resources}images/no-profile.png" alt="Avatar" id="candidate-picture">
@@ -62,6 +62,7 @@
 							<li style="background:#65BD77;"><a href="${root}employer/" style="color:white;"><i class="fa fa-home"></i> Home</a></li>
 							<li><a href="/employer/edit"><i class="fa fa-users"></i> Account</a></li>
 							<li><a href="${root}employer/postJob"><i class="fa fa-list-alt"></i> Post a Job</a></li>
+							<li><a href="${root}employer/postJob"><i class="fa fa-list-alt"></i> Posted Jobs</a></li>
 							<!--
 							<li><a href="#fakelink"><i class="fa fa-bug"></i><i class="fa fa-angle-double-down i-right"></i> Elements</a>
 								<ul>

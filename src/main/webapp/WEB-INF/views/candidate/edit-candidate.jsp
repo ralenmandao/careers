@@ -108,6 +108,21 @@
 			</div>
 			<div class="box-info">
 				<h2>
+					<strong>Upload</strong> Resume
+				</h2>
+				<form method="POST" action="/candidate/uploadResume"
+					enctype="multipart/form-data">
+					Resume : ${principal.realResumeName}
+					
+					<input class="btn btn-default btn-xs" type="file"
+						name="file" accept="application/pdf"/> <br> <br> 
+						<input type="hidden" value="${principal.id}" name="id">
+					<button type="submit" class="btn btn-primary pull-right"
+						name="contact" id="sampleSave">Save</button>
+				</form>
+			</div>
+			<div class="box-info">
+				<h2>
 					<strong>Login</strong> Information
 				</h2>
 				<div class="form-horizontal" role="form">

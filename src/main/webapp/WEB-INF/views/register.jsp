@@ -107,7 +107,66 @@
 	<jsp:include page="${views}foot.jsp"></jsp:include>
 	<jsp:include page="${views}script-imports.jsp"></jsp:include>
 	<script>
-		$('#registerForm').parsley();
+	$('#registerForm').bootstrapValidator({
+		message : 'This value is not valid',
+		fields : {
+			firstName : {
+				message : 'invalid firstname',
+				validators : {
+					notEmpty : {
+						message : 'firstname must not be empty'
+					}
+				},
+				regexp :{
+					regexp : /^[a-zA-Z ,.'-]+$/,
+					message : 'invalid lastname'
+				}
+			},
+			lastName : {
+				message : 'lastName experience',
+				validators : {
+					notEmpty : {
+						message : 'lastname must not be empty'
+					},
+					regexp :{
+						regexp : /^[a-zA-Z ,.'-]+$/,
+						message : 'invalid lastname'
+					}
+				}
+			},
+			'user.email' : {
+				message : 'invalid email',
+				validators : {
+					notEmpty : {
+						message : 'email must not be empty'
+					},
+					emailAddress: {
+                        message: 'The input is not a valid email address'
+                    }
+				}
+			},
+			'user.password' : {
+				message : 'invalid password expiration',
+				validators : {
+					notEmpty : {
+						message : 'password must not be empty'
+					}
+				}
+			},
+			repassword : {
+				message : 'invalid password expiration',
+				validators : {
+					notEmpty : {
+						message : 'password must not be empty'
+					},
+					identical: {
+                        field: 'user.password',
+                        message: 'The password and its confirm are not the same'
+                    }
+				}
+			}
+		}
+	});
 	</script>
 </body>
 

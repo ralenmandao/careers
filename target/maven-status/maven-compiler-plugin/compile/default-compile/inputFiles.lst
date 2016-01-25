@@ -23,6 +23,7 @@ C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\MongoConfig.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\Resume1.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\repository\CandidateApplicationRepo.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\controller\JobController.groovy
+C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\UserLoginFailure.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\Employer.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\RestMvcConfig.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\SecurityWebApplicationInitializer.java
