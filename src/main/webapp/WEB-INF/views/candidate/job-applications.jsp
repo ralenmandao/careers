@@ -52,6 +52,9 @@
 								       <span class="label label-success">${application.viewCount} views</span>
 								    </c:otherwise>
 							    </c:choose>
+							    <c:if test="${not empty application.result}">
+							    	<span class="label label-info">${application.result}</span>
+							    </c:if>
 							    <br>
 								 
 								 <small>${application.job.location.state.name}, ${application.job.location.country.name}</small>

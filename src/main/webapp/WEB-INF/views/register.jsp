@@ -20,7 +20,7 @@
 
 		<!-- Begin Register Page -->
 		<div class="full-content-center animated fadeInDownBig">
-			<a href="#fakelink"><img
+			<a href="/"><img
 				src="${resources}assets/img/logo-login.png"
 				class="logo-login img-circle" alt="Logo"></a>
 			<div class="login-wrap">

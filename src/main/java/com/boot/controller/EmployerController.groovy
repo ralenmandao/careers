@@ -106,7 +106,7 @@ public class EmployerController {
 
 		employer.user.username = employer.user.email
 		employer.user.role = "ROLE_EMPLOYER"
-		employer.user.enabled = false
+		employer.user.enabled = true
 		userRepo.insert(employer.user)
 		employerRepo.insert(employer)
 
@@ -137,6 +137,14 @@ public class EmployerController {
 		if(jobs.size() > 3)
 			jobs = jobs.subList(0,2)
 		model.addAttribute('jobs', jobs)
+		session.setAttribute('principal', employer);
+
+		def applicants = candidateAppRepo.findByEmployerId(employer.id).toSorted{ a,b -> b.applied <=> a.applied }
+		if(applicants.size() > 2){
+			applicants = applicants.subList(0,3)
+		}
+
+		model.addAttribute('applicants', applicants )
 		return "employer/employer"
 	}
 
@@ -273,9 +281,10 @@ public class EmployerController {
 	){
 		model.addAttribute('candidate',candidateRepo.findOne(id))
 		model.addAttribute('job', jobRepo.findOne(jobId))
+		model.addAttribute('application', candidateAppRepo.findByJobIdAndCandidateId(jobId, id))
 		return "employer/candidate-profile"
 	}
-	
+
 	@RequestMapping(value="/job/{jobId}/{id}/resume", method=RequestMethod.GET)
 	public String showCandidateResume(
 			Model model,
@@ -289,7 +298,7 @@ public class EmployerController {
 		candidateAppRepo.save(app)
 		return "/resume/${candidate.resumeName}/main-employer"
 	}
-	
+
 	@RequestMapping(value="/job/{jobId}/{id}/mainresume", method=RequestMethod.GET)
 	public String showCandidateMainResume(
 			Model model,
@@ -302,6 +311,31 @@ public class EmployerController {
 		app.viewCount = app.viewCount + 1
 		candidateAppRepo.save(app)
 		return "/employer/mainresume"
+	}
+
+	@RequestMapping(value="/postedJob")
+	public String postedJob(
+			Model model
+	){
+		def employer = getPrincipalEmployer()
+		model.addAttribute('jobs', jobRepo.findByEmployerId(employer.id))
+		return "/employer/posted-job"
+	}
+
+	@RequestMapping(value="/job/{jobId}/{id}/result", method=RequestMethod.GET)
+	public String result(
+			Model model,
+			@PathVariable("id") String id,
+			@PathVariable("jobId") String jobId,
+			@RequestParam('result') String result
+	){
+		def app = candidateAppRepo.findByJobIdAndCandidateId(jobId, id)
+		app.result = result
+		candidateAppRepo.save(app)
+		model.addAttribute('candidate',candidateRepo.findOne(id))
+		model.addAttribute('job', jobRepo.findOne(jobId))
+		model.addAttribute('application', app)
+		return "redirect:/employer/job/${jobId}/${id}/?success"
 	}
 
 	private Employer getPrincipalEmployer(){

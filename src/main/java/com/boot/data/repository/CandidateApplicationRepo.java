@@ -10,4 +10,5 @@ public interface CandidateApplicationRepo extends MongoRepository<CandidateAppli
 	CandidateApplication findByJobIdAndCandidateId(String jobId, String candidateId);
 	List<CandidateApplication> findByCandidateId(String id);
 	List<CandidateApplication> findByJobId(String jobId);
+	List<CandidateApplication> findByEmployerId(String jobId);
 }

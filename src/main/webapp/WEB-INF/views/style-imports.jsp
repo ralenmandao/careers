@@ -33,6 +33,7 @@
 	<link href="${resources}assets/third/summernote/summernote.css" rel="stylesheet">
 	<link href="${resources}assets/third/magnific-popup/magnific-popup.css" rel="stylesheet"> 
 	<link href="${resources}assets/third/datepicker/css/datepicker.css" rel="stylesheet">
+	<link href="${resources}assets/third/validator/formValidation.min.css" rel="stylesheet">
 
 	<!-- CHOSEN -->
 	<link href="${resources}assets/css/chosen.min.css" rel="stylesheet">

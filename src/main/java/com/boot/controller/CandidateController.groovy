@@ -60,6 +60,8 @@ public class CandidateController {
 	@Autowired EmployerRepo employerRepo
 	@Autowired GridFsTemplate gridFs;
 
+	static final boolean DEBUG = true
+
 	@RequestMapping(method=RequestMethod.GET)
 	public String candidate(Model model, HttpSession session,
 			@RequestParam(name="page", required=false) Integer page) throws NoPrincipalUserFound{
@@ -74,14 +76,20 @@ public class CandidateController {
 			!applied.contains(it.id)
 		}
 
+		model.addAttribute('jobSize', jobs.size())
+		
+		if(jobs.size() >= 1){
+			jobs = jobs.subList( (page*1) - 1, (page * 1))
+		}
+
 		model.addAttribute('countries', countryRepo.findAll())
 		model.addAttribute('states', stateRepo.findAll())
 		model.addAttribute('principal', candidate);
-		model.addAttribute('jobs', jobs.subList( (page*1) - 1, (page * 1)))
-
-		model.addAttribute('jobSize', jobs.size())
-
+		model.addAttribute('jobs', jobs)
 		model.addAttribute('skills', skillRepo.findAll())
+
+		session.setAttribute('principal', candidate)
+
 		return "candidate";
 	}
 
@@ -115,9 +123,13 @@ public class CandidateController {
 			!applied.contains(it.id)
 		}
 
-		println search
-		model.addAttribute('jobs', jobs.subList( (page*1) - 1, (page * 1)))
 		model.addAttribute('jobSize', jobs.size())
+		
+		if(jobs.size() >= 1){
+			jobs = jobs.subList( (page*1) - 1, (page * 1))
+		}
+
+		model.addAttribute('jobs', jobs)
 		model.addAttribute('search', search)
 
 		return "candidate";
@@ -141,7 +153,7 @@ public class CandidateController {
 			@RequestParam(name="lastName", required=false) String lastName,
 			@RequestParam(name="birthdate", required=false) String birthdate,
 			@RequestParam(name="state", required=false) String state,
-			@RequestParam(name="contact", required=false) String contact,
+			@RequestParam(name="contactNumber", required=false) String contact,
 			@RequestParam(name="address", required=false) String address) throws NoPrincipalUserFound{
 
 		//		// TODO BUG
@@ -264,7 +276,7 @@ public class CandidateController {
 
 	@RequestMapping(value="addResume", method=RequestMethod.GET)
 	public String addResume(@RequestParam(value='edit', required=false) Boolean edit,
-		Model model){
+			Model model){
 		model.addAttribute('principal', getPrincipalCandidate())
 		return "resume/selection"
 	}
@@ -397,12 +409,19 @@ public class CandidateController {
 			page = 1
 		Candidate candidate = getPrincipalCandidate();
 		def jobs = jobRepo.findByType(params.type)
-		jobs = jobs.findAll{
-			it.location.state.id == params.state
+
+		if(params.state != 'all'){
+			jobs = jobs.findAll{
+				it.location.state.id == params.state
+			}
 		}
-		jobs = jobs.findAll{
-			!Collections.disjoint(it.skills.collect{ it.id } , skills);
+
+		if(!skills.contains('all')){
+			jobs = jobs.findAll{
+				!Collections.disjoint(it.skills.collect{ it.id } , skills);
+			}
 		}
+		
 		def applied = candidateApplicationRepo.findByCandidateId(candidate.getId()).collect{ it.job.id }
 		jobs = jobs.findAll{
 			!applied.contains(it.id)
@@ -414,9 +433,13 @@ public class CandidateController {
 		model.addAttribute('states', stateRepo.findAll())
 		model.addAttribute('principal', candidate);
 
-		model.addAttribute('jobs', jobs.subList( (page*1) - 1, (page * 1)))
-
 		model.addAttribute('jobSize', jobs.size())
+		
+		if(jobs.size() >= 1){
+			jobs = jobs.subList( (page*1) - 1, (page * 1))
+		}
+
+		model.addAttribute('jobs', jobs)
 
 		model.addAttribute('skills', skillRepo.findAll())
 		model.addAttribute("asearch", ['state' : params.state, 'skills' : skills, type: params.type])

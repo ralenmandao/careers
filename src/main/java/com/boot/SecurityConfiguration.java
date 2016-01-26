@@ -16,9 +16,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
 
 import com.boot.data.jdbc.JdbcOperations;
 import com.boot.data.service.imp.SecUserDetailsService;
@@ -59,7 +61,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/home", "/employer/register", "/candidate/activate/**", "/employer/activate/**", "/candidate/profilePicture/*", "/candidate/*/myresume").permitAll()
+		http.authorizeRequests()
+				.antMatchers("/", "/home", "/employer/register", "/candidate/activate/**", "/employer/activate/**",
+						"/candidate/profilePicture/*", "/candidate/*/myresume", 
+						"/employer/profilePicture/*").permitAll()
 				.antMatchers("/candidate/**", "/resume/**", "/job/**")
 				.hasRole("CANDIDATE")
 				.antMatchers("/employer/**")
@@ -89,6 +94,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 							AccessDeniedException arg2) throws IOException, ServletException {
 //						arg2.printStackTrace();
 						arg0.getRequestDispatcher("/404").forward(arg0, arg1);
+					}
+				}).and().logout().addLogoutHandler(new LogoutHandler() {
+					@Override
+					public void logout(HttpServletRequest arg0, HttpServletResponse arg1, Authentication arg2) {
+						arg0.getSession().removeAttribute("principal");
 					}
 				});
 	}

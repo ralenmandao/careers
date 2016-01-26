@@ -169,33 +169,12 @@
 							</ul>
 						
 							<!-- Right navbar -->
-							<ul class="nav navbar-nav navbar-right top-navbar">
-								
-								<!-- Dropdown notifications -->
-								<li class="dropdown">
-									<a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i><span class="label label-danger absolute">1</span></a>
-								</li>
-								<!-- End Dropdown notifications -->
-							
-								
-								<!-- Dropdown Messages -->
-								<li class="dropdown">
-									<a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i><span class="label label-danger absolute">1</span></a>
-								</li>
-								<!-- End Dropdown messages -->
-							
+							<ul class="nav navbar-nav navbar-right top-navbar">							
 								<!-- Dropdown User session -->
 								<li class="dropdown">
 									<a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">Howdy, <strong>${principal.firstName}</strong> <i class="fa fa-chevron-down i-xs"></i></a>
 									<ul class="dropdown-menu animated half flipInX">
-										<li><a href="#fakelink">My Profile</a></li>
-										<li><a href="#fakelink">Change Password</a></li>
-										<li><a href="#fakelink">Account Setting</a></li>
-										<li class="divider"></li>
-										<li class="dropdown-header">Another action</li>
-										<li><a href="#fakelink">Help</a></li>
-										<li><a href="lock-screen.html">Lock me</a></li>
-										<li><a class="md-trigger" data-modal="logout-modal">Logout</a></li>
+										<li><a href="/logout">Logout</a></li>
 									</ul>
 								</li>
 								<!-- End Dropdown User session -->

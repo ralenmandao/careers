@@ -36,69 +36,119 @@
 					<strong>Success!</strong> deleted a job.
 				</div>
 			</c:if>
-			<div class="col-sm-5">
-				<div class="box-info">
-					<h2>
-						<strong>Job Posted</strong>
-					</h2>
-					<div id="job-posted">
-						<c:forEach items="${jobs}" var="job">
-							<span class="label label-success pull-right">${job.applicants.size}</span>
-							<a href="/employer/job/edit/${job.id}"><h5>${job.name}</h5></a>
-							<h6>
-								<span class="fa fa-calendar-o"></span>
-								<fmt:formatDate value="${job.posted}" />
-							</h6>
-							<hr>
-						</c:forEach>
+			<div class="row">
+				<div class="col-sm-5">
+					<div class="box-info">
+						<h2>
+							<strong>Job Posted</strong>
+						</h2>
+						<div id="job-posted">
+							<c:forEach items="${jobs}" var="job">
+								<h6 class="pull-right">
+									<span class="fa fa-calendar-o"></span>
+									<fmt:formatDate value="${job.posted}" />
+								</h6>
+								<a href="/employer/job/edit/${job.id}"><h5>${job.name}</h5></a>
+								<h6><span class="fa fa-map-marker"></span> ${job.location.state.name}, ${job.location.country.name}</h6>
+								<hr>
+							</c:forEach>
+						</div>
+						<c:if test="${empty jobs}">
+							<p>
+								Post a job <a href="/employer/postJob">here</a>
+							</p>
+						</c:if>
+						<c:if test="${not empty jobs}">
+							<br>
+							<a href="/employer/postedJob"><p class="text-center">See more...</p></a>
+						</c:if>
 					</div>
-					<c:if test="${empty jobs}">
-						<p>Post a job <a href="/employer/postJob">here</a></p>
-					</c:if>
-					<c:if test="${not empty jobs}">
-						<br> <a href="#"><p class="text-center">See more...</p></a>
-					</c:if>
 				</div>
-			</div>
-			<div class="col-sm-7">
-				<div class="box-info">
-					<h2>
-						<strong>Company Information</strong>
-					</h2>
-					<div id="job-posted">
-						<c:choose>
-							<c:when test="${principal.hasPicture}">
-								<img class="media-object pull-right"
-									src="/employer/profilePicture/${principal.pictureId}"
-									alt="Avatar" style="height: 100px; width: 100px">
-							</c:when>
-							<c:otherwise>
-								<img class="media-object pull-right"
-									src="${resources}images/no-profile.png" alt="Avatar"
-									style="height: 100px; width: 100px">
-							</c:otherwise>
-						</c:choose>
-						<h4>${principal.companyName}</h4>
-						<c:choose>
-							<c:when
-								test="${ not empty principal.location &&
+				<div class="col-sm-7">
+					<div class="box-info">
+						<h2>
+							<strong>Company Information</strong>
+						</h2>
+						<div id="job-posted">
+							<c:choose>
+								<c:when test="${principal.hasPicture}">
+									<img class="media-object pull-right"
+										src="/employer/profilePicture/${principal.pictureId}"
+										alt="Avatar" style="height: 100px; width: 100px">
+								</c:when>
+								<c:otherwise>
+									<img class="media-object pull-right"
+										src="${resources}images/no-profile.png" alt="Avatar"
+										style="height: 100px; width: 100px">
+								</c:otherwise>
+							</c:choose>
+							<h4>${principal.companyName}</h4>
+							<c:choose>
+								<c:when
+									test="${ not empty principal.location &&
 							    		 not empty principal.size &&
 							    		 not empty principal.overview }">
-								<h5>
-									<span class="fa fa-map-marker"></span>
-									${principal.location.state.name},
-									${principal.location.country.name}
-								</h5>
-								<h5>
-									<span class="fa fa-sitemap"></span> Company Size :
-									${principal.size}
-								</h5>
-								<p>${principal.overview}</p>
-							</c:when>
-							<c:otherwise>
-								<p>Update your account information <a href="/employer/edit">here</a></p>
-							</c:otherwise>
-						</c:choose>
+									<h5>
+										<span class="fa fa-map-marker"></span>
+										${principal.location.state.name},
+										${principal.location.country.name}
+									</h5>
+									<h5>
+										<span class="fa fa-sitemap"></span> Company Size :
+										${principal.size}
+									</h5>
+									<p>${principal.overview}</p>
+								</c:when>
+								<c:otherwise>
+									<p>
+										Update your account information <a href="/employer/edit">here</a>
+									</p>
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-5">
+					<div class="box-info">
+						<h2>
+							<strong>Recent Applicants</strong>
+						</h2>
+						<c:if test="${empty applicants}">
+							<p class="text-center">No applications yet!</p>
+						</c:if>
+						<c:forEach items="${applicants}" var="applicant">
+							<div class="row">
+								<div class="col-sm-2">
+									<c:choose>
+										<c:when test="${applicant.candidate.hasPicture}">
+											<img class="media-object img-circle"
+												src="/candidate/profilePicture/${applicant.candidate.pictureId}"
+												alt="Avatar" style="width: 50px; height: 50px;">
+										</c:when>
+										<c:otherwise>
+											<img class="media-object img-circle"
+												src="${resources}images/no-profile.png" alt="Avatar"
+												style="width: 50px; height: 50px;">
+										</c:otherwise>
+									</c:choose>
+								</div>
+								<div class="col-sm-offset-1 col-sm-8">
+									<h5>
+										<a href="/employer/job/${applicant.job.id}/${applicant.candidate.id}">${applicant.candidate.firstName}
+											${applicant.candidate.lastName}</a>
+									</h5>
+									<c:if test="${not empty applicant.candidate.location}">
+										<h5>
+											<span class="fa fa-map-marker"></span>
+											${applicant.candidate.location.state.name},
+											${applicant.candidate.location.country.name}
+										</h5>
+									</c:if>
+								</div>
+							</div>
+						</c:forEach>
 					</div>
 				</div>
 			</div>

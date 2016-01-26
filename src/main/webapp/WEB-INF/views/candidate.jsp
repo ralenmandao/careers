@@ -23,28 +23,28 @@
 	<div class="scroll-y" id="body-container">
 
 		<div class="body content rows scroll-y">
-
 			<!-- Page header
 				<div class="page-heading animated fadeInDownBig">
 					<h1>AVAILABLE JOBS</h1>
 				</div>
 				-->
 			<!-- End page header -->
-			<div class="box-info">
+			<div class="row" class="box-info" style="padding-left:0 0 0 0;">
 				<div class="box-info centered" style="padding-top: 3%;">
 					<spring:url value="/candidate" var="searchForm" />
 					<form class="form-inline" role="form" action="/candidate"
 						id="mainSearchForm">
-						<div class="form-group col-md-9">
+						<div class="form-group col-xs-12 col-md-8 col-lg-9">
 							<input type="text" class="form-control" id="exampleInputEmail2"
 								name="search" placeholder="I'm looking for.."
 								style="width: 100%" value="${search}">
 						</div>
 						<button class="btn btn-primary md-trigger" type="submit"
-							id="searchButton" data-modal="form-modal">Search</button>
+							id="searchButton" data-modal="form-modal" class="col-md-2" style="margin-left:15px;">Search</button>
 						<button class="btn btn-default md-trigger" data-modal="form-modal"
-							onclick="$('#advance-search').toggle(500);$('#mainSearchForm').toggle(500);return false;">Advance
-							Search</button>
+							onclick="$('#advance-search').toggle(500);$('#mainSearchForm').toggle(500);return false;" 
+							class="col-md-2" style="margin-left:5px;">
+							Advance Search</button>
 					</form>
 					<form action="/candidate/advance" id="advance-search"
 						class="form-horizontal"
@@ -54,7 +54,7 @@
 							<div class="col-sm-10">
 								<select class="chosen-select" tabindex="6" name="state"
 									style="width: 100%" id="location-search">
-									<option value=""></option>
+									<option value="all">All</option>
 									<c:forEach items="${countries}" var="country">
 										<optgroup label="${country.name}">
 											<c:forEach items="${country.states}" var="state">
@@ -98,7 +98,7 @@
 								<select data-placeholder="Choose skills..."
 									class="chosen-select form-control" multiple tabindex="5"
 									name="skills">
-									<option value=""></option>
+									<option value="all">All</option>
 									<c:forEach items="${skills}" var="skill">
 										<option value="${skill.id}"
 											<c:choose>
@@ -155,67 +155,8 @@
 						<h2 style="text-align: center">No jobs found!</h2>
 					</c:otherwise>
 				</c:choose>
-				
-				<!-- 
-				<c:choose>
-					<c:when test="${param.search == null}">
-						<ul class="pagination">
-							<c:if test="${(jobSize / 1) > 1}">
-								<li><a href="/candidate/?page=1">«</a></li>
-								<c:forEach begin="1" end="${jobSize / 1}" varStatus="loop">
-									<li
-										<c:if test="${param.page == null && loop.index == 1}">class="active"</c:if>
-										<c:choose>
-							    <c:when test="${param.page == null && loop.index == 1}">
-							    	class="active"
-							    </c:when>   
-							    <c:when test="${param.page == loop.index}">
-							    	class="active"
-							    </c:when>   
-							    <c:otherwise>
-							    </c:otherwise>
-							</c:choose>><a
-										href="/candidate/?page=${loop.index}">${loop.index}</a></li>
-								</c:forEach>
-							</c:if>
-							<c:if test="${(jobSize / 1) > 2}">
-								<fmt:parseNumber var="i" integerOnly="true" type="number"
-									value="${jobSize / 1}" />
-								<li><a href="/candidate/?page=${i}">»</a></li>
-							</c:if>
-						</ul>
-					</c:when>
-					<c:otherwise>
-						<ul class="pagination">
-							<c:if test="${(jobSize / 1) > 1}">
-								<li><a href="/candidate/?search=${param.search}&page=1">«</a></li>
-								<c:forEach begin="1" end="${jobSize / 1}" varStatus="loop">
-									<li
-										<c:if test="${param.page == null && loop.index == 1}">class="active"</c:if>
-										<c:choose>
-							    <c:when test="${param.page == null && loop.index == 1}">
-							    	class="active"
-							    </c:when>   
-							    <c:when test="${param.page == loop.index}">
-							    	class="active"
-							    </c:when>   
-							    <c:otherwise>
-							    </c:otherwise>
-							</c:choose>><a
-										href="/candidate/?search=${param.search}&page=${loop.index}">${loop.index}</a></li>
-								</c:forEach>
-							</c:if>
-							<c:if test="${(jobSize / 1) > 2}">
-								<fmt:parseNumber var="i" integerOnly="true" type="number"
-									value="${jobSize / 1}" />
-								<li><a href="/candidate/?search=${param.search}&page=${i}">»</a></li>
-							</c:if>
-						</ul>
-					</c:otherwise>
-				</c:choose>
-				 -->
-				 <ul class="pagination" id="mypage">
-				 </ul>
+				<ul class="pagination" id="mypage">
+				</ul>
 			</div>
 
 		</div>
@@ -242,54 +183,67 @@
 	<jsp:include page="${views}foot.jsp"></jsp:include>
 	<jsp:include page="${views}script-imports.jsp"></jsp:include>
 	<script>
-		$(document).ready(function() {
-			$('#resume').on('click', function() {
-				$('#md-complete-your-profile').addClass('md-show')
-			})
-			$('#advance-search').toggle()
-			if (window.location.href.indexOf("advance") > -1) {
-				$('#advance-search').show();
-				$('#mainSearchForm').hide()
-			}
-			
-			var PAGE_SIZE = 1;
-			var url = window.location.href;
-			var currentPage = ${param.page}
-			undefined;
-			url = url.replace(/\&page=[0-9]+/, '')
-			url = url.replace(/page=[0-9]+/, '')
-			url = url.replace(/\?page=[0-9]+/, '')
-			
-			var size = ${jobSize}
-			console.log(currentPage)
-			if(size / PAGE_SIZE > 1){
-				$('#mypage').append('<li><a href="' + getApp(1) + '">«</a></li>')
-				for(var x = 1; x <= (size / PAGE_SIZE); x++){
-					if(!currentPage && x == 1){
-						$('#mypage').append('<li class="active"><a href="' + getApp(x) + '">' + x + '</a></li>')	
-					}else if(x == currentPage){
-						$('#mypage').append('<li class="active"><a href="' + getApp(x) + '">' + x + '</a></li>')	
-					}else{
-						$('#mypage').append('<li><a href="' + getApp(x) + '">' + x + '</a></li>')	
+		$(document).ready(
+				function() {
+					$('#resume').on('click', function() {
+						$('#md-complete-your-profile').addClass('md-show')
+					})
+					$('#advance-search').toggle()
+					if (window.location.href.indexOf("advance") > -1) {
+						$('#advance-search').show();
+						$('#mainSearchForm').hide()
 					}
-				}
-			}
-			
-			if(size / PAGE_SIZE > 2){
-				$('#mypage').append('<li><a href="' + getApp(size / PAGE_SIZE) + '">»</a></li>')
-			}
-			
-			function getApp(appz){
-				var app = "";
-				if(url.indexOf("?") >= 0){
-					app = "&page=" + appz;
-				}else{
-					app = "?page=" + appz;
-				}
-				return url + app
-			}
-			
-		})
+
+					var PAGE_SIZE = 1;
+					var url = window.location.href;
+					var currentPage = ${param.page}
+					undefined;
+					url = url.replace(/\&page=[0-9]+/, '')
+					url = url.replace(/page=[0-9]+/, '')
+					url = url.replace(/\?page=[0-9]+/, '')
+
+					var size = ${jobSize}
+					console.log(currentPage)
+					console.log(size)
+					if (size / PAGE_SIZE > 1) {
+						$('#mypage').append(
+								'<li><a href="' + getApp(1) + '">«</a></li>')
+						for (var x = 1; x <= (size / PAGE_SIZE); x++) {
+							if (!currentPage && x == 1) {
+								$('#mypage').append(
+										'<li class="active"><a href="'
+												+ getApp(x) + '">' + x
+												+ '</a></li>')
+							} else if (x == currentPage) {
+								$('#mypage').append(
+										'<li class="active"><a href="'
+												+ getApp(x) + '">' + x
+												+ '</a></li>')
+							} else {
+								$('#mypage').append(
+										'<li><a href="' + getApp(x) + '">' + x
+												+ '</a></li>')
+							}
+						}
+					}
+
+					if (size / PAGE_SIZE > 2) {
+						$('#mypage').append(
+								'<li><a href="' + getApp(size / PAGE_SIZE)
+										+ '">»</a></li>')
+					}
+
+					function getApp(appz) {
+						var app = "";
+						if (url.indexOf("?") >= 0) {
+							app = "&page=" + appz;
+						} else {
+							app = "?page=" + appz;
+						}
+						return url + app
+					}
+
+				})
 	</script>
 	<style>
 .form-horizontal .control-label {

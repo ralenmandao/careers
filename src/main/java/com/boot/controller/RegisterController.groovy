@@ -49,7 +49,7 @@ public class RegisterController {
 		// Setup the candidate
 		candidateRegistration.user.username = candidateRegistration.user.email
 		candidateRegistration.user.role = "ROLE_CANDIDATE"
-		candidateRegistration.user.enabled = false
+		candidateRegistration.user.enabled = true
 		userRepo.save(candidateRegistration.user)
 		candidateRepo.save(candidateRegistration)
 		

@@ -22,18 +22,20 @@
 	<!-- ============================================================== -->
 	<div class="scroll-y" id="body-container">
 		<div class="body content rows scroll-y">
-		<c:if test="${param.emailNotAvailable != null}">
-			<div class="alert alert-danger alert-dismissable">
-				  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-				  <strong>Error!</strong> email is not available
+			<c:if test="${param.emailNotAvailable != null}">
+				<div class="alert alert-danger alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert"
+						aria-hidden="true">×</button>
+					<strong>Error!</strong> email is not available
 				</div>
-		</c:if>
-		<c:if test="${param.success != null}">
-			<div class="alert alert-success alert-dismissable">
-			  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-			  <strong>Success!</strong> updating profile.
-			</div>
-		</c:if>
+			</c:if>
+			<c:if test="${param.success != null}">
+				<div class="alert alert-success alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert"
+						aria-hidden="true">×</button>
+					<strong>Success!</strong> updating profile.
+				</div>
+			</c:if>
 			<div class="box-info">
 				<h2>
 					<strong>Personal</strong> Information
@@ -43,32 +45,35 @@
 					id="personalInformationForm">
 					<!-- Text input -->
 					<div class="form-group">
-						<label for="input-text" class="col-sm-2 control-label">Firstname</label>
+						<label for="firstName" class="col-sm-2 control-label">Firstname</label>
 						<div class="col-sm-10" id="firstNameContainer">
 							<input type="text" class="form-control" id="input-text"
 								name="firstName" placeholder="" value="${principal.firstName}">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="input-text" class="col-sm-2 control-label">Lastname</label>
+						<label for="lastName" class="col-sm-2 control-label">Lastname</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="input-text"
 								name="lastName" placeholder="" value="${principal.lastName}">
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="input-text" class="col-sm-2 control-label">Birthdate</label>
+					<div class="form-group" id="grp-birthdate">
+						<label for="birthdate" class="col-sm-2 control-label"
+							id="lbl-birthdate">Birthdate</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control datepicker-input"
+							<input type="text" class="form-control"
 								value="<fmt:formatDate value="${principal.birthdate}" pattern="yyyy-MM-dd" />"
-								name="birthdate" data-mask="9999-99-99" placeholder="yyyy-mm-dd">
+								name="birthdate" data-mask="9999-99-99" placeholder="yyyy-mm-dd"
+								id="birthdate">
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="input-text" class="col-sm-2 control-label">Location</label>
-						<div class="col-sm-9">
+					<div class="form-group" id="grp-location">
+						<label for="state" class="col-sm-2 control-label"
+							id="lbl-location">Location</label>
+						<div class="col-sm-10">
 							<select data-placeholder="State"
-								class="chosen-select form-control" id="ecLocation"
+								class="chosen-select form-control" id="state"
 								data-id="${principal.location.state.id}" tabindex="6"
 								name="state" width="100%;">
 								<option value=""></option>
@@ -94,12 +99,11 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="contact" class="col-sm-2 control-label">Contact
+						<label for="contactNumber" class="col-sm-2 control-label">Contact
 							Number</label>
 						<div class="col-sm-10">
-							<input type="text" value="${principal.contactNo}"
-								class="form-control" id="contact" name="contact"
-								placeholder="">
+							<input type="contact" class="form-control" id="contactNumber"
+								name="contactNumber" placeholder="">
 						</div>
 					</div>
 					<button type="submit" class="btn btn-primary pull-right"
@@ -112,11 +116,12 @@
 				</h2>
 				<form method="POST" action="/candidate/uploadResume"
 					enctype="multipart/form-data">
-					Resume : ${principal.realResumeName}
-					
-					<input class="btn btn-default btn-xs" type="file"
-						name="file" accept="application/pdf"/> <br> <br> 
-						<input type="hidden" value="${principal.id}" name="id">
+					Resume : ${principal.realResumeName} <input
+						class="btn btn-default btn-xs" type="file" name="file"
+						data-fv-file-maxsize="512" accept="application/pdf" /> <br>
+					<br> <input type="hidden" value="${principal.id}" name="id">
+					<small class="help-block" style="color: #a94442"> (note :
+						maximum file size is 512kb) </small>
 					<button type="submit" class="btn btn-primary pull-right"
 						name="contact" id="sampleSave">Save</button>
 				</form>
@@ -134,40 +139,52 @@
 						</div>
 					</div>
 					<div class="pull-right">
-						<button id="change-email" class="btn btn-primary">Change Email</button>
-						<button id="change-password" class="btn btn-primary">Change Password</button>
+						<button id="change-email" class="btn btn-primary">Change
+							Email</button>
+						<button id="change-password" class="btn btn-primary">Change
+							Password</button>
 					</div>
-					<div style="display:none;" id="change-email-form">
-						<br>
-						<br>
-						<h2><strong>Change</strong> Email</h2>
-						<form class="form-horizontal" role="form" action="/candidate/changeEmail" method="post">
+					<div style="display: none;" id="change-email-form">
+						<br> <br>
+						<h2>
+							<strong>Change</strong> Email
+						</h2>
+						<form class="form-horizontal" role="form"
+							action="/candidate/changeEmail" method="post">
 							<div class="form-group">
-								<label for="input-text" class="col-sm-2 control-label">New Email</label>
+								<label for="input-text" class="col-sm-2 control-label">New
+									Email</label>
 								<div class="col-sm-10" id="firstNameContainer">
-									<input type="text" class="form-control" name="email" placeholder="" value="">
+									<input type="text" class="form-control" name="email"
+										placeholder="" value="">
 								</div>
 							</div>
 							<div class="pull-right">
-								<button type="input" class="btn btn-danger btn-cancel" onclick="$('#change-email-form').hide(500);return false;">Cancel</button>
-								<button type = "submit" class="btn btn-primary btn-save">Save</button>
+								<button type="input" class="btn btn-danger btn-cancel"
+									onclick="$('#change-email-form').hide(500);return false;">Cancel</button>
+								<button type="submit" class="btn btn-primary btn-save">Save</button>
 							</div>
 						</form>
 					</div>
-					<div style="display:none;" id="change-password-form">
-						<br>
-						<br>
-						<h2><strong>Change</strong> Password</h2>
-						<form class="form-horizontal" role="form" action="/candidate/changePassword" method="post">
+					<div style="display: none;" id="change-password-form">
+						<br> <br>
+						<h2>
+							<strong>Change</strong> Password
+						</h2>
+						<form class="form-horizontal" role="form"
+							action="/candidate/changePassword" method="post">
 							<div class="form-group">
-								<label for="input-text" class="col-sm-2 control-label">New Password</label>
+								<label for="input-text" class="col-sm-2 control-label">New
+									Password</label>
 								<div class="col-sm-10" id="firstNameContainer">
-									<input type="password" class="form-control" name="password" placeholder="" value="">
+									<input type="password" class="form-control" name="password"
+										placeholder="" value="">
 								</div>
 							</div>
 							<div class="pull-right">
-								<button type="input" class="btn btn-danger btn-cancel" onclick="$('#change-password-form').hide(500);return false;">Cancel</button>
-								<button type = "submit" class="btn btn-primary btn-save">Save</button>
+								<button type="input" class="btn btn-danger btn-cancel"
+									onclick="$('#change-password-form').hide(500);return false;">Cancel</button>
+								<button type="submit" class="btn btn-primary btn-save">Save</button>
 							</div>
 						</form>
 					</div>
@@ -332,7 +349,7 @@
 								<div class="col-sm-4">
 									<input type="text" name="college-name"
 										value="${principal.college.school}" class="form-control"
-										data-mask="aaaaaa" placeholder="College Name">
+										data-mask="aaaaaa" placeholder="School Name">
 								</div>
 							</div>
 						</div>
@@ -452,26 +469,170 @@
 	<jsp:include page="${views}foot.jsp"></jsp:include>
 	<jsp:include page="${views}script-imports.jsp"></jsp:include>
 	<script>
-		$(document).ready(
-				function() {
-					$('#add-experience').on(
-							'click',
-							function() {
-								$("#experience-form").clone()
-										.find("input:text").val("").end().find(
-												"textarea").val("").end()
-										.appendTo("#experience-container");
+		$(document)
+				.ready(
+						function() {
+							$('#add-experience')
+									.on(
+											'click',
+											function() {
+												$("#experience-form")
+														.clone()
+														.find("input:text")
+														.val("")
+														.end()
+														.find("textarea")
+														.val("")
+														.end()
+														.appendTo(
+																"#experience-container");
+											})
+
+							$('#change-email').on('click', function() {
+								$('#change-email-form').toggle(500);
 							})
 
-					
-					$('#change-email').on('click', function(){
-						$('#change-email-form').toggle(500);
-					})
-					
-					$('#change-password').on('click', function(){
-						$('#change-password-form').toggle(500);
-					})
-				})
+							$('#change-password').on('click', function() {
+								$('#change-password-form').toggle(500);
+							})
+
+							$('#birthdate').datepicker({
+								format : 'yyyy-mm-dd'
+							}).on(
+									'changeDate',
+									function(e) {
+										// Revalidate the date field
+										$('#personalInformationForm')
+												.formValidation(
+														'revalidateField',
+														'birthdate');
+									});
+
+							$('#personalInformationForm')
+									.find('[name="state"]')
+									.chosen({
+										width : '100%'
+									})
+									// Revalidate the color when it is changed
+									.change(
+											function(e) {
+												$('#personalInformationForm')
+														.formValidation(
+																'revalidateField',
+																'state');
+											})
+									.end()
+									.formValidation(
+											{
+												framework : 'bootstrap',
+
+												icon : {
+													valid : 'glyphicon glyphicon-ok',
+													invalid : 'glyphicon glyphicon-remove',
+													validating : 'glyphicon glyphicon-refresh'
+												},
+												fields : {
+													firstName : {
+														validators : {
+															notEmpty : {
+																message : 'The firstname is required'
+															},
+															regexp : {
+																regexp : /^[a-zA-Z ,.'-]+$/,
+																message : 'invalid firstname'
+															}
+														}
+													},
+													lastName : {
+														validators : {
+															notEmpty : {
+																message : 'The lastname is required'
+															},
+															regexp : {
+																regexp : /^[a-zA-Z ,.'-]+$/,
+																message : 'invalid lastname'
+															}
+														}
+													},
+													birthdate : {
+														validators : {
+															notEmpty : {
+																message : 'The date is required'
+															},
+															date : {
+																format : 'YYYY-MM-DD',
+																message : 'The date is not a valid'
+															}
+														}
+													},
+													contactNumber : {
+														validators : {
+															notEmpty : {
+																message : 'The contact number is required'
+															}
+														}
+													},
+													address : {
+														validators : {
+															notEmpty : {
+																message : 'The address is required'
+															}
+														}
+													},
+													state: {
+									                    validators: {
+									                    	callback: {
+									                            message: 'Please choose 2-4 colors you like most',
+									                            callback: function(value, validator, $field) {
+									                              	console.log("awe")
+									                            }
+									                        }
+									                    }
+									                }
+												}
+											})
+									.on(
+											'success.validator.fv',
+											function(e, data) {
+												if (data.field === 'birthdate'
+														&& data.validator === 'date'
+														&& data.result.date) {
+													// The eventDate field passes the date validator
+													// We can get the current date as a Javascript Date object
+													var currentDate = data.result.date, day = currentDate
+															.getDay();
+													var todayDate = new Date();
+
+													if (todayDate > currentDate) {
+
+													}
+
+													// If the selected date is Sunday
+													if (todayDate < currentDate) {
+														// Treat the field as invalid
+														data.fv
+																.updateStatus(
+																		data.field,
+																		data.fv.STATUS_INVALID,
+																		data.validator)
+																.updateMessage(
+																		data.field,
+																		data.validator,
+																		'Please choose a valid date');
+													} else {
+														// Reset the message
+														data.fv
+																.updateMessage(
+																		data.field,
+																		data.validator,
+																		'The date is not valid date');
+													}
+												}else if(data.field === 'stateLocation'){
+													console.log("waa")
+												}
+											});
+
+						})
 	</script>
 </body>
 

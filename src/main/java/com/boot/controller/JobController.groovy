@@ -61,7 +61,7 @@ public class JobController {
 	   def candidate = getPrincipalCandidate()
 	   if(job){
 		   if(!candidateApplicationRepo.findByJobIdAndCandidateId(job.id, candidate.id)){
-			   candidateApplicationRepo.save(new CandidateApplication(job: job, candidate: candidate,cover: cover))
+			   candidateApplicationRepo.save(new CandidateApplication(job: job, candidate: candidate,cover: cover, employer: job.employer, applied: new Date()))
 			   return "redirect:/candidate"
 		   }else{
 			   println "Multiple appliying on the same job"

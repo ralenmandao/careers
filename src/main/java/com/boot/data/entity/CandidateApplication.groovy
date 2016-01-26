@@ -15,6 +15,10 @@ class CandidateApplication {
 	Job job
 	String cover
 	int viewCount
+	@DBRef
+	Employer employer
+	Date applied
+	String result
 	
 	public void view(){
 		viewCount = viewCount + 1
