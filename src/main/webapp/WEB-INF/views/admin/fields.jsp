@@ -7,7 +7,7 @@
 	
 <!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:43 GMT -->
 <head>
-	<title>Careers - Login</title>
+	<title>Careers - ${principal.firstName}</title>
 	<spring:url value="/resources/" var="resources" />
 	<spring:url value="/WEB-INF/views/" var="views" />
 	<spring:url value="/" var="root" />
@@ -41,7 +41,7 @@
 										<td>${field.name}</td>
 										<td>
 											<div class="btn-group btn-group-xs">
-												<a data-id="${field.id}" candidate-name="${field.name}" data-modal="confirm-delete-modal" data-toggle="tooltip" title="" class="btn btn-default md-trigger delete-candidate" data-original-title="Delete"><i class="fa fa-power-off"></i></a>
+												<a data-id="${field.id}" candidate-name="${field.name}" data-modal="confirm-delete-modal" data-toggle="tooltip" title="" class="btn btn-default md-trigger delete-candidate" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
 												<a href="#" data-id = "${field.id}" data-name="${field.name}" data-toggle="tooltip" title="" class="btn btn-default edit-candidate" data-original-title="Edit"><i class="fa fa-edit"></i></a>
 											</div>
 										</td>
@@ -126,6 +126,59 @@
 			$('#add-record').on('click',function(){
 				$('#add-country').toggle(500)
 			})
+			
+			$('#fields-menu').css('background', '#219CC4');
+			$('#fields-menu a').css('color', 'white');
+			
+			$('#edit-country').formValidation({
+                framework: 'bootstrap',
+                excluded: [':disabled'],
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+				fields : {
+					name : {
+						message : 'invalid state',
+						validators : {
+							notEmpty : {
+								message : 'state must not be empty'
+							},
+							regexp: {
+								regexp: /^[a-zA-Z ,']+$/,
+								message : 'invalid state format'
+							}
+						}
+					}
+				}
+			})
+			
+			$('#add-country').formValidation({
+                framework: 'bootstrap',
+                excluded: [':disabled'],
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+				fields : {
+					name : {
+						message : 'invalid state',
+						validators : {
+							notEmpty : {
+								message : 'state must not be empty'
+							},
+							regexp: {
+								regexp: /^[a-zA-Z ,']+$/,
+								message : 'invalid state format'
+							}
+						}
+					}
+				}
+			})
+			
+			$('#myentities ul').css('display', 'block')
 		})
 	</script>
 	</body>

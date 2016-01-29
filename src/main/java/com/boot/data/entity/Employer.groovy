@@ -20,4 +20,5 @@ public class Employer implements EntityObject{
 	String overview
 	boolean hasPicture = false
 	String pictureId
+	Date registrationDate
 }

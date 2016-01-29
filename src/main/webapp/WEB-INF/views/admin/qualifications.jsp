@@ -7,7 +7,7 @@
 	
 <!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:43 GMT -->
 <head>
-	<title>Careers - Login</title>
+	<title>Careers - ${principal.firstName}</title>
 	<spring:url value="/resources/" var="resources" />
 	<spring:url value="/WEB-INF/views/" var="views" />
 	<spring:url value="/" var="root" />
@@ -41,7 +41,7 @@
 										<td>${qualification.name}</td>
 										<td>
 											<div class="btn-group btn-group-xs">
-												<a data-id="${qualification.id}" candidate-name="${qualification.name}" data-modal="confirm-delete-modal" data-toggle="tooltip" title="" class="btn btn-default md-trigger delete-candidate" data-original-title="Delete"><i class="fa fa-power-off"></i></a>
+												<a data-id="${qualification.id}" candidate-name="${qualification.name}" data-modal="confirm-delete-modal" data-toggle="tooltip" title="" class="btn btn-default md-trigger delete-candidate" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
 												<a href="#" data-id = "${qualification.id}" data-name="${qualification.name}" data-toggle="tooltip" title="" class="btn btn-default edit-candidate" data-original-title="Edit"><i class="fa fa-edit"></i></a>
 											</div>
 										</td>
@@ -53,7 +53,7 @@
 					<br>
 					<div style="display:none;" id="edit-country">
 						<h2><strong>Edit</strong> Qualification</h2>
-						<form class="form-horizontal" role="form" action="/admin/qualification/edit">
+						<form class="form-horizontal" role="form" action="/admin/qualification/edit" id="editCountry">
 							<div class="form-group">
 								<label for="input-text" class="col-sm-2 control-label">Qualification</label>
 								<div class="col-sm-10" id="firstNameContainer">
@@ -70,7 +70,7 @@
 					<br>
 					<div style="display:none;" id="add-country">
 						<h2><strong>Add</strong> Qualification</h2>
-						<form class="form-horizontal" role="form" action="/admin/qualification/add">
+						<form class="form-horizontal" role="form" action="/admin/qualification/add" id="addCountry">
 							<div class="form-group">
 								<label for="input-text" class="col-sm-2 control-label">Qualification</label>
 								<div class="col-sm-10" id="firstNameContainer">
@@ -126,6 +126,59 @@
 			$('#add-record').on('click',function(){
 				$('#add-country').toggle(500)
 			})
+			
+			$('#qualifications-menu').css('background', '#219CC4');
+			$('#qualifications-menu a').css('color', 'white');	
+			
+			$('#editCountry').formValidation({
+                framework: 'bootstrap',
+                excluded: [':disabled'],
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+				fields : {
+					name : {
+						message : 'invalid title',
+						validators : {
+							notEmpty : {
+								message : 'country must not be empty'
+							},
+							regexp: {
+								regexp: /^[a-zA-Z ,']+$/,
+								message : 'invalid country format'
+							}
+						}
+					}
+				}
+			})
+			
+			$('#addCountry').formValidation({
+                framework: 'bootstrap',
+                excluded: [':disabled'],
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+				fields : {
+					name : {
+						message : 'invalid title',
+						validators : {
+							notEmpty : {
+								message : 'country must not be empty'
+							},
+							regexp: {
+								regexp: /^[a-zA-Z ,']+$/,
+								message : 'invalid country format'
+							}
+						}
+					}
+				}
+			})
+			
+			$('#myentities ul').css('display', 'block')
 		})
 	</script>
 	</body>

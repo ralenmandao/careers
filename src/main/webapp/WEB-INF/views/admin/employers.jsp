@@ -7,7 +7,7 @@
 
 <!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:43 GMT -->
 <head>
-<title>Careers - Login</title>
+<title>Careers - ${principal.firstName}</title>
 <spring:url value="/resources/" var="resources" />
 <spring:url value="/WEB-INF/views/" var="views" />
 <spring:url value="/" var="root" />
@@ -39,9 +39,16 @@
 						<tbody>
 							<c:forEach items="${employers}" var="employer">
 								<tr>
-									<td>${employer.companyName}</td>
-									<td>${employer.location.state.name},
-										${employer.location.country.name}</td>
+									<td><a href="/admin/employers/${employer.id}">${employer.companyName}</a></td>
+									<c:choose>
+										<c:when test="${not empty employer.location}">
+											<td>${employer.location.state.name},
+											${employer.location.country.name}</td>
+										</c:when>
+										<c:otherwise>
+											<td>-</td>
+										</c:otherwise>
+									</c:choose>
 									<td><span
 										class="label label-${employer.user.enabled ? 'success' : 'danger'}">${employer.user.enabled ? ' Yes ' : ' No '}</span></td>
 									<td>
@@ -50,8 +57,8 @@
 												candidate-name="${employer.companyName}"
 												data-modal="confirm-delete-modal" data-toggle="tooltip"
 												title="" class="btn btn-default md-trigger delete-candidate"
-												data-original-title="Delete"><i class="fa fa-power-off"></i></a>
-											<a href="/admin/candidate/${employer.id}/edit"
+												data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+											<a href="/admin/employer/${employer.id}/edit"
 												data-toggle="tooltip" title=""
 												class="btn btn-default edit-candidate"
 												data-original-title="Edit"><i class="fa fa-edit"></i></a>
@@ -114,6 +121,8 @@
 				$('#modal-delete-name').html($(this).attr('candidate-name'))
 				$('#delete-url').attr('href', '/admin/employer/' + $(this).attr('data-id') + '/delete')
 			})
+			$('#employers-menu').css('background', '#219CC4');
+			$('#employers-menu a').css('color', 'white');
 		})
 	</script>
 </body>

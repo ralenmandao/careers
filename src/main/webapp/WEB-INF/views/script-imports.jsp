@@ -28,6 +28,8 @@
 	
 	<!-- Bootstrao selectpicker js -->
 	<script src="${resources}assets/third/select/bootstrap-select.min.js"></script>
+
+	<script src="${resources}assets/third/select/select2.min.js"></script>
 	
 	<!-- Summernote js -->
 	<script src="${resources}assets/third/summernote/summernote.js"></script>
@@ -63,3 +65,23 @@
 	<script src="${resources}assets/js/candidate/edit-candidate.js"></script>
 	<script src="${resources}assets/js/candidate/candidate.js"></script>
 	<script src="${resources}assets/js/lanceng.js"></script>
+	<script>
+		$(document).ready(function(){
+			$("#uploadProfile").formValidation({
+            	fields: {
+                    'file': {
+                        validators: {
+                            file: {
+                                extension: 'jpg,png',
+                                maxSize: 512000,
+                                message: 'Please choose a image file with a maximum of 512kb'
+                            },
+                            notEmpty: {
+                            	message : 'Please select a file'
+                            }
+                        }
+                    }
+                }
+            });
+		})
+	</script>

@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param
 import com.boot.data.entity.Job
 
 interface JobRepo extends MongoRepository<Job, String>{
-	List<Job> findByNameLikeIgnoreCaseOrDescriptionLikeIgnoreCase(String name, String desc)
+	List<Job> findByNameLikeIgnoreCaseOrDescriptionLikeIgnoreCaseOrLocationStateNameLikeIgnoreCaseOrLocationCountryNameLikeIgnoreCase(String name, String desc, String state, String coutry)
 //	List<Job> findByEmployerId(String id);
 	List<Job> findByEmployerId(@Param('id') String id);
 	List<Job> findByType(String type)

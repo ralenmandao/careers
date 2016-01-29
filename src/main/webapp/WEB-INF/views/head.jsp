@@ -4,6 +4,27 @@
 
 <spring:url value="/resources/" var="resources" />
 <spring:url value="/" var="root" />
+			<style>
+				.sidebar-inner .media .media-object{
+					height:55px;
+				}
+				
+				.body rows scroll-y{
+					overflow:hidden;
+				}
+				
+				.btn-success{
+					background:#219CC4;
+					border:#219CC4;
+				}
+				
+				.btn-success:hover{
+					background:#219CC4;
+					border:#219CC4;
+				}
+			</style>
+
+
 	<div class="container">
 		<spring:url value="/" var="root"></spring:url>
 		<!-- Your logo goes here -->
@@ -58,8 +79,8 @@
 					<!-- Sidebar menu -->				
 					<div id="sidebar-menu">
 						<ul>
-							<li style="background:#65BD77;"><a href="${root}candidate/" style="color:white;"><i class="fa fa-home"></i> Home</a></li>
-							<li><a href="#fakelink" id="edit"><i class="fa fa-users"></i> Account</a></li>
+							<li id="main-home"><a href="${root}candidate/"><i class="fa fa-home"></i> Home</a></li>
+							<li id="account-home-menu"><a href="#fakelink" id="edit"><i class="fa fa-users"></i> Account</a></li>
 							
 							
 							<c:choose>
@@ -78,17 +99,18 @@
 							    				principal.hasPicture && 
 							    				not empty principal.about && 
 							    				not empty principal.objective}">
-							       <li><a href="${root}candidate/${principal.id}/resume"><i class="fa fa-list-alt"></i> Resume</a></li>
+							       <li id="resume-with"><a href="${root}candidate/${principal.id}/resume"><i class="fa fa-list-alt"></i> Resume</a></li>
 							    </c:when>
 							    <c:otherwise>
-							       <li id = "resume"><a href="#"><i class="fa fa-list-alt"></i> Resume</a></li>
+							       <li id = "resume"><a href="#"><i class="fa fa-book"></i> Resume</a></li>
 							    </c:otherwise>
 							</c:choose>
-							<c:if test="${not empty principal.resumeId}">
-								<li><a href="/candidate/${principal.id}/myresume/display"><i class="fa fa-folder-open"></i> ${principal.realResumeName}</a></li>
+							<c:if test="${principal.resumeIsViewable == true}">
+								<li id="mainresume-home"><a href="/candidate/${principal.id}/myresume/display"><i class="fa fa-folder-open"></i> ${principal.realResumeName}</a></li>
 							</c:if>
 							
-							<li><a href="/candidate/jobApplication"><i class="fa fa-archive"></i> Job Applications</a></li>
+							<li id="job-applications-home"><a href="/candidate/jobApplication"><i class="fa fa-archive"></i> Job Applications</a></li>
+							<li id="articles-news-home"><a href="/news/?type=candidate"><i class="fa fa-archive"></i> Articles/News</a></li>
 							<!--
 							<li><a href="#fakelink"><i class="fa fa-bug"></i><i class="fa fa-angle-double-down i-right"></i> Elements</a>
 								<ul>
@@ -201,3 +223,4 @@
 				<!-- END NAVBAR CONTENT-->
             </div>
 			<!-- END CONTENT HEADER -->
+			

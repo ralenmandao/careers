@@ -49,7 +49,9 @@ public class TestController {
 	@RequestMapping(method=RequestMethod.GET)
 	@ResponseBody
 	public String test(){
-		jobRepo.delete('567de4a8afbac4211a2db22f')
+		def ad = adminRepo.findAll().get(0)
+		ad.user.username = 'admin@yahoo.com'
+		userRepo.save(ad.user)
 		return ""
 	}
 
@@ -189,7 +191,7 @@ public class TestController {
 	
 	public loadBasicAdmin(){
 		adminRepo.deleteAll()
-		def user = new User(username: 'admin', 
+		def user = new User(username: 'admin@yahoo.com', 
 			   			  password: 'admin', 
 					      role: 'ROLE_ADMIN',
 						  enabled: true,

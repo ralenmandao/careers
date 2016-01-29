@@ -2,10 +2,8 @@ package com.boot.data.entity;
 
 import groovy.transform.ToString
 import javax.persistence.Id
-
-import org.springframework.data.mongodb.core.mapping.DBRef;
-
-import com.boot.mongo.config.*;
+import org.springframework.data.mongodb.core.mapping.DBRef
+import com.boot.mongo.config.*
 
 
 @ToString()
@@ -41,6 +39,11 @@ public class Candidate implements EntityObject{
 	String objective
 	String resumeId
 	String realResumeName
+	String studentNumber
+	Date registrationDate
+	boolean resumeIsViewable = false
+	List<String> documents
+	ArrayList<Document> legal = []
 	
 	Candidate(){
 		

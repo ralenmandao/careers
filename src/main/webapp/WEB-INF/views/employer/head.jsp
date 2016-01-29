@@ -5,6 +5,16 @@
 	<spring:url value="/resources/" var="resources" />
 	<spring:url value="/" var="root" />
 	
+	<style>
+		.body rows scroll-y{
+						overflow:hidden;
+		}
+		
+		.sidebar-inner .media .media-object{
+			height:55px;
+		}
+	</style>
+	
 	<div class="container">
 		<spring:url value="/" var="root"></spring:url>
 		<!-- Your logo goes here -->
@@ -48,7 +58,7 @@
 					
 					<!-- Search form -->
 					<div id="search">
-						<form role="form" action="${root}candidate">
+						<form role="form" action="/employer/candidates/search">
 							<input type="text" class="form-control search" name="search" placeholder="Search here...">
 							<i class="fa fa-search"></i>
 							<input type="submit" style="position: absolute; left: -9999px"/>
@@ -59,10 +69,12 @@
 					<!-- Sidebar menu -->				
 					<div id="sidebar-menu">
 						<ul>
-							<li style="background:#65BD77;"><a href="${root}employer/" style="color:white;"><i class="fa fa-home"></i> Home</a></li>
-							<li><a href="/employer/edit"><i class="fa fa-users"></i> Account</a></li>
-							<li><a href="${root}employer/postJob"><i class="fa fa-list-alt"></i> Post a Job</a></li>
-							<li><a href="${root}employer/postedJob"><i class="fa fa-list-alt"></i> Posted Jobs</a></li>
+							<li id="home-menu"><a href="${root}employer/" style="color:white;"><i class="fa fa-home"></i> Home</a></li>
+							<li id="account-menu"><a href="/employer/edit"><i class="fa fa-users"></i> Account</a></li>
+							<li id="post-a-job-menu"><a href="${root}employer/postJob"><i class="fa fa-list-alt"></i> Post a Job</a></li>
+							<li id="posted-jobs-menu"><a href="${root}employer/postedJob"><i class="fa fa-edit"></i> Posted Jobs</a></li>
+							<li id="candidates-menu"><a href="${root}employer/candidates"><i class="fa fa-user"></i> Candidates</a></li>
+							<li id="articles-news-home"><a href="/news/?type=employer"><i class="fa fa-archive"></i> Articles/News</a></li>
 							<!--
 							<li><a href="#fakelink"><i class="fa fa-bug"></i><i class="fa fa-angle-double-down i-right"></i> Elements</a>
 								<ul>
@@ -126,19 +138,8 @@
             </div><!-- End div .body .rows .scroll-y -->
 			
 			<!-- Sidebar footer -->
-            <div class="footer rows animated fadeInUpBig">
-				<div class="progress progress-xs progress-striped active">
-				  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-					<span class="progress-precentage">80&#37;</span>
-				  </div><!-- End div .pogress-bar -->
-				  <a data-toggle="tooltip" title="See task progress" class="btn btn-default md-trigger" data-modal="task-progress"><i class="fa fa-inbox"></i></a>
-				</div><!-- End div .progress .progress-xs -->
-            </div><!-- End div .footer .rows -->
         </div>
 		<!-- END SIDEBAR -->
-		
-		
-		
 		<!-- BEGIN CONTENT -->
         <div class="right content-page">
 		

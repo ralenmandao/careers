@@ -83,6 +83,12 @@
 								</c:otherwise>
 							</c:choose>
 							<h4>${principal.companyName}</h4>
+							<c:if test="${not empty principal.industries}">
+								<strong>Industries : </strong>
+								<c:forEach items="${principal.industries}" var="industry">
+									<span class="label label-success">${industry.name}</span>
+								</c:forEach>
+							</c:if>
 							<c:choose>
 								<c:when
 									test="${ not empty principal.location &&
@@ -149,6 +155,10 @@
 								</div>
 							</div>
 						</c:forEach>
+						<c:if test="${not empty applicants}">
+							<br>
+							<a href="/employer/postedJob"><p class="text-center">See more...</p></a>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -158,6 +168,7 @@
 		<!-- ============================================================== -->
 
 	</div>
+	<!-- 
 	<div class="md-modal md-fade-in-scale-up" id="md-fade-in-scale-up">
 		<div class="md-content">
 			<h3>Upload Photo</h3>
@@ -174,6 +185,7 @@
 		</div>
 		<!-- End div .md-content -->
 	</div>
+	 -->
 	<jsp:include page="${views}foot.jsp"></jsp:include>
 	<jsp:include page="${views}script-imports.jsp"></jsp:include>
 	<script>
@@ -181,6 +193,8 @@
 			//$.get("/jobs/search/findByEmployerId?id=567ddd7dafbac4211a2db22e&page=0", function(data, status){
 			// alert("Data: " + data.size + "\nStatus: " + status);
 			//  });
+			$('#home-menu').css('background', '#219CC4');
+            $('#home-menu a').css('color', 'white');
 		});
 	</script>
 </body>

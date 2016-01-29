@@ -7,7 +7,7 @@
 	
 <!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:43 GMT -->
 <head>
-	<title>Careers - Login</title>
+	<title>Careers - ${principal.firstName}</title>
 	<spring:url value="/resources/" var="resources" />
 	<spring:url value="/WEB-INF/views/" var="views" />
 	<spring:url value="/" var="root" />
@@ -28,7 +28,7 @@
 							<thead>
 								<tr>
 									<th>Name</th>
-									<th>Location</th>
+									<th>Student Number</th>
 									<th>Enabled</th>
 									<th>Option</th>
 								</tr>
@@ -37,12 +37,12 @@
 							<tbody>
 								<c:forEach items="${candidates}" var="candidate">
 									<tr>
-										<td>${candidate.firstName} ${candidate.lastName}</td>
-										<td>${candidate.location.state.name}, ${candidate.location.country.name}</td>
+										<td><a href="/admin/candidates/${candidate.id}">${candidate.firstName} ${candidate.lastName}</a></td>
+										<td>${candidate.studentNumber}</td>
 										<td><span class="label label-${candidate.user.enabled ? 'success' : 'danger'}">${candidate.user.enabled ? ' Yes ' : ' No '}</span></td>
 										<td>
 											<div class="btn-group btn-group-xs">
-												<a data-id="${candidate.id}" candidate-name="${candidate.firstName} ${candidate.lastName}" data-modal="confirm-delete-modal" data-toggle="tooltip" title="" class="btn btn-default md-trigger delete-candidate" data-original-title="Delete"><i class="fa fa-power-off"></i></a>
+												<a data-id="${candidate.id}" candidate-name="${candidate.firstName} ${candidate.lastName}" data-modal="confirm-delete-modal" data-toggle="tooltip" title="" class="btn btn-default md-trigger delete-candidate" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
 												<a href="/admin/candidate/${candidate.id}/edit" data-toggle="tooltip" title="" class="btn btn-default edit-candidate" data-original-title="Edit"><i class="fa fa-edit"></i></a>
 											</div>
 										</td>
@@ -89,6 +89,8 @@
 				$('#modal-delete-name').html($(this).attr('candidate-name'))
 				$('#delete-url').attr('href', '/admin/candidate/' + $(this).attr('data-id') + '/delete')
 			})
+			$('#candidates-menu').css('background', '#219CC4');
+			$('#candidates-menu a').css('color', 'white');
 		})
 	</script>
 	</body>

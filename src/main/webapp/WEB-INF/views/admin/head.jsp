@@ -5,6 +5,12 @@
 	<spring:url value="/resources/" var="resources" />
 	<spring:url value="/" var="root" />
 	
+	<style>
+		.body rows scroll-y{
+			overflow:hidden;
+		}
+	</style>
+	
 	<div class="container">
 		<spring:url value="/" var="root"></spring:url>
 		<!-- Your logo goes here -->
@@ -21,7 +27,7 @@
             <div class="body rows scroll-y">
 				
 				<!-- Scrolling sidebar -->
-                <div class="sidebar-inner slimscroller">
+                <div class="sidebar-inner slimscroller" >
 				
 					<!-- User Session -->
 					<div class="media">
@@ -36,12 +42,12 @@
 							<!--
 							<a href="#" id="edit">Edit</a>
 							-->
-							<a class="md-trigger" data-modal="logout-modal-alt">Logout</a>
+							<a class="logout">Logout</a>
 						</div><!-- End div .media-body -->
 					</div><!-- End div .media -->
 					
 					
-					<!-- Search form -->
+					<!-- Search form
 					<div id="search">
 						<form role="form" action="${root}candidate">
 							<input type="text" class="form-control search" name="search" placeholder="Search here...">
@@ -54,19 +60,21 @@
 					<!-- Sidebar menu -->				
 					<div id="sidebar-menu">
 						<ul>
-							<li style="background:#65BD77;"><a href="${root}employer/" style="color:white;"><i class="fa fa-home"></i> Home</a></li>
-							<li><a href="/admin/edit"><i class="fa fa-users"></i> Account</a></li>
-							<li><a href="/admin/candidates"><i class="fa fa-users"></i> Candidates</a></li>
-							<li><a href="/admin/employers"><i class="fa fa-users"></i> Employers</a></li>
-							<li><a href="#fakelink"><i class="fa fa-bug"></i><i class="fa fa-angle-double-down i-right"></i> Entities</a>
+							<li id=""><a href="/admin" style="color:white;"><i class="fa fa-home"></i> Home</a></li>
+							<li id="account-menu"><a href="/admin/edit"><i class="fa fa-users"></i> Account</a></li>
+							<li id="articles-news-menu"><a href="/admin/articles"><i class="fa fa-bars"></i> Articles/News</a></li>
+							<li id="candidates-menu"><a href="/admin/candidates"><i class="fa fa-sitemap"></i> Candidates</a></li>
+							<li id="employers-menu"><a href="/admin/employers"><i class="fa fa-users"></i> Employers</a></li>
+							<li id="jobs-menu"><a href="/admin/jobs"><i class="fa fa-users"></i> Jobs</a></li>
+							<li id="myentities"><a href="#fakelink"><i class="fa fa-bug"></i><i class="fa fa-angle-double-down i-right"></i> Entities</a>
 								<ul>
-									<li><a href="/admin/countries"><i class="fa fa-angle-right"></i> Countries</a></li>
-									<li><a href="/admin/states"><i class="fa fa-angle-right"></i> States</a></li>
-									<li><a href="/admin/fields"><i class="fa fa-angle-right"></i> Field of Study</a></li>
-									<li><a href="/admin/industries"><i class="fa fa-angle-right"></i> Industry</a></li>
-									<li><a href="/admin/qualifications"><i class="fa fa-angle-right"></i> Qualification</a></li>
-									<li><a href="/admin/skills"><i class="fa fa-angle-right"></i> Skill</a></li>
-									<li><a href="/admin/specializations"><i class="fa fa-angle-right"></i> Specialization</a></li>
+									<li id="countries-menu"><a href="/admin/countries"><i class="fa fa-angle-right"></i> Countries</a></li>
+									<li id="states-menu"><a href="/admin/states"><i class="fa fa-angle-right"></i> States</a></li>
+									<li id="fields-menu"><a href="/admin/fields"><i class="fa fa-angle-right"></i> Field of Study</a></li>
+									<li id="industries-menu"><a href="/admin/industries"><i class="fa fa-angle-right"></i> Industry</a></li>
+									<li id="qualifications-menu"><a href="/admin/qualifications"><i class="fa fa-angle-right"></i> Qualification</a></li>
+									<li id="skills-menu"><a href="/admin/skills"><i class="fa fa-angle-right"></i> Skill</a></li>
+									<li id="specializations-menu"><a href="/admin/specializations"><i class="fa fa-angle-right"></i> Specialization</a></li>
 								</ul>
 							</li>
 							<!--
@@ -124,16 +132,6 @@
 					</div><!-- End div #sidebar-menu -->
 				</div><!-- End div .sidebar-inner .slimscroller -->
             </div><!-- End div .body .rows .scroll-y -->
-			
-			<!-- Sidebar footer -->
-            <div class="footer rows animated fadeInUpBig">
-				<div class="progress progress-xs progress-striped active">
-				  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-					<span class="progress-precentage">80&#37;</span>
-				  </div><!-- End div .pogress-bar -->
-				  <a data-toggle="tooltip" title="See task progress" class="btn btn-default md-trigger" data-modal="task-progress"><i class="fa fa-inbox"></i></a>
-				</div><!-- End div .progress .progress-xs -->
-            </div><!-- End div .footer .rows -->
         </div>
 		<!-- END SIDEBAR -->
 		

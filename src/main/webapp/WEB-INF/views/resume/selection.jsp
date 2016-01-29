@@ -31,7 +31,7 @@
 					       </label>
 					       <h5><strong>Roncal's Template</strong></h5>
 					       <p>
-					       		Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
+					       		Simple Resume that can support experience and basic information
 					       </p>
 				       </div>
 				       <div class="col-md-offset-1 col-md-2">
@@ -40,19 +40,19 @@
 					       </label>
 					       <h5><strong>Ralen's Template</strong></h5>
 					       <p>
-					       		Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
+					       		Simple Resume that can support experience and basic information
 					       </p>
 				       </div>
 				       <div class="col-md-offset-1 col-md-2">
 					       <label for="third-resume">
-					       		<img src="${resources}images/no-profile.png" style="width:200px;"/>
+					       		<img src="${resources}images/resume3-preview.png" style="width:200px;height:200px;"/>
 					       </label>
+					       <h5><strong>Renz's Template</strong></h5>
+					       <p>
+					       		Simple Resume that can't support experience
+					       </p>
 				       </div>
-				       <div class="col-md-offset-1 col-md-2">
-					       <label for="forth-resume">
-					       		<img src="${resources}images/no-profile.png" style="width:200px;"/>
-					       </label>
-				       </div>
+
 				       </div>
 				    </fieldset>
 				    <br>
@@ -62,6 +62,7 @@
 						    	<select class="form-control" name="resume">
 						    		<option value="first-resume">Roncal's Template</option>
 						    		<option value="second-resume">Ralen's Template</option>
+						    		<option value="third-resume">Renz's Template</option>
 						    	</select>
 					    	</div>
 					    	<div class="col-md-1">
@@ -79,7 +80,10 @@
 		<jsp:include page="${views}foot.jsp"></jsp:include>
 		<jsp:include page="${views}script-imports.jsp"></jsp:include>
 		<script>
-			
+		$(document).ready(function(){
+			$('#resume').css('background', '#219CC4');
+            $('#resume a').css('color', 'white');
+		})
 		</script>
 	</body>
 

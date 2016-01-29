@@ -49,13 +49,15 @@ public class RegisterController {
 		// Setup the candidate
 		candidateRegistration.user.username = candidateRegistration.user.email
 		candidateRegistration.user.role = "ROLE_CANDIDATE"
-		candidateRegistration.user.enabled = true
+		candidateRegistration.user.enabled = false
+		candidateRegistration.registrationDate = new Date()
 		userRepo.save(candidateRegistration.user)
 		candidateRepo.save(candidateRegistration)
 		
 		
-		mail.sendMail("DHVTSU-CAREERS", candidateRegistration.user.email,"Account Activation",
-			"To activate your account please click the activation link http://localhost:8080/candidate/activate/${candidateRegistration.id}");
+//		mail.sendMail("DHVTSU-CAREERS", candidateRegistration.user.email,"Account Activation",
+//			"To activate your account please click the activation link http://localhost:8080/candidate/activate/${candidateRegistration.id}");
+		mail.sendMail("DHVTSU-CAREERS", candidateRegistration.user.email,"Notice for account activation","""Please wait 2-3 working days for your account to be verified in order to fully access the web application thank you""");
 		return "redirect:/login/?success";
 	}
 }

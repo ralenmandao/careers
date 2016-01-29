@@ -7,7 +7,7 @@
 	
 <!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:43 GMT -->
 <head>
-	<title>Careers - Login</title>
+	<title>Careers - ${principal.firstName}</title>
 	<spring:url value="/resources/" var="resources" />
 	<spring:url value="/WEB-INF/views/" var="views" />
 	<spring:url value="/" var="root" />
@@ -47,6 +47,12 @@
         </div>
 		<jsp:include page="${views}foot.jsp"></jsp:include>
 		<jsp:include page="${views}script-imports.jsp"></jsp:include>
+		<script>
+			$(document).ready(function(){
+				$('#account-menu').css('background', '#219CC4');
+				$('#account-menu a').css('color', 'white');
+			})
+		</script>
 	</body>
 
 <!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:44 GMT -->

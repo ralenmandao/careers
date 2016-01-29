@@ -10,4 +10,5 @@ import com.boot.data.entity.User;
 interface CandidateRepo extends MongoRepository<Candidate, String>{
 	Candidate findByUserId(String id);
 	List<Candidate> findBySpecialization(String specialization)
+	List<Candidate> findByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContainingOrTitleIgnoreCaseContaining(String s, String d, String z)
 }

@@ -27,6 +27,7 @@ import com.boot.data.entity.Employer
 import com.boot.data.entity.Industry
 import com.boot.data.entity.Job
 import com.boot.data.entity.Location
+import com.boot.data.entity.Skill
 import com.boot.data.entity.State
 import com.boot.data.repository.CandidateApplicationRepo
 import com.boot.data.repository.CandidateRepo
@@ -106,12 +107,12 @@ public class EmployerController {
 
 		employer.user.username = employer.user.email
 		employer.user.role = "ROLE_EMPLOYER"
-		employer.user.enabled = true
+		employer.user.enabled = false
+		employer.registrationDate = new Date()
 		userRepo.insert(employer.user)
 		employerRepo.insert(employer)
 
-		mail.sendMail("DHVTSU-CAREERS", employer.user.email ,"Account Activation",
-				"To activate your account please click the activation link http://localhost:8080/employer/activate/${employer.id}");
+		mail.sendMail("DHVTSU-CAREERS", employer.user.email,"Notice for account activation","""Please wait 2-3 working days for your account to be verified in order to fully access the web application thank you""");
 		return "redirect:/login?success"
 	}
 
@@ -163,7 +164,7 @@ public class EmployerController {
 			Model model,
 			@RequestParam(name="title") String title,
 			@RequestParam(name="salary") String salary,
-			@RequestParam(name="stateId") String stateId,
+			@RequestParam(name="state") String stateId,
 			@RequestParam(name="skills") List<String> skills,
 			@RequestParam(name="expiry") String expiry,
 			@RequestParam(name="description") String description,
@@ -174,15 +175,27 @@ public class EmployerController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		def mySkills = []
 		skills.each{
-			mySkills << skillRepo.findOne(it)
+			def skill = skillRepo.findByName(it)
+			if(!skill){
+				skill = new Skill(name: it)
+				skillRepo.save(skill)
+			}
+			mySkills << skill
 		}
 		def job = new Job(name: title, location: new Location(country: country, state: state),
 		description: description, posted: new Date(),
-		expiry:sdf.parse(expiry), salaryFrom: salary.split('-')[0] as long, salaryTo: salary.split('-')[1] as long,
-		skills: mySkills, employer: getPrincipalEmployer(), type: type,
-		experienceFrom: experience.split('-')[0] as int, experienceTo: experience.split('-')[1] as int)
-		jobRepo.save(job)
+		expiry:sdf.parse(expiry), salaryFrom: (salary ? salary.split('-')[0] as long : 0 ), salaryTo: (salary ? salary.split('-')[1] as long : 0 ),
+		skills: mySkills, employer: getPrincipalEmployer(), type: type)
 
+		def expArray = experience.split('-')
+		if(expArray.size() == 1){
+			job.experienceFrom = experience as int
+		}else{
+			job.experienceFrom = expArray[0] as int
+			job.experienceTo = expArray[1] as int
+		}
+
+		jobRepo.save(job)
 		def candidates = candidateRepo.findAll();
 		candidates = candidates.findAll{
 			!Collections.disjoint(it.skills.collect{ it.id } , skills);
@@ -196,6 +209,49 @@ public class EmployerController {
 		return "redirect:/employer?success"
 	}
 
+	@RequestMapping(value="editJob", method=RequestMethod.POST)
+	public String editJob(HttpSession session,
+			Model model,
+			@RequestParam(name="title") String title,
+			@RequestParam(name="salary") String salary,
+			@RequestParam(name="state") String stateId,
+			@RequestParam(name="skills") List<String> skills,
+			@RequestParam(name="expiry") String expiry,
+			@RequestParam(name="descriptiona") String description,
+			@RequestParam(name="type") String type,
+			@RequestParam(name="experience") String experience,
+			@RequestParam(name="id") String id){
+		State state = stateRepo.findOne(stateId)
+		Country country = countryRepo.findOne(state.countryId)
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		def mySkills = []
+		skills.each{
+			def skill = skillRepo.findByName(it)
+			if(!skill){	
+				skill = new Skill(name: it)
+				skillRepo.save(skill)
+			}
+			mySkills << skill
+		}
+
+		println "EXPIRY : ${description}"
+
+		def job = new Job(id:id, name: title, location: new Location(country: country, state: state),
+		description: description, posted: new Date(),
+		expiry:sdf.parse(expiry), salaryFrom: salary.split('-')[0] as long, salaryTo: salary.split('-')[1] as long,
+		skills: mySkills, employer: getPrincipalEmployer(), type: type)
+		def expArray = experience.split('-')
+		if(expArray.size() == 1){
+			job.experienceFrom = experience as int
+		}else{
+			job.experienceFrom = expArray[0] as int
+			job.experienceTo = expArray[1] as int
+		}
+		jobRepo.save(job)
+
+		return "redirect:/employer/job/edit/${job.id}?edited"
+	}
+
 	@RequestMapping(value="edit")
 	public String editEmployer(HttpSession session, Model model){
 		session.setAttribute('principal', getPrincipalEmployer())
@@ -207,12 +263,20 @@ public class EmployerController {
 	@RequestMapping(value="edit", method = RequestMethod.POST)
 	public String editEmployerSave(HttpSession session,
 			Model model,
-			@RequestParam(name='industries', required = false) List<Industry> industries,
+			@RequestParam(name='industries', required = false) List<String> industries,
 			@RequestParam(name='companySize', required = false) Long companySize,
 			@RequestParam(name='companyOverview', required = false) String companyOverview,
 			@RequestParam(name='state', required = false) String stateId){
 		def employer = getPrincipalEmployer()
-		employer.industries = industries
+		employer.industries = []
+		industries.each{
+			def ind = industryRepo.findByName(it)
+			if(ind == null){
+				ind = new Industry(name : it)
+				industryRepo.save(ind)
+			}
+			employer.industries << ind
+		}
 		if(companySize) employer.size = companySize
 		if(companyOverview) employer.overview = companyOverview
 		if(stateId){
@@ -296,6 +360,10 @@ public class EmployerController {
 		def app = candidateAppRepo.findByJobIdAndCandidateId(jobId, id)
 		app.viewCount = app.viewCount + 1
 		candidateAppRepo.save(app)
+
+		mail.sendMail("DHVTSU-CAREERS", candidate.user.getEmail(),"Notification",
+				"Your resume was viewed by ${getPrincipalEmployer().companyName}");
+
 		return "/resume/${candidate.resumeName}/main-employer"
 	}
 
@@ -310,6 +378,10 @@ public class EmployerController {
 		CandidateApplication app = candidateAppRepo.findByJobIdAndCandidateId(jobId, id)
 		app.viewCount = app.viewCount + 1
 		candidateAppRepo.save(app)
+
+		mail.sendMail("DHVTSU-CAREERS", candidate.user.getEmail(),"Notification",
+				"Your resume was viewed by ${getPrincipalEmployer().companyName}");
+
 		return "/employer/mainresume"
 	}
 
@@ -319,6 +391,11 @@ public class EmployerController {
 	){
 		def employer = getPrincipalEmployer()
 		model.addAttribute('jobs', jobRepo.findByEmployerId(employer.id))
+		def applicants = candidateAppRepo.findByEmployerId(employer.id).toSorted{ a,b -> b.applied <=> a.applied }
+		if(applicants.size() > 2){
+			applicants = applicants.subList(0,3)
+		}
+		model.addAttribute('applicants', applicants )
 		return "/employer/posted-job"
 	}
 
@@ -332,10 +409,144 @@ public class EmployerController {
 		def app = candidateAppRepo.findByJobIdAndCandidateId(jobId, id)
 		app.result = result
 		candidateAppRepo.save(app)
-		model.addAttribute('candidate',candidateRepo.findOne(id))
-		model.addAttribute('job', jobRepo.findOne(jobId))
+		def can = candidateRepo.findOne(id)
+		model.addAttribute('candidate',can)
+		def job = jobRepo.findOne(jobId)
+		model.addAttribute('job', job)
 		model.addAttribute('application', app)
+
+		mail.sendMail("DHVTSU-CAREERS", can.user.getEmail(),"Notification",
+				"Your application result on ${job.name} was ${result} by ${getPrincipalEmployer().companyName}");
+
 		return "redirect:/employer/job/${jobId}/${id}/?success"
+	}
+
+	@RequestMapping(value="/changeEmail/{id}")
+	public String changeEmail(
+			@PathVariable("id") String id,
+			Model model){
+		def user = userRepo.findOne(id)
+		if(user == null)
+			return "404"
+		mail.sendMail("DHVTSU-CAREERS", user.getEmail(),"Change Email",
+				"To change your email go to this link http://localhost:8080/changeEmail/" + user.getId());
+		return "redirect:/employer/edit?changeEmail"
+	}
+
+	@RequestMapping(value="/changePassword/{id}")
+	public String changePassword(
+			@PathVariable("id") String id,
+			Model model){
+		def user = userRepo.findOne(id)
+		if(user == null)
+			return "404"
+		mail.sendMail("DHVTSU-CAREERS", user.getEmail(),"Change Password",
+				"To change your password go to this link http://localhost:8080/changePassword/" + user.getId());
+		return "redirect:/employer/edit?changeEmail"
+	}
+
+	@RequestMapping(value="/candidates")
+	public String viewCandidates(
+			Model model
+	){
+		def candidates = candidateRepo.findAll()
+
+		candidates = candidates.toSorted{ a,b -> b.birthdate <=> a.birthdate }
+		candidates = candidates.toSorted{ a,b -> b.title <=> a.title }
+		candidates = candidates.toSorted{ a,b -> b.hasPicture <=> a.hasPicture }
+
+		model.addAttribute('countries', countryRepo.findAll())
+		model.addAttribute('states', stateRepo.findAll())
+		model.addAttribute('candidates', candidates)
+		model.addAttribute('skills', skillRepo.findAll())
+		return "employer/candidates"
+	}
+
+	@RequestMapping(value="/candidates/search")
+	public String searchCandidates(
+			Model model,
+			@RequestParam('search') String search
+	){
+		def candidates = candidateRepo.findByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContainingOrTitleIgnoreCaseContaining(search,search,search)
+
+		candidates = candidates.toSorted{ a,b -> b.birthdate <=> a.birthdate }
+		candidates = candidates.toSorted{ a,b -> b.title <=> a.title }
+		candidates = candidates.toSorted{ a,b -> b.hasPicture <=> a.hasPicture }
+
+		model.addAttribute('countries', countryRepo.findAll())
+		model.addAttribute('states', stateRepo.findAll())
+		model.addAttribute('skills', skillRepo.findAll())
+		model.addAttribute('candidates', candidates)
+		model.addAttribute('specializations', specializationRepo.findAll())
+		return "employer/candidates"
+	}
+
+	@RequestMapping(value="/candidates/advancesearch")
+	public String searchCandidatesAdvance(
+			Model model,
+			@RequestParam(name='state', required = false) String stateId,
+			@RequestParam('country') String countryId,
+			@RequestParam('skills') List<String> skills,
+			@RequestParam('specialization') String specialization
+	){
+		def candidates = candidateRepo.findAll()
+
+		println "ALl candidates : ${candidates.size()}"
+		println "country : ${countryId}"
+		
+		if(countryId != 'all'){
+			candidates = candidates.findAll{
+				it?.location?.state?.id == stateId
+			}
+		}
+
+		println "ALl candidates : ${candidates.size()}"
+
+		if(!skills.contains('All') && skills.size() != 0){
+			candidates = candidates.findAll{
+				!Collections.disjoint(it.skills.collect{ it.name } , skills);
+			}
+		}
+
+		if(specialization != 'all'){
+			candidates = candidates.findAll{
+				it?.specialization?.id == specialization
+			}
+		}
+		
+		println "skills size : ${skills.size()}"
+
+		candidates = candidates.toSorted{ a,b -> b.birthdate <=> a.birthdate }
+		candidates = candidates.toSorted{ a,b -> b.title <=> a.title }
+		candidates = candidates.toSorted{ a,b -> b.hasPicture <=> a.hasPicture }
+
+		model.addAttribute('countries', countryRepo.findAll())
+		model.addAttribute('states', stateRepo.findAll())
+		model.addAttribute('skills', skillRepo.findAll())
+		model.addAttribute('candidates', candidates)
+		model.addAttribute('specializations', specializationRepo.findAll())
+		return "employer/candidates"
+	}
+
+	@RequestMapping(value="/c/{id}")
+	public String candidateNoJob(
+			@PathVariable("id") String id,
+			Model model
+	){
+		def candidate = candidateRepo.findOne(id)
+		model.addAttribute('jobs', candidateAppRepo.findByEmployerIdAndCandidateId(getPrincipalEmployer().id,id))
+		model.addAttribute('candidate', candidate)
+		return "employer/candidate-show"
+	}
+
+	@RequestMapping(value="/job/{id}/resume", method=RequestMethod.GET)
+	public String showCandidateResumeWIthoutJob(
+			Model model,
+			@PathVariable("id") String id
+	){
+		def candidate = candidateRepo.findOne(id)
+		model.addAttribute('candidate',candidate)
+		return "/resume/${candidate.resumeName}/main-employer"
 	}
 
 	private Employer getPrincipalEmployer(){

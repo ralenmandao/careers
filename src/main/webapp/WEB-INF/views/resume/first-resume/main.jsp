@@ -18,6 +18,11 @@
 	rel="stylesheet">
 <jsp:include page="${views}style-imports.jsp"></jsp:include>
 </head>
+<style>
+		.body rows scroll-y{
+			overflow:hidden;
+		}
+</style>
 <!-- BODY -->
 <body class="tooltips">
 	<jsp:include page="${views}head.jsp"></jsp:include>
@@ -75,7 +80,7 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-lg-6">
-						<div class="well">
+						<div class="well" >
 							<h3 class="red">#Education</h3>
 							<ul class="timeline">
 								<li class="timeline-inverted">
@@ -118,7 +123,7 @@
 						<div class="well">
 							<h3 class="red">#Contact me</h3>
 							<div class="row">
-								<div class="col-xs-6 col-sm-6 col-md-12 col-lg-12">
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 									<div class="contact-item bigger-120">
 										<div class="icon green pull-left text-center">
 											<span class="fa fa-phone fa-fw"></span>
@@ -126,7 +131,7 @@
 										<div class="title no-description">${candidate.contactNo}</div>
 									</div>
 								</div>
-								<div class="col-xs-6 col-sm-6 col-md-12 col-lg-12">
+								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 									<div class="contact-item bigger-120">
 										<div class="icon red pull-left text-center">
 											<span class="fa fa-envelope fa-fw"></span>
@@ -172,6 +177,12 @@
 	</div>
 	<jsp:include page="${views}foot.jsp"></jsp:include>
 	<jsp:include page="${views}script-imports.jsp"></jsp:include>
+	<script>
+		$(document).ready(function(){
+			$('#resume-with').css('background', '#219CC4');
+            $('#resume-with a').css('color', 'white');
+		})
+	</script>
 </body>
 
 <!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:44 GMT -->

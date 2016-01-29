@@ -8,8 +8,6 @@ import javax.servlet.http.HttpSession
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Pageable
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
 import org.springframework.data.mongodb.gridfs.GridFsTemplate
@@ -23,9 +21,11 @@ import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.multipart.MultipartFile
 
 import com.boot.data.entity.Candidate
+import com.boot.data.entity.Document
 import com.boot.data.entity.Education
 import com.boot.data.entity.Experience
 import com.boot.data.entity.Location
+import com.boot.data.entity.Skill
 import com.boot.data.repository.CandidateApplicationRepo
 import com.boot.data.repository.CandidateRepo
 import com.boot.data.repository.CountryRepo
@@ -38,6 +38,7 @@ import com.boot.data.repository.StateRepo
 import com.boot.data.repository.UserRepo
 import com.boot.exception.NoPrincipalUserFound
 import com.boot.helper.AuthenticationUtil
+import com.boot.helper.MailMail
 import com.mongodb.BasicDBObject
 import com.mongodb.DBObject
 
@@ -59,8 +60,10 @@ public class CandidateController {
 	@Autowired CandidateApplicationRepo candidateApplicationRepo
 	@Autowired EmployerRepo employerRepo
 	@Autowired GridFsTemplate gridFs;
+	@Autowired MailMail mail;
 
 	static final boolean DEBUG = true
+	static final int PAGE_SIZE = 5
 
 	@RequestMapping(method=RequestMethod.GET)
 	public String candidate(Model model, HttpSession session,
@@ -77,9 +80,15 @@ public class CandidateController {
 		}
 
 		model.addAttribute('jobSize', jobs.size())
-		
-		if(jobs.size() >= 1){
-			jobs = jobs.subList( (page*1) - 1, (page * 1))
+		jobs = jobs.toSorted{ a,b -> b.posted <=> a.posted }
+		println "Jobs Size : ${jobs.size()}"
+
+		if(jobs.size() >= PAGE_SIZE){
+			if(jobs.size() < (page * PAGE_SIZE)){
+				jobs = jobs.subList( (page*PAGE_SIZE) - PAGE_SIZE, jobs.size())
+			}else{
+				jobs = jobs.subList( (page*PAGE_SIZE) - PAGE_SIZE, (page * PAGE_SIZE))
+			}
 		}
 
 		model.addAttribute('countries', countryRepo.findAll())
@@ -117,20 +126,30 @@ public class CandidateController {
 		if(page == null)
 			page = 1
 
-		def jobs = jobRepo.findByNameLikeIgnoreCaseOrDescriptionLikeIgnoreCase(search,search)
+		def jobs = jobRepo.findByNameLikeIgnoreCaseOrDescriptionLikeIgnoreCaseOrLocationStateNameLikeIgnoreCaseOrLocationCountryNameLikeIgnoreCase(search,search,search,search)
 		def applied = candidateApplicationRepo.findByCandidateId(candidate.getId()).collect{ it.job.id }
 		jobs = jobs.findAll{
 			!applied.contains(it.id)
 		}
 
 		model.addAttribute('jobSize', jobs.size())
-		
-		if(jobs.size() >= 1){
-			jobs = jobs.subList( (page*1) - 1, (page * 1))
+		println "Jobs Size : ${jobs.size()}"
+
+		if(jobs.size() >= PAGE_SIZE){
+			if(jobs.size() < (page * PAGE_SIZE)){
+				jobs = jobs.subList( (page*PAGE_SIZE) - PAGE_SIZE, jobs.size())
+			}else{
+				jobs = jobs.subList( (page*PAGE_SIZE) - PAGE_SIZE, (page * PAGE_SIZE))
+			}
 		}
 
 		model.addAttribute('jobs', jobs)
 		model.addAttribute('search', search)
+		model.addAttribute('countries', countryRepo.findAll())
+		model.addAttribute('states', stateRepo.findAll())
+		model.addAttribute('principal', candidate);
+		model.addAttribute('jobs', jobs)
+		model.addAttribute('skills', skillRepo.findAll())
 
 		return "candidate";
 	}
@@ -142,6 +161,7 @@ public class CandidateController {
 		model.addAttribute("specializations", specializationRepo.findAll())
 		model.addAttribute("skills", skillRepo.findAll())
 		model.addAttribute("countries", countryRepo.findAll())
+		model.addAttribute("states", stateRepo.findAll())
 		model.addAttribute('principal', getPrincipalCandidate());
 		return "candidate/edit-candidate";
 	}
@@ -205,20 +225,21 @@ public class CandidateController {
 
 	@RequestMapping(value="saveExperience", method=RequestMethod.POST)
 	public String saveExperience(Model model,
-			@RequestParam(value="experience-year", required=false) String[] years,
-			@RequestParam(value="experience-position", required=false) String[] positions,
-			@RequestParam(value="experience-company-name", required=false) String[] companies,
-			@RequestParam(value="experience-role", required=false) String[] roles){
+			@RequestParam(value="experience-year[]", required=false) List<String> years,
+			@RequestParam(value="experience-position[]", required=false) List<String> positions,
+			@RequestParam(value="experience-company-name[]", required=false) List<String> companies,
+			@RequestParam(value="experience-role[]", required=false) List<String> roles){
 		Candidate candidate = getPrincipalCandidate();
 		candidate.experiences = []
-		for(int x = 0; x < years.size() ; x++){
-			String year = years[x]
-			String position = positions[x]
-			String company = companies[x]
-			String role = roles[x]
-			candidate.experiences << new Experience(startYear: year.split('-')[0], endYear: year.split('-')[1],
-			position: position, companyName: company, role: role)
-		}
+		if(years)
+			for(int x = 0; x < years.size() ; x++){
+				String year = years[x]
+				String position = positions[x]
+				String company = companies[x]
+				String role = roles[x]
+				candidate.experiences << new Experience(startYear: year.split('-')[0], endYear: year.split('-')[1],
+				position: position, companyName: company, role: role)
+			}
 		candidateRepo.save(candidate);
 		return "redirect:/candidate/edit?success";
 	}
@@ -248,8 +269,15 @@ public class CandidateController {
 		if(skills){
 			candidate.skills = []
 			skills.split(',').each{
-				candidate.skills.add(skillRepo.findOne(it))
+				def s = skillRepo.findByName(it)
+				if(s == null){
+					s = new Skill(name: it)
+					skillRepo.save(s)
+				}
+				candidate.skills.add(s)
 			}
+		}else{
+
 		}
 
 		if(specialization){
@@ -407,36 +435,46 @@ public class CandidateController {
 
 		if(page == null)
 			page = 1
+
 		Candidate candidate = getPrincipalCandidate();
 		def jobs = jobRepo.findByType(params.type)
 
-		if(params.state != 'all'){
+		println "Type : ${jobs.size()}"
+
+		if(params.country != 'all'){
 			jobs = jobs.findAll{
 				it.location.state.id == params.state
 			}
 		}
 
-		if(!skills.contains('all')){
+		println "State : ${jobs.size()}"
+
+		if(!skills.contains('all') && skills.size() != 0){
 			jobs = jobs.findAll{
-				!Collections.disjoint(it.skills.collect{ it.id } , skills);
+				!Collections.disjoint(it.skills.collect{ it.name } , skills);
 			}
 		}
-		
+
 		def applied = candidateApplicationRepo.findByCandidateId(candidate.getId()).collect{ it.job.id }
 		jobs = jobs.findAll{
 			!applied.contains(it.id)
 		}
 
-
+		println jobs.size()
 
 		model.addAttribute('countries', countryRepo.findAll())
 		model.addAttribute('states', stateRepo.findAll())
 		model.addAttribute('principal', candidate);
 
 		model.addAttribute('jobSize', jobs.size())
-		
-		if(jobs.size() >= 1){
-			jobs = jobs.subList( (page*1) - 1, (page * 1))
+		println "Jobs Size : ${jobs.size()}"
+
+		if(jobs.size() >= PAGE_SIZE){
+			if(jobs.size() < (page * PAGE_SIZE)){
+				jobs = jobs.subList( (page*PAGE_SIZE) - PAGE_SIZE, jobs.size())
+			}else{
+				jobs = jobs.subList( (page*PAGE_SIZE) - PAGE_SIZE, (page * PAGE_SIZE))
+			}
 		}
 
 		model.addAttribute('jobs', jobs)
@@ -455,6 +493,11 @@ public class CandidateController {
 			try {
 				DBObject metaData = new BasicDBObject();
 				metaData.put("userId", id);
+				println "CONTENT : ${file.getOriginalFilename().matches(/^.*\.(pdf|PDF)$/)}"
+				if(file.getOriginalFilename().matches(/^.*\.(pdf|PDF)$/))
+					candidate.resumeIsViewable = true
+				else
+					candidate.resumeIsViewable = false
 				def resume = gridFs.store(file.getInputStream(), file.getOriginalFilename() , "resumes", metaData);
 				candidate.resumeId = resume.getId()
 				candidate.realResumeName = file.getOriginalFilename()
@@ -479,6 +522,19 @@ public class CandidateController {
 		return bytes;
 	}
 
+	@RequestMapping(value="/{id}/myresumedocx", method = RequestMethod.GET, produces = "application/doc")
+	@ResponseBody
+	public byte[] getResumeDocx(
+			@PathVariable("id") String id
+	){
+		def candidate = candidateRepo.findOne(id);
+		def file = gridFs.findOne(new Query(Criteria.where("_id").is(candidate.resumeId)));
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		file.writeTo(baos);
+		byte[] bytes = baos.toByteArray();
+		return bytes;
+	}
+
 	@RequestMapping(value="/{id}/myresume/display", method = RequestMethod.GET)
 	public String displayResume(
 			@PathVariable("id") String id,
@@ -487,6 +543,95 @@ public class CandidateController {
 		def candidate = candidateRepo.findOne(id);
 		model.addAttribute('principal', candidate)
 		return "candidate/mainresume";
+	}
+
+	@RequestMapping(value="/changeEmail/{id}")
+	public String changeEmail(
+			@PathVariable("id") String id,
+			Model model){
+		def user = userRepo.findOne(id)
+		if(user == null)
+			return "404"
+		mail.sendMail("DHVTSU-CAREERS", user.getEmail(),"Change Email",
+				"To change your email go to this link http://localhost:8080/changeEmail/" + user.getId());
+		return "redirect:/candidate/edit?changeEmail"
+	}
+
+	@RequestMapping(value="/changePassword/{id}")
+	public String changePassword(
+			@PathVariable("id") String id,
+			Model model){
+		def user = userRepo.findOne(id)
+		if(user == null)
+			return "404"
+		mail.sendMail("DHVTSU-CAREERS", user.getEmail(),"Change Password",
+				"To change your password go to this link http://localhost:8080/changePassword/" + user.getId());
+		return "redirect:/candidate/edit?changeEmail"
+	}
+
+	@RequestMapping(value="/uploadDocuments", method=RequestMethod.POST)
+	public String handleUploadDocuments(
+			@RequestParam("file") MultipartFile file,
+			@RequestParam("id") String id){
+		def candidate = getPrincipalCandidate()
+		if (!file.isEmpty()) {
+			try {
+				DBObject metaData = new BasicDBObject();
+				metaData.put("userId", id);
+				def resume = gridFs.store(file.getInputStream(), file.getOriginalFilename() , "documents", metaData);
+
+				if(!candidate.documents)
+					candidate.documents = []
+				candidate.documents << resume.getId()
+			} catch (Exception e) {
+				e.printStackTrace()
+			}
+		}
+		candidateRepo.save(candidate)
+		return "redirect:/candidate/edit"
+	}
+
+	@RequestMapping(value="/document/{docId}", method = RequestMethod.GET, produces = "image/*")
+	@ResponseBody
+	public byte[] getDocuments(
+			@PathVariable("docId") String docId
+	){
+		def file = gridFs.findOne(new Query(Criteria.where("_id").is(docId)));
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		file.writeTo(baos);
+		byte[] bytes = baos.toByteArray();
+		return bytes;
+	}
+
+	@RequestMapping(value="/uploadLegal", method=RequestMethod.POST)
+	public String handleUploadLegal(
+			@RequestParam("file") MultipartFile file,
+			@RequestParam("id") String id){
+		def candidate = getPrincipalCandidate()
+		if (!file.isEmpty()) {
+			try {
+				DBObject metaData = new BasicDBObject();
+				metaData.put("userId", id);
+				def resume = gridFs.store(file.getInputStream(), file.getOriginalFilename() , "legal", metaData);
+				candidate.legal << new Document(id : resume.getId(), name: file.getOriginalFilename())
+			} catch (Exception e) {
+				e.printStackTrace()
+			}
+		}
+		candidateRepo.save(candidate)
+		return "redirect:/candidate/edit"
+	}
+
+	@RequestMapping(value="/legal/{legalId}", method = RequestMethod.GET, produces = "application/octet-stream")
+	@ResponseBody
+	public byte[] getLegal(
+			@PathVariable("legalId") String legalId
+	){
+		def file = gridFs.findOne(new Query(Criteria.where("_id").is(legalId)));
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		file.writeTo(baos);
+		byte[] bytes = baos.toByteArray();
+		return bytes;
 	}
 
 	private Candidate getPrincipalCandidate(){

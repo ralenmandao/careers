@@ -7,7 +7,7 @@
 	
 <!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:43:15 GMT -->
 <head>
-	<title>Careers - Login</title>
+	<title>Careers - ${principal.firstName} ${principal.lastName}</title>
 	<spring:url value="/resources/" var="resources" />
 	<spring:url value="/WEB-INF/views/" var="views" />
 	<spring:url value="/" var="root" />
@@ -49,7 +49,7 @@
 								       <span class="label label-danger">Not yet viewed</span>
 								    </c:when>    
 								    <c:otherwise>
-								       <span class="label label-success">${application.viewCount} views</span>
+								       <span class="label label-success">${application.viewCount} view/s</span>
 								    </c:otherwise>
 							    </c:choose>
 							    <c:if test="${not empty application.result}">
@@ -73,9 +73,6 @@
 
 				</div>
 				<!-- Footer -->
-				<footer>
-				© 2014 <a href="index.html">Lanceng Admin</a>. Design with love by <a href="http://isohdesign.com/" target="_blank">Isoh Design Studio</a> from <a href="#fakelink">Yogyakarta, ID</a>
-				</footer>
 				<!-- End Footer -->
 			
             </div>
@@ -86,5 +83,11 @@
         </div>
 	<jsp:include page="${views}foot.jsp"></jsp:include>
 	<jsp:include page="${views}script-imports.jsp"></jsp:include>
+	<script>
+		$(document).ready(function(){
+			$('#job-applications-home').css('background', '#219CC4');
+            $('#job-applications-home a').css('color', 'white');
+		})
+	</script>
 	</body>
 </html>

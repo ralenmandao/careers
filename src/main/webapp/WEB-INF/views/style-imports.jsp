@@ -29,12 +29,16 @@
 	<link href="${resources}assets/third/nifty-modal/css/component.css" rel="stylesheet">
 	<link href="${resources}assets/third/sortable/sortable-theme-bootstrap.css" rel="stylesheet"> 
 	<link href="${resources}assets/third/icheck/skins/minimal/grey.css" rel="stylesheet"> 
+	
 	<link href="${resources}assets/third/select/bootstrap-select.min.css" rel="stylesheet"> 
+	<link href="${resources}assets/third/select/bootstrap-multiselect.css" rel="stylesheet"> 
+	<link href="${resources}assets/third/select/select2.min.css" rel="stylesheet"> 
+	<link href="${resources}assets/third/select/select2-bootstrap.min.css" rel="stylesheet"> 
+	
 	<link href="${resources}assets/third/summernote/summernote.css" rel="stylesheet">
 	<link href="${resources}assets/third/magnific-popup/magnific-popup.css" rel="stylesheet"> 
 	<link href="${resources}assets/third/datepicker/css/datepicker.css" rel="stylesheet">
 	<link href="${resources}assets/third/validator/formValidation.min.css" rel="stylesheet">
-
 	<!-- CHOSEN -->
 	<link href="${resources}assets/css/chosen.min.css" rel="stylesheet">
 

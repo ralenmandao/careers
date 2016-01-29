@@ -30,6 +30,19 @@ public class LoginController {
 		if (!model.containsAttribute("user")) {
 			model.addAttribute("user", new User());
 		}
+		
+		def principal = session.getAttribute("principal")
+		
+		if(principal != null){
+			if(principal.user.role == 'ROLE_CANDIDATE'){
+				return "redirect:/candidate";
+			}else if(principal.user.role == 'ROLE_EMPLOYER'){
+				return "redirect:/employer"
+			}else{
+				return "redirect:/admin"
+			}
+		}
+		
 		return "login";
 	}
 }

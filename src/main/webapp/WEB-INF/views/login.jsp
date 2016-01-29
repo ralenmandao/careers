@@ -7,7 +7,7 @@
 
 <!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:43 GMT -->
 <head>
-<title>Careers - Login</title>
+<title>Careers CCS - Login</title>
 <spring:url value="/resources/" var="resources" />
 <spring:url value="/WEB-INF/views/" var="views" />
 <spring:url value="/" var="root" />
@@ -31,6 +31,13 @@
 					<spring:url value="/login" var="loginForm" />
 					<form action="${loginForm}" role="form" method="POST"
 						id="loginForm">
+						<c:if test="${param.changeEmailSuccessful != null}">
+							<div class="alert alert-success" role="alert">
+								<span class="glyphicon glyphicon-exclamation-sign"
+									aria-hidden="true"></span> <span class="sr-only">Error:</span>
+								Email change successful!
+							</div>
+						</c:if>
 						<c:if test="${param.logout != null}">
 							<div class="alert alert-success" role="alert">
 								<span class="glyphicon glyphicon-exclamation-sign"
@@ -38,11 +45,18 @@
 								Logout successful
 							</div>
 						</c:if>
+						<c:if test="${param.changePassword != null}">
+							<div class="alert alert-success" role="alert">
+								<span class="glyphicon glyphicon-exclamation-sign"
+									aria-hidden="true"></span> <span class="sr-only">Success :</span>
+								Success : Reset password
+							</div>
+						</c:if>
 						<c:if test="${param.success != null}">
 							<div class="alert alert-success" role="alert">
 								<span class="glyphicon glyphicon-exclamation-sign"
 									aria-hidden="true"></span> <span class="sr-only">Error:</span>
-								Registration Successful please verify your email
+								Please check your email for the confirmation
 							</div>
 						</c:if>
 						<c:if test="${param.error != null}">
@@ -67,7 +81,7 @@
 							</div>
 						</c:if>
 						<div class="form-group login-input">
-							<i class="fa fa-sign-in overlay"></i> <input type="text"
+							<i class="fa fa-envelope overlay"></i> <input type="text"
 								id="username" name="username" class="form-control text-input"
 								placeholder="Email" />
 						</div>
@@ -76,10 +90,12 @@
 								id="password" name="password" class="form-control text-input"
 								placeholder="Password" />
 						</div>
+						<!-- 
 						<div class="checkbox">
 							<label> <input type="checkbox"> Remember me
 							</label>
 						</div>
+						 -->
 						<input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}" />
 						<div class="row">
@@ -88,15 +104,17 @@
 									<i class="fa fa-unlock"></i> Login
 								</button>
 							</div>
-							<div class="col-sm-6">
-								<a href="${root}register" class="btn btn-default btn-block"><i
-									class="fa fa-rocket"></i> Register</a>
-							</div>
+							<c:if test="${param.success == null}">
+								<div class="col-sm-6">
+									<a href="${root}register" class="btn btn-default btn-block"><i
+										class="fa fa-rocket"></i> Register</a>
+								</div>
+							</c:if>
 						</div>
 					</form>
 				</div>
 				<p class="text-center">
-					<a href="forgot-password.html"><i class="fa fa-lock"></i>
+					<a href="/forgot"><i class="fa fa-lock"></i>
 						Forgot password?</a>
 				</p>
 			</div>

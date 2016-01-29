@@ -7,7 +7,7 @@
 	
 <!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/register.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:44 GMT -->
 <head>
-	<title>Careers - Register</title>
+	<title>Careers CCS - Register</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -94,11 +94,11 @@
 						</div>
 						<div class="form-group login-input">
 							<i class="fa fa-key overlay"></i>
-							<form:input path="password" type="password" class="form-control text-input" id="password" placeholder="Password" />
+							<form:input path="password" type="password" class="form-control text-input" id="password" placeholder="Enter Password" />
 						</div>
 						<div class="form-group login-input">
 							<i class="fa fa-eye overlay"></i>
-							<form:input path="repassword" type="password" class="form-control text-input" id="repassword" placeholder="Re-Password" />
+							<form:input path="repassword" type="password" class="form-control text-input" id="repassword" placeholder="Re-type Password" />
 						</div>
 						
 						<button type="submit" class="btn btn-success btn-block" id="submitRegister"><i class="fa fa-rocket"></i> Register</button>

@@ -38,7 +38,7 @@
 
 						<!-- title name cv-->
 						<header class="text-center cv-header">
-							<h1 class="text-uppercase">${candidate.firstName}
+							<h1 style="font-size:3.4em;" class="text-uppercase">${candidate.firstName}
 								${candidate.lastName}</h1>
 							<p class="lead">${candidate.title}</p>
 						</header>
@@ -61,8 +61,14 @@
 									<article class="wow" data-wow-delay=".1s">
 
 										<div class="row">
+										
+											<div class="col-xs-12 col-sm-8 col-md-7">
 
-											<div class="col-sm-4 col-sm-push-8 text-center">
+												<p>${candidate.about}</p>
+
+											</div>
+
+											<div class="col-sm-4 col-md-5">
 												<c:choose>
 													<c:when test="${principal.hasPicture}">
 														<!-- <img class="media-object img-circle" src="${resources}images/profiles/${principal.id}.png" alt="Avatar" id="candidate-picture"> -->
@@ -78,12 +84,6 @@
 															style="width:200px;height:200px">
 													</c:otherwise>
 												</c:choose>
-											</div>
-
-											<div class="col-xs-12 col-sm-8 col-sm-pull-4">
-
-												<p>${candidate.about}</p>
-
 											</div>
 
 										</div>
@@ -221,7 +221,19 @@
 	</div>
 	<jsp:include page="${views}foot.jsp"></jsp:include>
 	<jsp:include page="${views}script-imports.jsp"></jsp:include>
+	<script>
+		$(document).ready(function(){
+			$('#resume-with').css('background', '#219CC4');
+            $('#resume-with a').css('color', 'white');
+		})
+	</script>
 </body>
+
+<style>
+#candidate-picture{
+margin:2px;
+}
+</style>
 
 <!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:44 GMT -->
 </html>
