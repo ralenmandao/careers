@@ -49,9 +49,9 @@ public class TestController {
 	@RequestMapping(method=RequestMethod.GET)
 	@ResponseBody
 	public String test(){
-		def ad = adminRepo.findAll().get(0)
-		ad.user.username = 'admin@yahoo.com'
-		userRepo.save(ad.user)
+		def user = adminRepo.findOne('56ad713e37e4bda574839480')
+		user.isSuper = true
+		adminRepo.save(user)
 		return ""
 	}
 

@@ -41,10 +41,10 @@ public class HomeController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String home(HttpServletRequest arg0,Locale locale ,Model model){
 		List<Job> jobs = null ;
-		if(jobRepo.count() > 3){
-			jobs = jobRepo.findAll(new Sort(Sort.Direction.DESC, "posted")).subList(0, 3);
+		if(jobRepo.findByExpired(false).size() > 3){
+			jobs = jobRepo.findByExpired(false).toSorted{ a,b -> b.posted <=> a.posted }.subList(0,3)
 		}else{
-			jobs = jobRepo.findAll(new Sort(Sort.Direction.DESC, "posted"));
+			jobs = jobRepo.findByExpired(false).toSorted{ a,b -> b.posted <=> a.posted }
 		}
 		model.addAttribute("jobs", jobs);
 		model.addAttribute('candidateSize', candidateRepo.count())

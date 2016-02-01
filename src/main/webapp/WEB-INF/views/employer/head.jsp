@@ -13,6 +13,15 @@
 		.sidebar-inner .media .media-object{
 			height:55px;
 		}
+		
+						.sidebar-inner .media .logout{
+					color:#83D6DE;
+					font-size:1em;
+				}
+				
+				.sidebar-inner .media .logout:hover{
+					color:#83D6DE;
+				}
 	</style>
 	
 	<div class="container">
@@ -38,7 +47,7 @@
 						<a class="pull-left md-trigger" data-modal = "md-fade-in-scale-up">
 							<c:choose>
 							    <c:when test="${principal.hasPicture}">
-							        <img class="media-object img-circle" src="/employer/profilePicture/${principal.pictureId}" alt="Avatar" id="candidate-picture">
+							        <img class="media-object" src="/employer/profilePicture/${principal.pictureId}" alt="Avatar" id="candidate-picture">
 							    </c:when>    
 							    <c:otherwise>
 							        <img class="media-object img-circle" src="${resources}images/no-profile.png" alt="Avatar" id="candidate-picture">
@@ -59,7 +68,7 @@
 					<!-- Search form -->
 					<div id="search">
 						<form role="form" action="/employer/candidates/search">
-							<input type="text" class="form-control search" name="search" placeholder="Search here...">
+							<input type="text" class="form-control search" name="search" placeholder="Search candidate...">
 							<i class="fa fa-search"></i>
 							<input type="submit" style="position: absolute; left: -9999px"/>
 						</form>
@@ -172,7 +181,7 @@
 							<ul class="nav navbar-nav navbar-right top-navbar">
 								<!-- Dropdown User session -->
 								<li class="dropdown">
-									<a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">Howdy, <strong>${principal.companyName}</strong> <i class="fa fa-chevron-down i-xs"></i></a>
+									<a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">Hello, <strong>${principal.companyName}</strong> <i class="fa fa-chevron-down i-xs"></i></a>
 									<ul class="dropdown-menu animated half flipInX">
 										<li><a href="/logout">Logout</a></li>
 									</ul>

@@ -20,13 +20,10 @@
 
 		<!-- Begin Login Page -->
 		<div class="full-content-center animated fadeInDownBig">
-			<a href="/"><img
-				src="${resources}assets/img/logo-login.png"
-				class="logo-login img-circle" alt="Logo"></a>
 			<div class="login-wrap">
 				<div class="box-info">
 					<h2 class="text-center">
-						<strong>Login</strong> form
+						<strong>Login</strong>
 					</h2>
 					<spring:url value="/login" var="loginForm" />
 					<form action="${loginForm}" role="form" method="POST"

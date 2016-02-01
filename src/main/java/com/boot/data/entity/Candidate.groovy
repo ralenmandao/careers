@@ -15,6 +15,7 @@ public class Candidate implements EntityObject{
 	String contactNo
 	String title
 	String address
+	String residenceAddress
 	Education highSchool
 	Education college
 	List<Experience> experiences = []
@@ -22,6 +23,7 @@ public class Candidate implements EntityObject{
 	User user
 	Date birthdate
 	Location location
+	Location residenceLocation
 	@DBRef
 	Specialization specialization
 	@DBRef

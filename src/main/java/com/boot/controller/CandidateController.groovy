@@ -73,7 +73,7 @@ public class CandidateController {
 		if(page == null)
 			page = 1
 
-		def jobs = jobRepo.findAll()
+		def jobs = jobRepo.findByExpired(false)
 		def applied = candidateApplicationRepo.findByCandidateId(candidate.getId()).collect{ it.job.id }
 		jobs = jobs.findAll{
 			!applied.contains(it.id)
@@ -127,6 +127,13 @@ public class CandidateController {
 			page = 1
 
 		def jobs = jobRepo.findByNameLikeIgnoreCaseOrDescriptionLikeIgnoreCaseOrLocationStateNameLikeIgnoreCaseOrLocationCountryNameLikeIgnoreCase(search,search,search,search)
+		def emp = employerRepo.findByCompanyNameLikeIgnoreCase(search)
+		def jobs2 = []
+		emp.each{
+			jobs2 = jobs2 + jobRepo.findByEmployerId(it.id)
+		}
+		jobs = jobs + jobs2
+		jobs = jobs.findAll{ it.expired == false }
 		def applied = candidateApplicationRepo.findByCandidateId(candidate.getId()).collect{ it.job.id }
 		jobs = jobs.findAll{
 			!applied.contains(it.id)
@@ -174,7 +181,9 @@ public class CandidateController {
 			@RequestParam(name="birthdate", required=false) String birthdate,
 			@RequestParam(name="state", required=false) String state,
 			@RequestParam(name="contactNumber", required=false) String contact,
-			@RequestParam(name="address", required=false) String address) throws NoPrincipalUserFound{
+			@RequestParam(name="address", required=false) String address,
+			@RequestParam(name="resstate", required=false) String resstate,
+			@RequestParam(name="resaddress", required=false) String resaddress) throws NoPrincipalUserFound{
 
 		//		// TODO BUG
 		//		// Website adds a comma(,)
@@ -197,6 +206,14 @@ public class CandidateController {
 			candidate.location.state = dstate
 			candidate.location.country = dcountry
 		}
+		
+		if(!candidate.residenceLocation)
+			candidate.residenceLocation = new Location()
+		def resdstate = stateRepo.findOne(resstate)
+		def reddcountry = countryRepo.findOne(resdstate.countryId)
+		candidate.residenceLocation.state = resdstate
+		candidate.residenceLocation.country = reddcountry
+		candidate.residenceAddress = resaddress
 		if(address) candidate.address = address
 		logger.info "Updating candidate ${candidate}"
 		candidateRepo.save(candidate);
@@ -438,7 +455,7 @@ public class CandidateController {
 
 		Candidate candidate = getPrincipalCandidate();
 		def jobs = jobRepo.findByType(params.type)
-
+		jobs = jobs.findAll{ it.expired == false }
 		println "Type : ${jobs.size()}"
 
 		if(params.country != 'all'){
@@ -632,6 +649,41 @@ public class CandidateController {
 		file.writeTo(baos);
 		byte[] bytes = baos.toByteArray();
 		return bytes;
+	}
+	
+	@RequestMapping("/edit/personal")
+	public String setPersonal(Model model){
+		model.addAttribute('countries', countryRepo.findAll())
+		model.addAttribute('principal', getPrincipalCandidate());
+		return "/candidate/personal"
+	}
+	
+	@RequestMapping("/edit/documents")
+	public String setDocuments(Model model){
+		model.addAttribute('principal', getPrincipalCandidate());
+		return "/candidate/documents"
+	}
+	
+	@RequestMapping("/edit/professional")
+	public String setProfessional(Model model){
+		model.addAttribute('qualifications', qualificationRepo.findAll())
+		model.addAttribute('fieldOfStudies', fieldRepo.findAll())
+		model.addAttribute('specializations', specializationRepo.findAll())
+		model.addAttribute('skills', skillRepo.findAll())
+		model.addAttribute('principal', getPrincipalCandidate());
+		return "/candidate/professional"
+	}
+	
+	@RequestMapping("/edit/education")
+	public String setEducation(Model model){
+		model.addAttribute('principal', getPrincipalCandidate());
+		return "/candidate/education"
+	}
+	
+	@RequestMapping("/edit/others")
+	public String setOthers(Model model){
+		model.addAttribute('principal', getPrincipalCandidate());
+		return "/candidate/others"
 	}
 
 	private Candidate getPrincipalCandidate(){

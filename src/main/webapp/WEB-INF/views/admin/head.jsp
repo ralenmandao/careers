@@ -9,6 +9,14 @@
 		.body rows scroll-y{
 			overflow:hidden;
 		}
+				.sidebar-inner .media .logout{
+					color:#83D6DE;
+					font-size:1em;
+				}
+				
+				.sidebar-inner .media .logout:hover{
+					color:#83D6DE;
+				}
 	</style>
 	
 	<div class="container">
@@ -63,6 +71,9 @@
 							<li id=""><a href="/admin" style="color:white;"><i class="fa fa-home"></i> Home</a></li>
 							<li id="account-menu"><a href="/admin/edit"><i class="fa fa-users"></i> Account</a></li>
 							<li id="articles-news-menu"><a href="/admin/articles"><i class="fa fa-bars"></i> Articles/News</a></li>
+							<c:if test="${principal.isSuper == true}">
+								<li id="admin-menu"><a href="/admin/admins"><i class="fa fa-sitemap"></i> Sub Admins</a></li>
+							</c:if>
 							<li id="candidates-menu"><a href="/admin/candidates"><i class="fa fa-sitemap"></i> Candidates</a></li>
 							<li id="employers-menu"><a href="/admin/employers"><i class="fa fa-users"></i> Employers</a></li>
 							<li id="jobs-menu"><a href="/admin/jobs"><i class="fa fa-users"></i> Jobs</a></li>
@@ -170,7 +181,7 @@
 							<ul class="nav navbar-nav navbar-right top-navbar">							
 								<!-- Dropdown User session -->
 								<li class="dropdown">
-									<a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">Howdy, <strong>${principal.firstName}</strong> <i class="fa fa-chevron-down i-xs"></i></a>
+									<a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">Hello, <strong>${principal.firstName}</strong> <i class="fa fa-chevron-down i-xs"></i></a>
 									<ul class="dropdown-menu animated half flipInX">
 										<li><a href="/logout">Logout</a></li>
 									</ul>

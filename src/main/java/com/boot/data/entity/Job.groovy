@@ -25,4 +25,5 @@ public class Job implements EntityObject {
 	int experienceTo
 	@DBRef
 	List<Candidate> applicants
+	boolean expired = false
 }

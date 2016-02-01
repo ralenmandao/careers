@@ -18,10 +18,11 @@ public class ScheduledTasks {
     
     @Scheduled(fixedRate = 3600000L)
     public void reportCurrentTime() {
-        def jobs = jobRepo.findAll()
+		def jobs = jobRepo.findAll()
 		jobs.each{
-			if(it.expiry >= new Date()){
-				jobRepo.delete(it)
+			if(it.expiry <= new Date()){
+				it.expired = true
+				jobRepo.save(it)
 			}
 		}
     }

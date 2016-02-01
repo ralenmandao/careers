@@ -22,6 +22,7 @@ import com.boot.data.entity.Qualification
 import com.boot.data.entity.Skill
 import com.boot.data.entity.Specialization
 import com.boot.data.entity.State
+import com.boot.data.entity.User
 import com.boot.data.repository.AdminRepo
 import com.boot.data.repository.ArticleRepo
 import com.boot.data.repository.CandidateApplicationRepo
@@ -269,13 +270,9 @@ class AdminController {
 		userRepo.delete(employer.user.id)
 		employerRepo.delete(employer.id)
 		def jobs = jobRepo.findByEmployerId(id)
-		jobs.each{
-			jobRepo.delete(it)
-		}
+		jobs.each{ jobRepo.delete(it) }
 		def applications = jobRepo.findByEmployerId(id)
-		applications.each {
-			candidateApplicationRepo.delete(it)
-		}
+		applications.each { candidateApplicationRepo.delete(it) }
 		return "redirect:/admin/employers"
 	}
 
@@ -290,9 +287,7 @@ class AdminController {
 			@PathVariable('id') String id){
 		countryRepo.delete(id)
 		def states = stateRepo.findByCountryId(id)
-		states.each{
-			stateRepo.delete(it)
-		}
+		states.each{ stateRepo.delete(it) }
 		return "redirect:/admin/countries"
 	}
 
@@ -610,7 +605,7 @@ class AdminController {
 		model.addAttribute('totalSelected',candidateApplicationRepo.findByEmployerIdAndResult(id, 'selected').size())
 		return "admin/employer-show"
 	}
-	
+
 	@RequestMapping(value="employer/{id}/edit/adminControls", method=RequestMethod.POST)
 	public String saveAdminControlsEmployer(Model model,
 			@PathVariable('id') String id,
@@ -628,6 +623,60 @@ class AdminController {
 
 		userRepo.save(employer.user)
 		return "redirect:/admin/employers";
+	}
+
+	@RequestMapping("/admins")
+	public String showSubs(
+			Model model
+	){
+		def admins = adminRepo.findAll().findAll{ it.isSuper == false }
+		model.addAttribute('admins', admins)
+		return "admin/admins"
+	}
+	
+	@RequestMapping("/admins/{id}/edit")
+	public String editAdmin(
+			Model model,
+			@PathVariable('id') String id
+	){
+		model.addAttribute('admin', adminRepo.findOne(id))
+		return "admin/edit-admin"
+	}
+	
+	@RequestMapping("/admins/{id}/delete")
+	public String deleteAdmin(
+			Model model,
+			@PathVariable('id') String id
+	){
+		def admin = adminRepo.findOne(id)
+		userRepo.delete(admin.user)
+		adminRepo.delete(admin)
+		return "redirect:/admin/admins"
+	}
+	
+	@RequestMapping("/admins/add")
+	public String addAdmin(
+			Model model,
+			@RequestParam('email') String email,
+			@RequestParam('firstName') String firstName,
+			@RequestParam('lastName') String lastName,
+			@RequestParam('password') String password
+	){
+		if(userRepo.findByEmail(email) != null)
+			return "redirect:/admin/admins?emailExist"
+		def user = new User(username: email, 
+			   			  password: password, 
+					      role: 'ROLE_ADMIN',
+						  enabled: true,
+						  email: email)
+		userRepo.save(user)
+		
+		def admin1 = new Admin(firstName: firstName, 
+							   lastName: lastName,
+							   user: user)
+		adminRepo.save(admin1)
+		println 'LOLLLLLLLLLLLLLL'
+		return "redirect:/admin/admins"
 	}
 
 	private Admin getPrincipalAdmin(){

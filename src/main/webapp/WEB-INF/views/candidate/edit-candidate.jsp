@@ -76,7 +76,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label">Location</label>
+						<label class="col-sm-2 control-label">Permanent Location</label>
 						<div class="col-sm-10">
 							<div class="row">
 								<div class="col-sm-6">
@@ -101,10 +101,42 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="input-text" class="col-sm-2 control-label">Address</label>
+						<label class="col-sm-2 control-label">Residence Location</label>
+						<div class="col-sm-10">
+							<div class="row">
+								<div class="col-sm-6">
+									<select class="form-control" name="rescountry" id="rescountry">
+										<option value=""></option>
+										<c:forEach items="${countries}" var="country">
+											<option value="${country.id}"
+												<c:if test="${country.id == principal.residenceLocation.country.id}">selected</c:if>>${country.name}</option>
+										</c:forEach>
+									</select>
+								</div>
+								<div class="col-sm-6">
+									<select class="form-control" name="resstate" id="resstate">
+										<c:forEach items="${principal.location.country.states}"
+											var="state">
+											<option value="${state.id}"
+												<c:if test="${state.id == principal.residenceLocation.state.id}">selected</c:if>>${state.name}</option>
+										</c:forEach>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="input-text" class="col-sm-2 control-label">Permanent Address</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="input-text"
 								name="address" placeholder="" value="${principal.address}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="input-text" class="col-sm-2 control-label">Residence Address</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="input-text"
+								name="resaddress" placeholder="" value="${principal.residenceAddress}">
 						</div>
 					</div>
 					<div class="form-group">
@@ -315,12 +347,12 @@
 				<h2>
 					<strong>Certifications </strong>
 				</h2>
-				<div class="row">
+				<div class="pull-center" style="width:100%;margin: 0 auto;">
 					<c:forEach items="${principal.documents}" var="document">
-						<div class="col-md-1">
+						
 							<img src="/candidate/document/${document}"
-								style="width: 100px; height: 100px" />
-						</div>
+								style="width: 100px; height: 100px;margin-right:5px" />
+						
 					</c:forEach>
 				</div>
 				<br>
@@ -636,13 +668,6 @@
                         $('#experienceForm').formValidation('addField', $role);
                     })
 
-            $('#change-email').on('click', function() {
-                $('#change-email-form').toggle(500);
-            })
-
-            $('#change-password').on('click', function() {
-                $('#change-password-form').toggle(500);
-            })
 
             /* POPULATE STATE */
             $('#country')
@@ -661,6 +686,26 @@
                                     $('#state').append('<option value=""></option>')
                                     $.each(data._embedded.states,function(index, value) {
                                         $('#state').append('<option value="' + value.id + '">' + value.name + "</option>")
+                                      });
+                                });
+                    })
+                    
+             $('#rescountry')
+                .change(
+                    function(data) {
+                        $
+                            .get(
+                                "/states/search/findByCountryId?id=" + $(
+                                    '#rescountry')
+                                .val(),
+                                function(data) {
+                                    if (data._embedded.states.length == 0) {
+                                        $('#state').empty();
+                                    }
+                                    $('#resstate').empty();
+                                    $('#resstate').append('<option value=""></option>')
+                                    $.each(data._embedded.states,function(index, value) {
+                                        $('#resstate').append('<option value="' + value.id + '">' + value.name + "</option>")
                                       });
                                 });
                     })
@@ -759,6 +804,20 @@
                             validators: {
                                 notEmpty: {
                                     message: 'The location is required'
+                                }
+                            }
+                        },
+                        resstate: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'The location is required'
+                                }
+                            }
+                        },
+                       resaddress: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'The address is required'
                                 }
                             }
                         }
@@ -1210,8 +1269,10 @@
                             }
                         }
                     });
-                    $('#account-home-menu').css('background', '#219CC4');
-                    $('#account-home-menu a').css('color', 'white');
+                    
+                  $('#edit-menu').css('background', '#219CC4');
+  				  $('#edit-menu a').css('color', 'white');
+  				  $('#account-home-menu ul').css('display', 'block')
                 })
 	</script>
 </body>

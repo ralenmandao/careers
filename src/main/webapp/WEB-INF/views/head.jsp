@@ -22,6 +22,15 @@
 					background:#219CC4;
 					border:#219CC4;
 				}
+				
+				.sidebar-inner .media .logout{
+					color:#83D6DE;
+					font-size:1em;
+				}
+				
+				.sidebar-inner .media .logout:hover{
+					color:#83D6DE;
+				}
 			</style>
 
 
@@ -48,10 +57,10 @@
 							<c:choose>
 							    <c:when test="${principal.hasPicture}">
 							      <!-- <img class="media-object img-circle" src="${resources}images/profiles/${principal.id}.png" alt="Avatar" id="candidate-picture"> -->
-							      <img class="media-object img-circle" src="/candidate/profilePicture/${principal.pictureId}" alt="Avatar" id="candidate-picture">
+							      <img class="media-object" src="/candidate/profilePicture/${principal.pictureId}" alt="Avatar" id="candidate-picture" class="img-responsive">
 							    </c:when>    
 							    <c:otherwise>
-							        <img class="media-object img-circle" src="${resources}images/no-profile.png" alt="Avatar" id="candidate-picture">
+							        <img class="media-object" src="${resources}images/no-profile.png" alt="Avatar" id="candidate-picture">
 							    </c:otherwise>
 							</c:choose>
 						</a>
@@ -69,7 +78,7 @@
 					<!-- Search form -->
 					<div id="search">
 						<form role="form" action="${root}candidate">
-							<input type="text" class="form-control search" name="search" placeholder="Search here...">
+							<input type="text" class="form-control search" name="search" placeholder="Search Jobs...">
 							<i class="fa fa-search"></i>
 							<input type="submit" style="position: absolute; left: -9999px"/>
 						</form>
@@ -80,8 +89,16 @@
 					<div id="sidebar-menu">
 						<ul>
 							<li id="main-home"><a href="${root}candidate/"><i class="fa fa-home"></i> Home</a></li>
-							<li id="account-home-menu"><a href="#fakelink" id="edit"><i class="fa fa-users"></i> Account</a></li>
-							
+							<li id="account-home-menu"><a href="/candidate/edit"><i class="fa fa-users"></i><i class="fa fa-angle-double-down i-right"></i> Account</a>
+								<ul>
+									<li id="edit-menu"><a href="/candidate/edit"><i class="fa fa-angle-right"></i> Edit</a></li>
+									<li id="personal-menu"><a href="/candidate/edit/personal"><i class="fa fa-angle-right"></i> Personal</a></li>
+									<li id="document-menu"><a href="/candidate/edit/documents"><i class="fa fa-angle-right"></i> Documents</a></li>
+									<li id="professional-menu"><a href="/candidate/edit/professional"><i class="fa fa-angle-right"></i> Professional</a></li>
+									<li id="education-menu"><a href="/candidate/edit/education"><i class="fa fa-angle-right"></i> Education/Experience</a></li>
+									<li id="other-menu"><a href="/candidate/edit/others"><i class="fa fa-angle-right"></i> Others</a></li>
+								</ul>
+							</li>
 							
 							<c:choose>
 							    <c:when test="${not empty principal.contactNo && 
@@ -210,7 +227,7 @@
 							<ul class="nav navbar-nav navbar-right top-navbar">
 								<!-- Dropdown User session -->
 								<li class="dropdown">
-									<a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">Howdy, <strong>${principal.firstName}</strong> <i class="fa fa-chevron-down i-xs"></i></a>
+									<a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">Hello, <strong>${principal.firstName}</strong> <i class="fa fa-chevron-down i-xs"></i></a>
 									<ul class="dropdown-menu animated half flipInX">
 										<li><a href="/logout">Logout</a></li>
 									</ul>

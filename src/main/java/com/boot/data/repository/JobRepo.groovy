@@ -12,4 +12,5 @@ interface JobRepo extends MongoRepository<Job, String>{
 //	List<Job> findByEmployerId(String id);
 	List<Job> findByEmployerId(@Param('id') String id);
 	List<Job> findByType(String type)
+	List<Job> findByExpired(boolean ex)
 }

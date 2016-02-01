@@ -8,7 +8,6 @@ C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\helper\Authentic
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\SecUserDetails.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\repository\AbstractDAO.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\exception\repository\RecordNotFound.java
-C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\Spittle.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\controller\ResumeController.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\HibernateConfiguration.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\CandidateApplication.groovy
@@ -16,10 +15,8 @@ C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\repository\
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\RootConfig.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\exception\BaseException.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\controller\CandidateController.groovy
-C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\validation\ImageUploadValidator.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\ApplicationListenerBean.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\MongoConfig.java
-C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\Resume1.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\repository\CandidateApplicationRepo.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\controller\JobController.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\UserLoginFailure.groovy
@@ -37,21 +34,19 @@ C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\exception\reposi
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\repository\StateRepo.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\ApplicationConfig.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\controller\EmployerController.groovy
-C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\FileBucket.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\repository\QualificationRepo.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\FieldOfStudy.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\service\BaseService.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\controller\HomeController.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\service\imp\SecUserDetailsService.groovy
+C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\Article.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\repository\AdminRepo.groovy
-C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\Employee.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\Specialization.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\repository\IndustryRepo.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\helper\MailMail.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\SecurityConfiguration.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\WebConfig.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\service\AbstractService.java
-C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\CandidateInfo.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\Candidate.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\User.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\controller\LoginController.groovy
@@ -66,6 +61,7 @@ C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\jdbc\DataOp
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\State.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\Country.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\repository\BaseCrudRepository.java
+C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\Document.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\repository\CountryRepo.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\repository\UserRepo.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\Location.groovy
@@ -77,6 +73,7 @@ C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\form
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\repository\CandidateRepo.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\Industry.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\Admin.groovy
+C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\repository\ArticleRepo.groovy
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\exception\NoPrincipalUserFound.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\validation\UserLoginValidator.java
 C:\Users\ralen\Desktop\LIBRARIES\careers\src\main\java\com\boot\data\entity\Qualification.groovy

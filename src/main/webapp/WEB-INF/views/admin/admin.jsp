@@ -144,12 +144,12 @@
 								<div class="col-sm-2">
 									<c:choose>
 										<c:when test="${candidate.hasPicture}">
-											<img class="media-object img-circle"
+											<img class="media-object"
 												src="/candidate/profilePicture/${candidate.pictureId}"
 												alt="Avatar" style="width: 50px; height: 50px;">
 										</c:when>
 										<c:otherwise>
-											<img class="media-object img-circle"
+											<img class="media-object"
 												src="${resources}images/no-profile.png" alt="Avatar"
 												style="width: 50px; height: 50px;">
 										</c:otherwise>
@@ -189,12 +189,12 @@
 								<div class="col-sm-2">
 									<c:choose>
 										<c:when test="${employer.hasPicture}">
-											<img class="media-object img-circle"
+											<img class="media-object"
 												src="/candidate/profilePicture/${employer.pictureId}"
 												alt="Avatar" style="width: 50px; height: 50px;">
 										</c:when>
 										<c:otherwise>
-											<img class="media-object img-circle"
+											<img class="media-object"
 												src="${resources}images/no-profile.png" alt="Avatar"
 												style="width: 50px; height: 50px;">
 										</c:otherwise>

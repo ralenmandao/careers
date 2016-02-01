@@ -13,4 +13,5 @@ class Admin {
 	String lastName
 	@DBRef
 	User user
+	boolean isSuper = false
 }

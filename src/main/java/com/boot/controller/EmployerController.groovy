@@ -135,6 +135,7 @@ public class EmployerController {
 		def employer = getPrincipalEmployer()
 		session.setAttribute('principal',employer)
 		def jobs = jobRepo.findByEmployerId(employer.id);
+		jobs = jobs.findAll { it.expired == false }
 		if(jobs.size() > 3)
 			jobs = jobs.subList(0,2)
 		model.addAttribute('jobs', jobs)
@@ -182,11 +183,13 @@ public class EmployerController {
 			}
 			mySkills << skill
 		}
+		def employer = getPrincipalEmployer()
+		
 		def job = new Job(name: title, location: new Location(country: country, state: state),
 		description: description, posted: new Date(),
 		expiry:sdf.parse(expiry), salaryFrom: (salary ? salary.split('-')[0] as long : 0 ), salaryTo: (salary ? salary.split('-')[1] as long : 0 ),
-		skills: mySkills, employer: getPrincipalEmployer(), type: type)
-
+		skills: mySkills, employer: employer, type: type)
+		
 		def expArray = experience.split('-')
 		if(expArray.size() == 1){
 			job.experienceFrom = experience as int
@@ -390,7 +393,12 @@ public class EmployerController {
 			Model model
 	){
 		def employer = getPrincipalEmployer()
-		model.addAttribute('jobs', jobRepo.findByEmployerId(employer.id))
+		def jobs = jobRepo.findByEmployerId(employer.id)
+		jobs = jobs.findAll {  it.expired == false }
+		jobs.each{
+			it.applicants = candidateAppRepo.findByJobId(it.id).collect{it.candidate}
+		}
+		model.addAttribute('jobs', jobs)
 		def applicants = candidateAppRepo.findByEmployerId(employer.id).toSorted{ a,b -> b.applied <=> a.applied }
 		if(applicants.size() > 2){
 			applicants = applicants.subList(0,3)

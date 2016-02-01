@@ -56,7 +56,8 @@
 					</form>
 					<form action="/candidate/advance" id="advance-search"
 						class="form-horizontal"
-						style="padding-left: 18px; padding-right: 30px; padding-top: 10px;">
+						style="padding-left: 18px; padding-right: 30px; padding-top: 10px;"
+						>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Location</label>
 							<div class="col-sm-10">
