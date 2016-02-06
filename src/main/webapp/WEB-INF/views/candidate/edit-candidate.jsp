@@ -1224,7 +1224,7 @@
                                 validators: {
                                     file: {
                                         extension: 'pdf,docx,doc',
-                                        maxSize: 512000,
+                                        maxSize: 1024000,
                                         message: 'Please choose a pdf/doc file with a maximum of 512kb'
                                     },
                                     notEmpty: {
@@ -1242,7 +1242,7 @@
                                 validators: {
                                     file: {
                                         extension: 'png,jpg',
-                                        maxSize: 512000,
+                                        maxSize: 1024000,
                                         message: 'Please choose a image file with a maximum of 512kb'
                                     },
                                     notEmpty: {
@@ -1259,7 +1259,7 @@
                                 validators: {
                                     file: {
                                         extension: 'docx,pdf',
-                                        maxSize: 512000,
+                                        maxSize: 1024000,
                                         message: 'Please choose a document file with a maximum of 512kb'
                                     },
                                     notEmpty: {

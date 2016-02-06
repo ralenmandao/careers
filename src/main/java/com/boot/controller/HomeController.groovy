@@ -149,7 +149,8 @@ public class HomeController {
 	@RequestMapping(value="/changePassword/{id}", method = RequestMethod.POST)
 	public String resetPasswordPOST(
 			@PathVariable("id") String id,
-			@RequestParam("password") String password
+			@RequestParam("password") String password,
+			HttpSession session
 	){
 		User user = userRepo.findOne(id);
 		if(user == null)
@@ -183,6 +184,11 @@ public class HomeController {
 	@RequestMapping(value="disclaimer")
 	public String disclaimer(){
 		return "disclaimer"
+	}
+	
+	@RequestMapping(value="members")
+	public String mained(){
+		return "members"
 	}
 	
 	@RequestMapping(value="second-resume")

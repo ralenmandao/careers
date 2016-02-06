@@ -39,7 +39,7 @@
 		<!-- Your logo goes here -->
 		<div class="logo-brand header sidebar rows">
 			<div class="logo">
-				<h1><a href="/"><img src="${resources}assets/img/logo-login.png" alt="Logo"> CAREERS CCS</a></h1>
+				<h1><a href="/"><img src="/resources/images/logo-login.png" alt="Logo"> CAREERS CCS</a></h1>
 			</div>
 		</div><!-- End div .header .sidebar .rows -->
 		<!-- BEGIN SIDEBAR -->

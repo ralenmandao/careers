@@ -178,6 +178,7 @@
 					</ul>
 					<p>
 					<button class="btn btn-success md-close" id="close-modal">I Agree.</button>
+					<button class="btn btn-danger md-close" id="i-decline">I Decline.</button>
 					</p>
 				</div>
 			</div>
@@ -191,6 +192,11 @@
 		if(document.getElementById('agree').checked == false){
 			$('#md-3d-slit').addClass('md-show')	
 		}
+	})
+	
+	$('#i-decline').click(function(){
+		$('#terms-button').trigger( "click" ) 
+		$('#md-3d-slit').removeClass('md-show')
 	})
 	
 	$('#close-modal').click(function(){
