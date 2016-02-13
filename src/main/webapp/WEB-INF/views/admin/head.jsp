@@ -69,15 +69,15 @@
 					<div id="sidebar-menu">
 						<ul>
 							<li id=""><a href="/admin" style="color:white;"><i class="fa fa-home"></i> Home</a></li>
-							<li id="account-menu"><a href="/admin/edit"><i class="fa fa-users"></i> Account</a></li>
+							<li id="account-menu"><a href="/admin/edit"><i class="fa fa-pencil"></i> Account</a></li>
 							<li id="articles-news-menu"><a href="/admin/articles"><i class="fa fa-bars"></i> Articles/News</a></li>
 							<c:if test="${principal.isSuper == true}">
 								<li id="admin-menu"><a href="/admin/admins"><i class="fa fa-sitemap"></i> Sub Admins</a></li>
 							</c:if>
 							<li id="candidates-menu"><a href="/admin/candidates"><i class="fa fa-sitemap"></i> Candidates</a></li>
 							<li id="employers-menu"><a href="/admin/employers"><i class="fa fa-users"></i> Employers</a></li>
-							<li id="jobs-menu"><a href="/admin/jobs"><i class="fa fa-users"></i> Jobs</a></li>
-							<li id="myentities"><a href="#fakelink"><i class="fa fa-bug"></i><i class="fa fa-angle-double-down i-right"></i> Entities</a>
+							<li id="jobs-menu"><a href="/admin/jobs"><i class="fa fa-archive"></i> Jobs</a></li>
+							<li id="myentities"><a href="#fakelink"><i class="fa fa-plus"></i><i class="fa fa-angle-double-down i-right"></i> Entities</a>
 								<ul>
 									<li id="countries-menu"><a href="/admin/countries"><i class="fa fa-angle-right"></i> Countries</a></li>
 									<li id="states-menu"><a href="/admin/states"><i class="fa fa-angle-right"></i> States</a></li>

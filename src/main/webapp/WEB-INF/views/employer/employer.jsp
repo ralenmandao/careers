@@ -6,9 +6,8 @@
 <!DOCTYPE html>
 <html>
 
-<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:43:15 GMT -->
 <head>
-<title>Careers - ${principal.companyName}</title>
+<title>Careers CCS - ${principal.companyName} - Account Dashboard</title>
 <spring:url value="/resources/" var="resources" />
 <spring:url value="/WEB-INF/views/" var="views" />
 <spring:url value="/" var="root" />
@@ -18,7 +17,7 @@
 <body class="tooltips">
 	<jsp:include page="${views}employer/head.jsp"></jsp:include>
 	<!-- ============================================================== -->
-	<!-- START YOUR CONTENT HERE -->
+	<!-- CONTENT -->
 	<!-- ============================================================== -->
 	<div class="scroll-y" id="body-container">
 		<div class="body content rows scroll-y">
@@ -129,12 +128,12 @@
 								<div class="col-sm-2">
 									<c:choose>
 										<c:when test="${applicant.candidate.hasPicture}">
-											<img class="media-object img-circle"
+											<img class="media-object "
 												src="/candidate/profilePicture/${applicant.candidate.pictureId}"
 												alt="Avatar" style="width: 50px; height: 50px;">
 										</c:when>
 										<c:otherwise>
-											<img class="media-object img-circle"
+											<img class="media-object"
 												src="${resources}images/no-profile.png" alt="Avatar"
 												style="width: 50px; height: 50px;">
 										</c:otherwise>

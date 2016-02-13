@@ -28,6 +28,7 @@ import com.boot.data.repository.QualificationRepo
 import com.boot.data.repository.SkillRepo
 import com.boot.data.repository.SpecializationRepo
 import com.boot.data.repository.StateRepo
+import com.boot.data.repository.UserLoginFailureRepo;
 import com.boot.data.repository.UserRepo
 
 @Controller
@@ -45,13 +46,13 @@ public class TestController {
 	@Autowired IndustryRepo industryRepo
 	@Autowired AdminRepo adminRepo
 	@Autowired EmployerRepo employerRepo
+	@Autowired
+	UserLoginFailureRepo failRepo;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	@ResponseBody
 	public String test(){
-		def user = adminRepo.findOne('56ad713e37e4bda574839480')
-		user.isSuper = true
-		adminRepo.save(user)
+		failRepo.deleteAll()
 		return ""
 	}
 

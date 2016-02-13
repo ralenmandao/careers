@@ -191,6 +191,11 @@ public class HomeController {
 		return "members"
 	}
 	
+	@RequestMapping("faq")
+	public String faq(){
+		return "faq"
+	}
+	
 	@RequestMapping(value="second-resume")
 	public String firstResume(){
 		return "resume/second-resume/main";

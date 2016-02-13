@@ -6,9 +6,8 @@
 <!DOCTYPE html>
 <html>
 
-<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:43:15 GMT -->
 <head>
-<title>Careers - ${principal.firstName} ${principal.lastName}</title>
+<title>Careers CCS - ${principal.firstName} ${principal.lastName} - Account Dashboard</title>
 <spring:url value="/resources/" var="resources" />
 <spring:url value="/WEB-INF/views/" var="views" />
 <spring:url value="/" var="root" />
@@ -18,7 +17,7 @@
 <body class="tooltips">
 	<jsp:include page="${views}head.jsp"></jsp:include>
 	<!-- ============================================================== -->
-	<!-- START YOUR CONTENT HERE -->
+	<!-- CONTENT -->
 	<!-- ============================================================== -->
 	<div class="scroll-y" id="body-container">
 
@@ -154,7 +153,7 @@
 		</div>
 	</div>
 	<!-- ============================================================== -->
-	<!-- END YOUR CONTENT HERE -->
+	<!-- CONTENT -->
 	<!-- ============================================================== -->
 	<jsp:include page="${views}foot.jsp"></jsp:include>
 	<jsp:include page="${views}script-imports.jsp"></jsp:include>

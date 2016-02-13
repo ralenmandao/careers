@@ -6,9 +6,8 @@
 <!DOCTYPE html>
 <html>
 	
-<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:43 GMT -->
 <head>
-	<title>Careers - Login</title>
+	<title>Careers CCS - ${candidate.firstName} ${candidate.lastName} - Manage Candidate</title>
 	<spring:url value="/resources/" var="resources" />
 	<spring:url value="/WEB-INF/views/" var="views" />
 	<spring:url value="/" var="root" />
@@ -18,7 +17,7 @@
 	<body class="tooltips">	
 		<jsp:include page="${views}admin/head.jsp"></jsp:include>
 		<!-- ============================================================== -->
-		<!-- START YOUR CONTENT HERE -->
+		<!-- CONTENT -->
 		<!-- ============================================================== -->
          <div class="scroll-y" id="body-container">
 			<div class="body content rows scroll-y">
@@ -27,6 +26,7 @@
 					<form class="form-horizontal" method="post" role="form" action="/admin/candidate/${candidate.id}/edit/adminControls">
 						<!-- Text input -->
 						<div class="form-group">
+						    <p style="text-align:center;font-weight:bold;">${candidate.firstName} ${candidate.lastName}</p>
 							<label class="col-sm-2 control-label">Enabled</label>
 							<div class="col-sm-10">
 								<select class="form-control" name='enabled'>
@@ -50,5 +50,4 @@
 		</script>
 	</body>
 
-<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:44 GMT -->
 </html>

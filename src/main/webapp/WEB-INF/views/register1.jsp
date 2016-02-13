@@ -5,7 +5,6 @@
 <!DOCTYPE html>
 <html>
 	
-<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/register.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:44 GMT -->
 <head>
 	<title>Careers CCS - Register</title>
 	<meta charset="utf-8">
@@ -171,5 +170,4 @@
 
 	</body>
 
-<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/register.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:44 GMT -->
 </html>

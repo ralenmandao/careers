@@ -36,7 +36,7 @@
 
 	<div class="container">
 		<spring:url value="/" var="root"></spring:url>
-		<!-- Your logo goes here -->
+		<!-- Logo -->
 		<div class="logo-brand header sidebar rows">
 			<div class="logo">
 				<h1><a href="/"><img src="/resources/images/logo-login.png" alt="Logo"> CAREERS CCS</a></h1>
@@ -89,7 +89,7 @@
 					<div id="sidebar-menu">
 						<ul>
 							<li id="main-home"><a href="${root}candidate/"><i class="fa fa-home"></i> Home</a></li>
-							<li id="account-home-menu"><a href="/candidate/edit"><i class="fa fa-users"></i><i class="fa fa-angle-double-down i-right"></i> Account</a>
+							<li id="account-home-menu"><a href="/candidate/edit"><i class="fa fa-pencil"></i><i class="fa fa-angle-double-down i-right"></i> Account</a>
 								<ul>
 									<li id="edit-menu"><a href="/candidate/edit"><i class="fa fa-angle-right"></i> Edit</a></li>
 									<li id="personal-menu"><a href="/candidate/edit/personal"><i class="fa fa-angle-right"></i> Personal</a></li>
@@ -127,7 +127,7 @@
 							</c:if>
 							
 							<li id="job-applications-home"><a href="/candidate/jobApplication"><i class="fa fa-archive"></i> Job Applications</a></li>
-							<li id="articles-news-home"><a href="/news/?type=candidate"><i class="fa fa-archive"></i> Articles/News</a></li>
+							<li id="articles-news-home"><a href="/news/?type=candidate"><i class="fa fa-pencil-square-o"></i> Articles/News</a></li>
 							<!--
 							<li><a href="#fakelink"><i class="fa fa-bug"></i><i class="fa fa-angle-double-down i-right"></i> Elements</a>
 								<ul>

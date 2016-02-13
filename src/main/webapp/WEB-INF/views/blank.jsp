@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 	
-<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:43:15 GMT -->
+
 <head>
 	<title>Careers - ${principal.firstName} ${principal.lastName}</title>
 	<meta charset="utf-8">
@@ -22,7 +22,7 @@
 	<!-- BOOTSTRAP -->
 	<link href="${resources}assets/css/bootstrap.min.css" rel="stylesheet">
 	
-	<!-- LANCENG CSS -->
+	<!-- CSS -->
 	<link href="${resources}assets/css/style.css" rel="stylesheet">
 	<link href="${resources}assets/css/style-responsive.css" rel="stylesheet">
 	
@@ -63,7 +63,7 @@
 			
 			<!-- Footer -->
 			<footer>
-			&copy; 2014 <a href="index.html">Lanceng Admin</a>. Design with love by <a href="http://isohdesign.com/" target="_blank">Isoh Design Studio</a> from <a href="#fakelink">Yogyakarta, ID</a>
+			&copy; 2014 <a href="index.html">Admin</a>. Design with love by <a href="/" target="_blank">Careers CCS</a> from <a href="#fakelink">PH</a>
 			</footer>
 			<!-- End Footer -->
 		
@@ -126,5 +126,4 @@
 	<script src="${resources}assets/js/lanceng.js"></script>
 	</body>
 
-<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:44:24 GMT -->
 </html>

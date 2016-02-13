@@ -33,14 +33,14 @@
 	left:35%;
 }
 </style>
-<body class="tooltips full-content">
+<body class="tooltips full-content" style="background:#BDC3C7;">
 	<!-- BEGIN PAGE -->
 	<div class="container">
 		<!-- Begin Login Page -->
 		<div class="full-content-center animated fadeInDownBig">
 			<a href="/"><img
-				src="${resources}assets/img/logo-login.png"
-				class="logo-login img-circle" alt="Logo"></a>
+				src="${resources}images/logo-login.png"
+				class="logo-login" alt="Logo"></a>
 			<div class="login-wrap">
 				<div class="box-info">
 					<h2 class="text-center">
@@ -247,7 +247,23 @@
 				validators : {
 					notEmpty : {
 						message : 'password must not be empty'
-					}
+					},
+					stringLength: {
+                        message: 'password must be 6 characters minimum',
+                        max: function(
+                            value,
+                            validator,
+                            $field) {
+                            return 25 - (value
+                                .match(/\r/g) || []).length;
+                        },
+                        min: function(
+                            value,
+                            validator,
+                            $field) {
+                            return 6;
+                        }
+                    }
 				}
 			},
 			repassword : {

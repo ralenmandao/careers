@@ -1,6 +1,7 @@
 package com.boot;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,7 +22,9 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
+import com.boot.data.entity.UserLoginFailure;
 import com.boot.data.jdbc.JdbcOperations;
+import com.boot.data.repository.UserLoginFailureRepo;
 import com.boot.data.service.imp.SecUserDetailsService;
 
 @Configuration
@@ -36,18 +38,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private JdbcOperations operations;
 	@Autowired
 	private SecUserDetailsService userDetailsService;
-	private static final String[] HEADERS_TO_TRY = { 
-		    "X-Forwarded-For",
-		    "Proxy-Client-IP",
-		    "WL-Proxy-Client-IP",
-		    "HTTP_X_FORWARDED_FOR",
-		    "HTTP_X_FORWARDED",
-		    "HTTP_X_CLUSTER_CLIENT_IP",
-		    "HTTP_CLIENT_IP",
-		    "HTTP_FORWARDED_FOR",
-		    "HTTP_FORWARDED",
-		    "HTTP_VIA",
-		    "REMOTE_ADDR" };
+	@Autowired
+	UserLoginFailureRepo failRepo;
 	
 	@Autowired
 	public void configGlobalSecurity(AuthenticationManagerBuilder auth)
@@ -81,8 +73,34 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 						if(arg2 instanceof DisabledException){
 							arg1.sendRedirect("/login?disabled");
 						}else{
-							arg1.sendRedirect("/login?error");
-							System.out.println("WEEE " + getClientIpAddress(arg0));
+							String ip = arg0.getRemoteAddr();
+							UserLoginFailure failure = failRepo.findByIp(ip)
+							boolean failed = false
+							if(failure == null){
+								failure = new UserLoginFailure(date: new Date(), ip : ip, attempt: 1)
+								failRepo.save(failure)
+								failed = true
+							}else{
+								def mydate = new Date()
+								def faildate = failure.date
+//								long hours = (60 * 60 * 60) * 3
+								long hours = 1000 * 60
+								long diff = (mydate.time - faildate.time)
+								if(diff >= hours){
+									failure.date = mydate
+									failure.attempt = 1
+									failRepo.save(failure)
+								}else{
+									failure.date = mydate
+									failure.attempt = failure.attempt + 1
+									failRepo.save(failure)
+								}
+								failed = true
+							}
+							if(failed){
+								arg1.sendRedirect("/login");
+							}else
+								arg1.sendRedirect("/login?error");
 						}
 					}
 				})

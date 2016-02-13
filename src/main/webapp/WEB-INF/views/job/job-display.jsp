@@ -82,7 +82,11 @@
 				<div class="col-sm-7">
 					<div class="box-info">
 						<h2>
-							<strong>${job.name}</strong>
+							<strong>${job.name} 
+								<c:if test="${job.expired == true}">
+									<span class="label label-danger">Expired</span>
+								</c:if>
+							</strong>
 							<div class="pull-right">
 								<fmt:formatDate type="date" value="${job.posted}" /> - <fmt:formatDate type="date" value="${job.expiry}" />
 							</div>
@@ -124,6 +128,10 @@
 						</c:choose>
 						<br> <strong>Location :</strong> ${job.location.state.name},
 						${job.location.country.name}
+						<h4><strong>Description :</strong></h4>
+						<p>
+							${job.description}
+						</p>
 					</div>
 				</div>
 				<div class="col-sm-5">

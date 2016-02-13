@@ -62,7 +62,7 @@ public class JobController {
 	   if(job){
 		   if(!candidateApplicationRepo.findByJobIdAndCandidateId(job.id, candidate.id)){
 			   candidateApplicationRepo.save(new CandidateApplication(job: job, candidate: candidate,cover: cover, employer: job.employer, applied: new Date()))
-			   return "redirect:/candidate"
+			   return "redirect:/candidate/jobApplication?applied"
 		   }else{
 			   println "Multiple appliying on the same job"
 		   }

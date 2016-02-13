@@ -5,12 +5,7 @@
 <spring:url value="/resources/" var="resources" />
 <spring:url value="/" var="root" />
 <!-- END CONTENT -->
-<!--
-		============================================================================
-		MODAL DIALOG EXAMPLE
-		You can change transition style, just view element page
-		============================================================================
-		-->
+
 <!-- Modal Logout Primary -->
 <div class="md-modal md-fade-in-scale-up" id="md-fade-in-scale-up">
 		<div class="md-content">
@@ -183,13 +178,13 @@
 <div class="md-modal md-fade-in-scale-up" id="md-complete-your-profile">
 	<div class="md-content">
 		<h3>
-			<strong>Error</strong>
+			<strong>Cannot view resume</strong>
 		</h3>
 		<div>
-			<p>Complete your profile or upload your resume to proceed</p>
+			<p>Complete your profile and upload your photo to view your resume.</p>
 			<p>
 				<button id="md-complete-your-profile-close"
-					class="btn btn-danger md-close">Close me!</button>
+					class="btn btn-danger md-close">Close</button>
 			</p>
 		</div>
 	</div>

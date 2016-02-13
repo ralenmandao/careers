@@ -9,15 +9,15 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes" />
-	<meta name="description" content="">
-	<meta name="keywords" content="admin, bootstrap,admin template, bootstrap admin, simple, awesome">
-	<meta name="author" content="">
+	<meta name="description" content="Careers CCS is an online career resource that offers local jobs and employment opportunities to the I.T. alumni and internship jobs to the OJT students of DHVTSU (Don Honorio Ventura Technological State University-Bacolor, Pampanga, Philippines) College of Computing Studies.">
+	<meta name="keywords" content="careers ccs, online job portal, job portal, online recruitment, ojt, internship, ccs, dhvtsu, jobs in philippines, philippines jobs, DOLE, Department of Labor and Employment, work in philippines, jobs local, local jobs, local employment guidelines, job, jobs, call center jobs, bpo jobs, IT jobs, employer, find job, job search, job vacancy, job opening, job recruitment, jobseeker, resume, job ads, job employment">
+	<meta name="author" content="Careers CCS DHVTSU">
 	
 	
 	<!-- BOOTSTRAP -->
 	<link href="${resources}assets/css/bootstrap.min.css" rel="stylesheet">
 	
-	<!-- LANCENG CSS -->
+	<!-- CSS -->
 	<link href="${resources}assets/css/style.css" rel="stylesheet">
 	<link href="${resources}assets/css/style-responsive.css" rel="stylesheet">
 	

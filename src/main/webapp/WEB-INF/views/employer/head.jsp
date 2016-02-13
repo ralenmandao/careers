@@ -79,7 +79,7 @@
 					<div id="sidebar-menu">
 						<ul>
 							<li id="home-menu"><a href="${root}employer/" style="color:white;"><i class="fa fa-home"></i> Home</a></li>
-							<li id="account-menu"><a href="/employer/edit"><i class="fa fa-users"></i> Account</a></li>
+							<li id="account-menu"><a href="/employer/edit"><i class="fa fa-pencil"></i> Account</a></li>
 							<li id="post-a-job-menu"><a href="${root}employer/postJob"><i class="fa fa-list-alt"></i> Post a Job</a></li>
 							<li id="posted-jobs-menu"><a href="${root}employer/postedJob"><i class="fa fa-edit"></i> Posted Jobs</a></li>
 							<li id="candidates-menu"><a href="${root}employer/candidates"><i class="fa fa-user"></i> Candidates</a></li>

@@ -112,7 +112,7 @@ public class EmployerController {
 		userRepo.insert(employer.user)
 		employerRepo.insert(employer)
 
-		mail.sendMail("DHVTSU-CAREERS", employer.user.email,"Notice for account activation","""Please wait 2-3 working days for your account to be verified in order to fully access the web application thank you""");
+		mail.sendMail("DHVTSU-CAREERS", employer.user.email,"Notice for account activation","""Please wait 1-3 working days for your account to be verified in order to fully access the web application thank you""");
 		return "redirect:/login?success"
 	}
 
@@ -141,7 +141,7 @@ public class EmployerController {
 		model.addAttribute('jobs', jobs)
 		session.setAttribute('principal', employer);
 
-		def applicants = candidateAppRepo.findByEmployerId(employer.id).toSorted{ a,b -> b.applied <=> a.applied }
+		def applicants = candidateAppRepo.findByEmployerId(employer.id).findAll{ it.job.expired == false }.toSorted{ a,b -> b.applied <=> a.applied }
 		if(applicants.size() > 2){
 			applicants = applicants.subList(0,3)
 		}
@@ -206,7 +206,7 @@ public class EmployerController {
 		println "Size Match : ${candidates.size()}"
 		candidates.each{
 			mail.sendMail("DHVTSU-CAREERS", it.user.email,"Job notification",
-					"Hello ${it.firstName} there is a new job that match your skills http://localhost:8080/job/${job.id}");
+					"Hello ${it.firstName} there is a new job that match your skills http://careers-ccs.com/job/${job.id}");
 		}
 
 		return "redirect:/employer?success"
@@ -399,7 +399,8 @@ public class EmployerController {
 			it.applicants = candidateAppRepo.findByJobId(it.id).collect{it.candidate}
 		}
 		model.addAttribute('jobs', jobs)
-		def applicants = candidateAppRepo.findByEmployerId(employer.id).toSorted{ a,b -> b.applied <=> a.applied }
+		def applicants = candidateAppRepo.findByEmployerId(employer.id).findAll {  it.job.expired == false }.toSorted{ a,b -> b.applied <=> a.applied }
+		
 		if(applicants.size() > 2){
 			applicants = applicants.subList(0,3)
 		}
@@ -437,7 +438,7 @@ public class EmployerController {
 		if(user == null)
 			return "404"
 		mail.sendMail("DHVTSU-CAREERS", user.getEmail(),"Change Email",
-				"To change your email go to this link http://localhost:8080/changeEmail/" + user.getId());
+				"To change your email go to this link http://careers-ccs.com/changeEmail/" + user.getId());
 		return "redirect:/employer/edit?changeEmail"
 	}
 
@@ -449,7 +450,7 @@ public class EmployerController {
 		if(user == null)
 			return "404"
 		mail.sendMail("DHVTSU-CAREERS", user.getEmail(),"Change Password",
-				"To change your password go to this link http://localhost:8080/changePassword/" + user.getId());
+				"To change your password go to this link http://careers-ccs.com/changePassword/" + user.getId());
 		return "redirect:/employer/edit?changeEmail"
 	}
 

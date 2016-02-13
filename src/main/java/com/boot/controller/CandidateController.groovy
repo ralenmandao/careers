@@ -254,10 +254,28 @@ public class CandidateController {
 				String position = positions[x]
 				String company = companies[x]
 				String role = roles[x]
-				candidate.experiences << new Experience(startYear: year.split('-')[0], endYear: year.split('-')[1],
-				position: position, companyName: company, role: role)
+				
+				String[] tokens = year.split('-')
+				String[] startDate = tokens[0].split('/')
+				String[] endDate = tokens[1].split('/')
+				String startYear = startDate[1]
+				String endYear = endDate[1]
+				String startMonth = startDate[0]
+				String endMonth = endDate[0]
+				
+				double diffYear = (Integer.parseInt(endYear) - Integer.parseInt(startYear)) * 12
+				double diffMonth = (Integer.parseInt(startMonth) - Integer.parseInt(endMonth))
+				double total = (diffYear - diffMonth) / 12
+				
+				candidate.experiences << new Experience(startYear: startYear, endYear: endYear,
+				position: position, companyName: company, role: role, startMonth: startMonth, endMonth: endMonth, totalYear: total)
 			}
-		candidateRepo.save(candidate);
+		double total = 0
+		candidate.experiences.each{
+			total += it.totalYear
+		}
+		candidate.totalYear = total.round(2)
+		candidateRepo.save(candidate); 
 		return "redirect:/candidate/edit?success";
 	}
 
@@ -374,7 +392,7 @@ public class CandidateController {
 	@RequestMapping(value="jobApplication", method=RequestMethod.GET)
 	public String jobApplication(Model model){
 		def candidate =  getPrincipalCandidate()
-		def jobs = candidateApplicationRepo.findByCandidateId(candidate.id)
+		def jobs = candidateApplicationRepo.findByCandidateId(candidate.id).toSorted{ a,b -> b.applied <=> a.applied}
 		model.addAttribute("applications",jobs)
 		model.addAttribute("principal", candidate)
 		return "candidate/job-applications"
@@ -523,7 +541,7 @@ public class CandidateController {
 			}
 		}
 		candidateRepo.save(candidate)
-		return "redirect:/candidate"
+		return "redirect:/candidate/edit?success"
 	}
 
 	@RequestMapping(value="/{id}/myresume", method = RequestMethod.GET, produces = "application/pdf")
@@ -570,7 +588,7 @@ public class CandidateController {
 		if(user == null)
 			return "404"
 		mail.sendMail("DHVTSU-CAREERS", user.getEmail(),"Change Email",
-				"To change your email go to this link http://localhost:8080/changeEmail/" + user.getId());
+				"To change your email go to this link http://careers-ccs/changeEmail/" + user.getId());
 		return "redirect:/candidate/edit?changeEmail"
 	}
 
@@ -582,7 +600,7 @@ public class CandidateController {
 		if(user == null)
 			return "404"
 		mail.sendMail("DHVTSU-CAREERS", user.getEmail(),"Change Password",
-				"To change your password go to this link http://localhost:8080/changePassword/" + user.getId());
+				"To change your password go to this link http://careers-ccs/changePassword/" + user.getId());
 		return "redirect:/candidate/edit?changeEmail"
 	}
 
@@ -605,7 +623,7 @@ public class CandidateController {
 			}
 		}
 		candidateRepo.save(candidate)
-		return "redirect:/candidate/edit"
+		return "redirect:/candidate/edit?success"
 	}
 
 	@RequestMapping(value="/document/{docId}", method = RequestMethod.GET, produces = "image/*")
@@ -636,7 +654,7 @@ public class CandidateController {
 			}
 		}
 		candidateRepo.save(candidate)
-		return "redirect:/candidate/edit"
+		return "redirect:/candidate/edit?success"
 	}
 
 	@RequestMapping(value="/legal/{legalId}", method = RequestMethod.GET, produces = "application/octet-stream")

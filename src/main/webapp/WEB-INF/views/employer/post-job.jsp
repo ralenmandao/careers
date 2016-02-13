@@ -5,9 +5,8 @@
 <!DOCTYPE html>
 <html>
 
-<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:43:15 GMT -->
 <head>
-<title>Careers - ${principal.companyName}</title>
+<title>Careers CCS - Post a Job</title>
 <spring:url value="/resources/" var="resources" />
 <spring:url value="/WEB-INF/views/" var="views" />
 <spring:url value="/" var="root" />
@@ -22,6 +21,9 @@
 	<div class="scroll-y" id="body-container">
 		<div class="body content rows scroll-y">
 			<div class="box-info default">
+				<h2>
+					<strong>Post a job</strong>
+				</h2>
 				<form action="/employer/postJob" class="form-horizontal" role="form"
 					method="post" id="postJobForm">
 					<div class="form-group">

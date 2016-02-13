@@ -5,7 +5,6 @@
 <!DOCTYPE html>
 <html>
 
-<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:43 GMT -->
 <head>
 <title>Careers CCS - Candidate Registration</title>
 <spring:url value="/resources/" var="resources" />
@@ -32,16 +31,24 @@
 .md-modal{
 	left:35%;
 }
+
+.md-show ~ .md-overlay{
+	background:white;
+}
+
+.full-content-center img.logo-login{
+	width:100px;
+}
 </style>
-<body class="tooltips full-content">
+<body class="tooltips full-content" style="background:#BDC3C7;">
 	<!-- BEGIN PAGE -->
 	<div class="container">
 
 		<!-- Begin Register Page -->
 		<div class="full-content-center animated fadeInDownBig">
 			<a href="/"><img
-				src="${resources}assets/img/logo-login.png"
-				class="logo-login img-circle" alt="Logo"></a>
+				src="${resources}images/logo-login.png"
+				class="logo-login" alt="Logo"></a>
 			<div class="login-wrap">
 				<div class="box-info">
 					<h2 class="text-center">
@@ -116,11 +123,11 @@
 						</div>
 						<div class="checkbox">
 						<label class="">
-						<button class="btn btn-default btn-sm" id="terms-button" data-modal="md-3d-slit" style="border:0; color:blue;">
+						<button class="btn btn-default btn-sm md-trigger" id="terms-button" data-modal="md-just-me" style="border:0; color:blue;">
 						  <div class="icheckbox_minimal-grey" name="agree" aria-checked="false" aria-disabled="false" style="position: relative;"><input id="agree" type="checkbox" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div> I Agree to the
 						</label>Terms and Conditions</button>
 						</div>
-						<button type="submit" class="btn btn-success btn-block"
+						<button type="submit" class="btn btn-success btn-block disabled"
 							id="submitRegister">
 							<i class="fa fa-rocket"></i> Register
 						</button>
@@ -131,7 +138,7 @@
 						login</a>
 				</p>
 			</div>
-			<div class="md-modal md-3d-slit" id="md-3d-slit">
+			<div class="md-modal md-3d-sign" id="md-3d-sign">
 			<div class="md-content" style="text-align:left;">
 				<h3><b>Terms and Conditions</b></h3>
 				<div>
@@ -203,113 +210,164 @@
 				</div>
 			</div><!-- End div .md-content -->
 		</div>
+		<div class="md-overlay"></div>
 		</div>
 		<!-- End Register Page -->
-
 	</div>
 	<!-- End div .container -->
 	<jsp:include page="${views}foot.jsp"></jsp:include>
 	<jsp:include page="${views}script-imports.jsp"></jsp:include>
 	<script>
-	$('#terms-button').click(function(){
-		if(document.getElementById('agree').checked == false){
-			$('#md-3d-slit').addClass('md-show')	
-		}
-	})
-	
-	$('#i-decline').click(function(){
-		$('#terms-button').trigger( "click" ) 
-		$('#md-3d-slit').removeClass('md-show')
-	})
-	
-	$('#close-modal').click(function(){
-		$('#md-3d-slit').removeClass('md-show')
-	})
-	
-	$('#submitRegister').click(function(){
-		if(document.getElementById('agree').checked == false){
+	$(document).ready(function(){
+		$('#terms-button').click(function(){
+			if(document.getElementById('agree').checked == false){
+				$('#md-3d-sign').addClass('md-show')	
+			}
+		})
+		
+		$('#i-decline').click(function(){
+			$('#terms-button').trigger( "click" ) 
+			$('#md-3d-sign').removeClass('md-show')
+		})
+		
+		$('#close-modal').click(function(){
+			$('#md-3d-sign').removeClass('md-show')
+		})
+		
+		$('#submitRegister').click(function(){
+			if(document.getElementById('agree').checked == false){
+				$('#agg-error').remove();
+				$('#registerForm').append('<small id="agg-error" class="help-block" style="color:red">Accept the Terms and Conditions before registration</small>')
+				return false;
+			}
 			$('#agg-error').remove();
-			$('#registerForm').append('<small id="agg-error" class="help-block" style="color:red">Accept the Terms and Conditions before registration</small>')
-			return false;
-		}
-		$('#agg-error').remove();
-		return true;
-	});
-	$('#registerForm').bootstrapValidator({
-		message : 'This value is not valid',
-		fields : {
-			firstName : {
-				message : 'invalid firstname',
-				validators : {
-					notEmpty : {
-						message : 'firstname must not be empty'
-					},
-					regexp :{
-						regexp : /^[a-zA-Z ,.'-]+$/,
-						message : 'invalid firstname'
+			return true;
+		});
+		$('#registerForm').bootstrapValidator({
+			message : 'This value is not valid',
+			fields : {
+				firstName : {
+					message : 'invalid firstname',
+					validators : {
+						notEmpty : {
+							message : 'firstname field is empty'
+						},
+						regexp :{
+							regexp : /^[a-zA-Z ,.'-]+$/,
+							message : 'invalid firstname'
+						},
+						stringLength: {
+	                        message: 'firstname must be 3 characters minimum and 25 maximum characters',
+	                        max: function(
+	                            value,
+	                            validator,
+	                            $field) {
+	                            return 25 - (value
+	                                .match(/\r/g) || []).length;
+	                        },
+	                        min: function(
+	                            value,
+	                            validator,
+	                            $field) {
+	                        	return 3 - (value
+		                                .match(/\r/g) || []).length;
+	                        }
+	                    }
 					}
-				}
-			},
-			lastName : {
-				message : 'lastName experience',
-				validators : {
-					notEmpty : {
-						message : 'lastname must not be empty'
-					},
-					regexp :{
-						regexp : /^[a-zA-Z ,.'-]+$/,
-						message : 'invalid lastname'
+				},
+				lastName : {
+					message : 'lastName experience',
+					validators : {
+						notEmpty : {
+							message : 'lastname field is empty'
+						},
+						regexp :{
+							regexp : /^[a-zA-Z ,.'-]+$/,
+							message : 'lastname contains invalid character(s)'
+						},
+						stringLength: {
+	                        message: 'lastname must be 3 characters minimum and 25 maximum characters',
+	                        max: function(
+	                            value,
+	                            validator,
+	                            $field) {
+	                            return 25 - (value
+	                                .match(/\r/g) || []).length;
+	                        },
+	                        min: function(
+	                            value,
+	                            validator,
+	                            $field) {
+	                        	return 3 - (value
+		                                .match(/\r/g) || []).length;
+	                        }
+	                    }
 					}
-				}
-			},
-			'user.email' : {
-				message : 'invalid email',
-				validators : {
-					notEmpty : {
-						message : 'email must not be empty'
-					},
-					emailAddress: {
-                        message: 'The input is not a valid email address'
-                    }
-				}
-			},
-			'user.password' : {
-				message : 'invalid password expiration',
-				validators : {
-					notEmpty : {
-						message : 'password must not be empty'
+				},
+				'user.email' : {
+					message : 'invalid email',
+					validators : {
+						notEmpty : {
+							message : 'email field is empty'
+						},
+						emailAddress: {
+	                        message: 'The input is not a valid email address'
+	                    }
 					}
-				}
-			},
-			repassword : {
-				message : 'invalid password expiration',
-				validators : {
-					notEmpty : {
-						message : 'password must not be empty'
-					},
-					identical: {
-                        field: 'user.password',
-                        message: 'The password and its confirm are not the same'
-                    }
-				}
-			},
-			studentNumber : {
-				message: 'Invalid student number',
-				validators : {
-					notEmpty : {
-						message : 'student number must not be empty'
-					},
-					regexp :{
-						regexp : /^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$/,
-						message : 'invalid student number format'
+				},
+				'user.password' : {
+					message : 'invalid password expiration',
+					validators : {
+						notEmpty : {
+							message : 'password field is empty'
+						},
+						stringLength: {
+	                        message: 'password must be 6 characters minimum and 25 characters maximum',
+	                        max: function(
+	                            value,
+	                            validator,
+	                            $field) {
+	                            return 25 - (value
+	                                .match(/\r/g) || []).length;
+	                        },
+	                        min: function(
+	                            value,
+	                            validator,
+	                            $field) {
+	                            return 6;
+	                        }
+	                    }
+					}
+				},
+				repassword : {
+					message : 'invalid password expiration',
+					validators : {
+						notEmpty : {
+							message : 'password must not be empty'
+						},
+						identical: {
+	                        field: 'user.password',
+	                        message: 'The password and its confirm are not the same'
+	                    }
+					}
+				},
+				studentNumber : {
+					message: 'Invalid student number',
+					validators : {
+						notEmpty : {
+							message : 'student number must not be empty'
+						},
+						regexp :{
+							regexp : /^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$/,
+							message : 'invalid student number format'
+						}
 					}
 				}
 			}
-		}
-	});
-	
+		});
+		$('#submitRegister').removeClass('disabled')
+	})
 	</script>
 </body>
 
-<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:44 GMT -->
 </html>

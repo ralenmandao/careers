@@ -1,19 +1,18 @@
 package com.boot;
 
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer
+import org.springframework.boot.context.embedded.ErrorPage
 import org.springframework.context.MessageSource
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.support.ResourceBundleMessageSource
+import org.springframework.http.HttpStatus
 import org.springframework.web.servlet.ViewResolver
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer
 import org.springframework.web.servlet.config.annotation.EnableWebMvc
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver
-
-import com.mongodb.Mongo
-import com.mongodb.MongoClient
-import com.mongodb.MongoClientURI
 @Configuration
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter {
@@ -32,6 +31,18 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		messageSource.setBasename("messages");
 		messageSource.setAlwaysUseMessageFormat(true);
 		return messageSource;
+	}
+	
+	@Bean
+	public EmbeddedServletContainerCustomizer containerCustomizer() {
+	 
+	   return ({container ->
+			ErrorPage error401Page = new ErrorPage(HttpStatus.UNAUTHORIZED, "/src/main/resources/404.html");
+			ErrorPage error404Page = new ErrorPage(HttpStatus.NOT_FOUND, "/src/main/resources/404.html");
+			ErrorPage error500Page = new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/src/main/resources/404.html");
+	 
+			container.addErrorPages(error401Page, error404Page, error500Page);
+	   });
 	}
 	
 // Implementation was transfered to hibernateconfig class

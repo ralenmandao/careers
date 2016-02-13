@@ -6,9 +6,8 @@
 <!DOCTYPE html>
 <html>
 
-<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:43 GMT -->
 <head>
-<title>Careers - ${principal.firstName} ${principal.lastName}</title>
+<title>Careers CCS - Edit Account Details</title>
 <spring:url value="/resources/" var="resources" />
 <spring:url value="/WEB-INF/views/" var="views" />
 <spring:url value="/" var="root" />
@@ -18,7 +17,7 @@
 <body class="tooltips">
 	<jsp:include page="${views}head.jsp"></jsp:include>
 	<!-- ============================================================== -->
-	<!-- START YOUR CONTENT HERE -->
+	<!-- CONTENT -->
 	<!-- ============================================================== -->
 	<div class="scroll-y" id="body-container">
 		<div class="body content rows scroll-y">
@@ -167,7 +166,7 @@
 						<div class="col-xs-6">
 							<input type="file" class="form-control" name="file"
 								accept=".pdf,.docx,.doc" /><small style="color: red">Note:
-								maximum file size is 512kb</small><br> <small style="color: red">Note:
+								maximum file size is 1024kb</small><br> <small style="color: red">Note:
 								docx/doc files are not viewable by employers and can only be
 								downloaded</small><br>
 								<small style="color: red">Note: pdf,docx,doc are the only file types allowed</small>
@@ -351,7 +350,7 @@
 					<c:forEach items="${principal.documents}" var="document">
 						
 							<img src="/candidate/document/${document}"
-								style="width: 100px; height: 100px;margin-right:5px" />
+								style="width: 100px; height: 100px;margin-right:5px;margin-bottom:5px;" />
 						
 					</c:forEach>
 				</div>
@@ -364,7 +363,7 @@
 						<div class="col-xs-6">
 							<input type="file" class="form-control" name="file"
 								accept="image/*" /> <small style="color: red">Note:
-								maximum file size is 512kb</small><br>
+								maximum file size is 1024kb</small><br>
 								<small style="color: red">Note:
 								png,jpg are the only file types allowed</small>
 						</div>
@@ -394,7 +393,7 @@
 						<div class="col-xs-6">
 							<input type="file" class="form-control" name="file"
 								accept=".pdf,.docx,.doc" /> <small style="color: red">Note:
-								maximum file size is 512kb</small><br>
+								maximum file size is 1024kb</small><br>
 								<small style="color: red">Note:
 								pdf,docx,doc are the only file types allowed</small>
 						</div>
@@ -497,10 +496,22 @@
 				</h2>
 				<form class="form-horizontal" role="form" method="post"
 					action="${root}candidate/saveExperience" id="experienceForm">
+					<c:if test="${principal.totalYear != 0}">
+						<c:choose>
+							<c:when test="${principal.totalYear < 1}">
+								<div class="pull-right">${principal.totalYear * 12} month(s) of Experience</div>
+							</c:when>
+							<c:otherwise>
+								<div class="pull-right">${principal.totalYear} year(s) of Experience</div>
+							</c:otherwise>
+						</c:choose>
+					</c:if>
+					<div>
 					<button id="add-experience" onclick="return false;"
 						class="btn btn-default">Add</button>
 					<button id="remove-experience" onclick="return false;"
 						class="btn btn-default">Remove</button>
+					</div>
 					<div id="experience-container">
 						<c:forEach items="${principal.experiences}" var="exp">
 							<div class="add-exp-node">
@@ -511,7 +522,7 @@
 										<div class="row">
 											<div class="col-sm-4">
 												<input type="text" class="form-control"
-													value="${exp.startYear}-${exp.endYear}"
+													value="${exp.startMonth}/${exp.startYear}-${exp.endMonth}/${exp.endYear}"
 													name="experience-year[]" placeholder="Year eg. 2010-2014">
 											</div>
 											<div class="col-sm-4">
@@ -579,7 +590,7 @@
 						<div class="row">
 							<div class="col-sm-4">
 								<input type="text" class="form-control" name="experience-year[]"
-									data-mask="9999-9999" placeholder="Year eg. 2010-2014">
+									data-mask="9999-9999" placeholder="Date eg. 10/2010-01/2014">
 							</div>
 							<div class="col-sm-4">
 								<input type="text" class="form-control"
@@ -808,6 +819,20 @@
                             }
                         },
                         resstate: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'The location is required'
+                                }
+                            }
+                        },
+                        country: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'The location is required'
+                                }
+                            }
+                        },
+                        rescountry: {
                             validators: {
                                 notEmpty: {
                                     message: 'The location is required'
@@ -1048,6 +1073,24 @@
                                         regexp: /^[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]$/,
                                         message: 'Invalid year format eg. 2001-2005'
                                     }
+                                },
+                                callback: {
+                                    callback: function(value, validator, $field) {
+                                        if (value === '') {
+                                            return false;
+                                        }
+                                        var splitted = value.split('-')
+                                        if(splitted.length < 2){
+                                        	return false
+                                        }
+                                        
+                                        if(splitted[0] < 1960 || splitted[1] < 1960){
+                                        	return false;
+                                        }
+                                  
+                                        return true;
+                                    },
+                                    message: 'Invalid year range'
                                 }
                             },
                             'college-year': {
@@ -1059,6 +1102,24 @@
                                     regexp: {
                                         regexp: /^[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]$/,
                                         message: 'Invalid year format eg. 2001-2005'
+                                    },
+                                    callback: {
+                                        callback: function(value, validator, $field) {
+                                            if (value === '') {
+                                                return false;
+                                            }
+                                            var splitted = value.split('-')
+                                            if(splitted.length < 2){
+                                            	return false
+                                            }
+                                            
+                                            if(splitted[0] < 1960 || splitted[1] < 1960){
+                                            	return false;
+                                            }
+                                      
+                                            return true;
+                                        },
+                                        message: 'Invalid year range'
                                     }
                                 }
                             },
@@ -1173,22 +1234,47 @@
                             'experience-year[]': {
                                 validators: {
                                     notEmpty: {
-                                        message: 'The question required and cannot be empty'
+                                        message: 'The date is required and cannot be empty'
                                     },
                                     regexp: {
-                                        message: 'Invalid year eg. 2010-2015',
-                                        regexp: /[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]/
-                                    },
+                                        message: 'Invalid date eg. 01/2010-11/2015',
+                                        regexp: /[0-1][0-9]\/[0-9][0-9][0-9][0-9]-[0-1][0-9]\/[0-9][0-9][0-9][0-9]/
+                                    }
+                                    ,
                                     callback : {
-                                    	message : 'Invalid year format',
+                                    	message : 'Invalid date range',
                                     	callback: function(value, validator, $field) {
                                     		var v = value.split("-");
                                     		if(v.length > 2 || v.length <= 1)
                                     			return false;
                                     		var first = v[0]
                                     		var second = v[1]
-                                    		if(first > second)
+                                    		
+                                    		var firstMonth = v[0].split('/')[0]
+                                    		var firstYear = v[0].split('/')[1]
+                                    		
+                                    		var secondMonth = v[1].split('/')[0]
+                                    		var secondYear = v[1].split('/')[1]
+                                    		
+                                    		if(!firstMonth || !firstYear || !secondMonth || !secondYear){
                                     			return false;
+                                    		}
+                                    		
+                                    		if(firstYear > secondYear)
+                                    			return false;
+                                    		
+                                    		if((firstYear == secondYear) && firstMonth >= secondMonth){
+                                    			return false;
+                                    		}
+                                    		
+                                    		if(firstMonth == 0 || secondMonth == 0){
+                                    			return false;
+                                    		}
+                                    		
+                                    		if(firstMonth > 12 || secondMonth > 12){
+                                    			return false;
+                                    		}
+                                    		
                                     		return true;
                                     	}
                                     }
@@ -1225,7 +1311,7 @@
                                     file: {
                                         extension: 'pdf,docx,doc',
                                         maxSize: 1024000,
-                                        message: 'Please choose a pdf/doc file with a maximum of 512kb'
+                                        message: 'Please choose a pdf/doc file with a maximum of 1024kb'
                                     },
                                     notEmpty: {
                                     	message : 'Please select a file'
@@ -1243,7 +1329,7 @@
                                     file: {
                                         extension: 'png,jpg',
                                         maxSize: 1024000,
-                                        message: 'Please choose a image file with a maximum of 512kb'
+                                        message: 'Please choose a image file with a maximum of 1024kb'
                                     },
                                     notEmpty: {
                                     	message : 'Please select a file'
@@ -1260,7 +1346,7 @@
                                     file: {
                                         extension: 'docx,pdf',
                                         maxSize: 1024000,
-                                        message: 'Please choose a document file with a maximum of 512kb'
+                                        message: 'Please choose a document file with a maximum of 1024kb'
                                     },
                                     notEmpty: {
                                     	message : 'Please select a file'

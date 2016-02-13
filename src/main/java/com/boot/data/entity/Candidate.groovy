@@ -46,6 +46,7 @@ public class Candidate implements EntityObject{
 	boolean resumeIsViewable = false
 	List<String> documents
 	ArrayList<Document> legal = []
+	double totalYear
 	
 	Candidate(){
 		

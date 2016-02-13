@@ -5,9 +5,8 @@
 <!DOCTYPE html>
 <html>
 	
-<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:43 GMT -->
 <head>
-	<title>Careers - ${principal.firstName}</title>
+	<title>Careers CCS - Manage States/Province</title>
 	<spring:url value="/resources/" var="resources" />
 	<spring:url value="/WEB-INF/views/" var="views" />
 	<spring:url value="/" var="root" />
@@ -17,12 +16,12 @@
 	<body class="tooltips">	
 		<jsp:include page="${views}admin/head.jsp"></jsp:include>
 		<!-- ============================================================== -->
-		<!-- START YOUR CONTENT HERE -->
+		<!-- CONTENT -->
 		<!-- ============================================================== -->
          <div class="scroll-y" id="body-container">
 			<div class="body content rows scroll-y">
 				<div class="box-info">
-					<h2><strong>States</strong> table</h2>
+					<h2><strong>States/Province</strong> table</h2>
 					<button class="btn btn-default" id="add-record"><span class="fa fa-plus"> </span> Add</button>
 					<br>
 					<br>
@@ -208,5 +207,4 @@
 	</script>
 	</body>
 
-<!-- Mirrored from diliat.in/wrapbootstrap/Lanceng/1.1.1/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Oct 2015 13:45:44 GMT -->
 </html>

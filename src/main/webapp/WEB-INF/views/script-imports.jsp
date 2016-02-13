@@ -61,7 +61,7 @@
 	<script src="${resources}assets/third/wizard/scripts.js"></script>
 	-->
 	
-	<!-- LANCENG TEMPLATE JAVASCRIPT -->
+	<!-- JAVASCRIPT -->
 	<script src="${resources}assets/js/candidate/edit-candidate.js"></script>
 	<script src="${resources}assets/js/candidate/candidate.js"></script>
 	<script src="${resources}assets/js/lanceng.js"></script>

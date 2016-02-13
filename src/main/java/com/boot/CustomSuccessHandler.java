@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +19,8 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.boot.helper.AuthenticationUtil;
+import com.boot.data.entity.UserLoginFailure;
+import com.boot.data.repository.UserLoginFailureRepo;
 
 @Component
 public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
@@ -26,6 +28,9 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 	private static final Logger logger = LoggerFactory
 			.getLogger(CustomSuccessHandler.class);
 
+	@Autowired
+	UserLoginFailureRepo failRepo;
+	
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
 	@Override
@@ -37,6 +42,13 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		if (response.isCommitted()) {
 			return;
 		}
+		
+		String ip = request.getRemoteAddr();
+		UserLoginFailure failure = failRepo.findByIp(ip);
+		if(failure != null){
+			failRepo.delete(failure);
+		}
+		
 		redirectStrategy.sendRedirect(request, response, targetUrl);
 	}
 
@@ -56,6 +68,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 			roles.add(a.getAuthority());
 		}
 		System.out.println(principal.getAuthorities());
+		
 		if (isCandidate(roles)) {
 			url = "/candidate";
 		} else if (isAdmin(roles)) {
